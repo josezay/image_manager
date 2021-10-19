@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus;
+  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, ftptsend;
 
 type
 
@@ -22,7 +22,7 @@ type
     BtnAbrirImagens: TBitBtn;
     CampoNumeroMatricula: TEdit;
     CheckBoxApagarImagens: TCheckBox;
-    CheckBoxGerarTif: TCheckBox;
+    CheckBoxGerarTIF: TCheckBox;
     CheckBoxCompactarImagens: TCheckBox;
     CheckBoxGerarPDF: TCheckBox;
     FormStorage: TIniPropStorage;
@@ -45,6 +45,11 @@ type
     procedure BtnTifDirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure MenuItemSairClick(Sender: TObject);
+    function valida(): boolean;
+    function geraRAR(Matricula: string): boolean;
+    function geraTIF(Matricula: string): boolean;
+    function geraPDF(Matricula: string): boolean;
+    procedure apagaArquivosOrigem;
   private
 
   public
@@ -115,18 +120,46 @@ end;
 
 procedure TFormularioPrincipal.BtnExecutarClick(Sender: TObject);
 var
-   RunProgram: TProcess;
-   I, count: integer;
-   NomeTif: String;
    Matricula: String;
-   Arquivo: UnicodeString;
-   SubdiretorioTif: String;
-label fim;
+begin
+  Matricula := CampoNumeroMatricula.Text;
+  if valida then
+  begin
+    // Compactar arquivos
+    if (CheckBoxCompactarImagens.Checked) then
+    begin
+      geraRAR(Matricula);
+    end;
+
+    if (CheckBoxGerarPDF.Checked) then
+    begin
+      geraPDF(Matricula);
+    end;
+
+    if (CheckBoxGerarTIF.Checked) then
+    begin
+      if not (geraTIF(Matricula)) then ShowMessage('Ocorreu erro ao formar TIF!');
+    end;
+
+    if (CheckBoxApagarImagens.Checked) then
+    begin
+      apagaArquivosOrigem;
+    end;
+
+    ShowMessage('Concluido!');
+  end;
+end;
+
+// Validações
+function TFormularioPrincipal.valida(): boolean;
+var
+   I: integer;
 begin
   // Validações
+  valida := true;
   if (DialogoImagens.Files.Count = 0) then
   begin
-    MessageDlg('É necessário escolher ao menos uma imagem!',mtError, mbOKCancel, 0);
+    MessageDlg('É necessário escolher ao menos uma imagem!', mtError, mbOKCancel, 0);
     if DialogoImagens.Execute then
     begin
       ListaArquivos.Items.Clear;
@@ -134,65 +167,73 @@ begin
       begin
         ListaArquivos.items.add(ExtractFileName(DialogoImagens.Files[I]));
       end;
-      goto fim;
+      valida := false;
     end;
   end;
 
   if (CampoNumeroMatricula.Text = '') then
   begin
-    MessageDlg('Preencha o número da matrícula!',mtError, mbOKCancel, 0);
+    MessageDlg('Preencha o número da matrícula!', mtError, mbOKCancel, 0);
     CampoNumeroMatricula.SetFocus;
-    goto fim;
+    valida := false;
   end;
 
   if (FormStorage.StoredValue['DiretorioRAR'] = '') then
   begin
-     MessageDlg('É necessário escolher o diretório de destino para arquivos RAR!',mtError, mbOKCancel, 0);
-     goto fim;
+     MessageDlg('É necessário escolher o diretório de destino para arquivos RAR!', mtError, mbOKCancel, 0);
+     valida := false;
   end;
 
   if (FormStorage.StoredValue['DiretorioPDF'] = '') then
   begin
-     MessageDlg('É necessário escolher o diretório de destino para arquivos PDF!',mtError, mbOKCancel, 0);
-     goto fim;
+     MessageDlg('É necessário escolher o diretório de destino para arquivos PDF!', mtError, mbOKCancel, 0);
+     valida := false;
   end;
 
   if (FormStorage.StoredValue['DiretorioTIF'] = '') then
   begin
-     MessageDlg('É necessário escolher o diretório de destino para arquivos TIF!',mtError, mbOKCancel, 0);
-     goto fim;
+     MessageDlg('É necessário escolher o diretório de destino para arquivos TIF!', mtError, mbOKCancel, 0);
+     valida := false;
+  end;
+end;
+
+// Compacta arquivos
+function TFormularioPrincipal.geraRAR(Matricula: string): boolean;
+var
+   RunProgram: TProcess;
+   I: integer;
+begin
+  RunProgram := TProcess.Create(nil);
+  RunProgram.Executable := 'rar.exe';
+  RunProgram.Parameters.Add('a');          // Compactar
+  RunProgram.Parameters.Add('-ep1');       // Sem manter estrutura de arquivos
+  RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioRAR'] + '/' + Matricula + '.rar"');
+
+  for I := 0 to DialogoImagens.Files.Count - 1 do
+  begin
+    RunProgram.Parameters.Add(DialogoImagens.Files[I]);
   end;
 
+  RunProgram.Options := RunProgram.Options + [poWaitOnExit];
+  RunProgram.Execute;
+  RunProgram.Free;
+end;
 
-  // Compactar arquivos
-  if (CheckBoxCompactarImagens.Checked) then
-  begin
+// Gera PDF-A
+function TFormularioPrincipal.geraPDF(Matricula: string): boolean;
+var
+   RunProgram: TProcess;
+   Arquivo: string;
+   I: integer;
+begin
+   // Gera PDF normal temporário
     RunProgram := TProcess.Create(nil);
-    RunProgram.Executable:= 'rar.exe';
-    RunProgram.Parameters.Add('a');          // Compactar
-    RunProgram.Parameters.Add('-ep1');       // Sem manter estrutura de arquivos
-    RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioRAR'] + '/' + CampoNumeroMatricula.Text + '.rar"');
-
+    RunProgram.Executable := 'magick';
     for I := 0 to DialogoImagens.Files.Count - 1 do
     begin
       RunProgram.Parameters.Add(DialogoImagens.Files[I]);
     end;
-
-    RunProgram.Options := RunProgram.Options + [poWaitOnExit];
-    RunProgram.Execute;
-    RunProgram.Free;
-  end;
-
-  // Gera PDF normal temporário
-  if (CheckBoxGerarPDF.Checked) then
-  begin
-    RunProgram := TProcess.Create(nil);
-    RunProgram.Executable:= 'magick';
-    for I := 0 to DialogoImagens.Files.Count - 1 do
-    begin
-      RunProgram.Parameters.Add(DialogoImagens.Files[I]);
-    end;
-    RunProgram.Parameters.Add(CampoNumeroMatricula.Text + '.pdf');
+    RunProgram.Parameters.Add(Matricula + '.pdf');
 
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.Execute;
@@ -200,7 +241,7 @@ begin
 
     // Gera PDFA
     RunProgram := TProcess.Create(nil);
-    RunProgram.Executable:= 'bin\gswin32c.exe';
+    RunProgram.Executable := 'bin\gswin32c.exe';
     RunProgram.Parameters.Add('-dPDFA=1');
     RunProgram.Parameters.Add('-dNOSAFER');
     RunProgram.Parameters.Add('-dBATCH');
@@ -213,37 +254,38 @@ begin
     RunProgram.Parameters.Add('-dPDFACompatibilityPolicy=2');
     RunProgram.Parameters.Add('-sOutputFile=' + '"' + StringReplace(FormStorage.StoredValue['DiretorioPDF'], '/', '\',[rfReplaceAll]) + '\' + CampoNumeroMatricula.Text + '.pdf"');
     RunProgram.Parameters.Add('PDFA_defNOVO.ps');
-    RunProgram.Parameters.Add(CampoNumeroMatricula.Text + '.pdf');
+    RunProgram.Parameters.Add(Matricula + '.pdf');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.Execute;
     RunProgram.Free;
 
     // Deleta PDF normal temporário.
-    Arquivo := CampoNumeroMatricula.Text + '.pdf';
+    Arquivo := Matricula + '.pdf';
     if (FileExists(Arquivo)) then
     begin
       DeleteFile(Arquivo)
     end;
-  end;
+end;
 
-  // Gera TIF
-  if (CheckBoxGerarTif.Checked) then
-  begin
-
-    Matricula := CampoNumeroMatricula.Text;
-
+// Gera TIF
+function TFormularioPrincipal.geraTIF(Matricula: string): boolean;
+var
+   I: integer;
+   SubdiretorioTif, NomeTif: string;
+   RunProgram: TProcess;
+begin
     // Gera diretório
-    SubdiretorioTif:= '00000000'; // Caso não entre no if abaixo
+    SubdiretorioTif  := '00000000'; // Caso não entre no if abaixo
     if (Matricula.Length > 3) then
     begin
       SubdiretorioTif := '';
-      for count := 1 to Matricula.Length - 3 do
+      for I := 1 to Matricula.Length - 3 do
       begin
-        //ShowMessage(Matricula[count]);
-        SubdiretorioTif := SubdiretorioTif + Matricula[count];
+        //ShowMessage(Matricula[I]);
+        SubdiretorioTif := SubdiretorioTif + Matricula[I];
       end;
       NomeTif := ''; // Usa o nometif como temporário somente
-      for count := SubdiretorioTif.Length to 7 do
+      for I := SubdiretorioTif.Length to 7 do
       begin
         NomeTif := NomeTif + '0';
       end;
@@ -255,55 +297,48 @@ begin
       if not CreateDir (FormStorage.StoredValue['DiretorioTIF'] + '/' + SubdiretorioTif) then
       begin
         MessageDlg('Falha ao criar subdiretório Tif, crie manualmente uma pasta de nome ' + SubdiretorioTif + ' dentro de ' + FormStorage.StoredValue['DiretorioTIF'], mtError, mbOKCancel, 0);
-        goto fim;
+        geraTif := false;
       end;
     end;
 
-
     // Gera nome com 0MenuItemSair à esquerda
     NomeTif := '';
-    for count := Matricula.Length to 7 do
+
+    for I := Matricula.Length to 7 do
     begin
-      NomeTif := NomeTif + '0';
+         NomeTif := NomeTif + '0';
     end;
+
     NomeTif := NomeTif + Matricula;
 
     // Converte para TIF
     RunProgram := TProcess.Create(nil);
     RunProgram.Executable:= 'magick';
+
     for I := 0 to DialogoImagens.Files.Count - 1 do
     begin
-      RunProgram.Parameters.Add(DialogoImagens.Files[I]);
+         RunProgram.Parameters.Add(DialogoImagens.Files[I]);
     end;
+
     RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioTIF'] + '/' + SubdiretorioTif + '/' + NomeTif + '.tif');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.Execute;
     RunProgram.Free;
-  end;
-
-
-
-
-
-
-
-  // Apaga arquivos de origem
-  if (CheckBoxApagarImagens.Checked) then
-  begin
-    for I := 0 to DialogoImagens.Files.Count - 1 do
-    begin
-      if (FileExists(DialogoImagens.Files[I])) then
-      begin
-        DeleteFile(DialogoImagens.Files[I])
-      end;
-    end;
-  end;
-
-  ShowMessage('Concluido!');
-  fim:
+    geraTif := true;
 end;
 
-
+// Apaga arquivos de origem
+procedure TFormularioPrincipal.apagaArquivosOrigem;
+var
+   I: integer;
+begin
+  for I := 0 to DialogoImagens.Files.Count - 1 do
+  begin
+    if (FileExists(DialogoImagens.Files[I])) then
+    begin
+      DeleteFile(DialogoImagens.Files[I])
+    end;
+  end;
+end;
 
 end.
-

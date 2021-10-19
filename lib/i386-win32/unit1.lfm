@@ -1,7 +1,7 @@
 object FormularioPrincipal: TFormularioPrincipal
-  Left = 312
+  Left = 423
   Height = 571
-  Top = 112
+  Top = 102
   Width = 1000
   Caption = 'Notaire_image'
   ClientHeight = 551
@@ -1228,14 +1228,14 @@ object FormularioPrincipal: TFormularioPrincipal
   }
   Menu = MainMenu
   OnCreate = FormCreate
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.0.12.0'
   object BarraDeStatus: TStatusBar
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
     AnchorSideBottom.Control = Owner
     Left = 0
-    Height = 28
-    Top = 523
+    Height = 23
+    Top = 528
     Width = 1000
     Panels = <>
   end
@@ -1258,7 +1258,7 @@ object FormularioPrincipal: TFormularioPrincipal
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = BarraDeStatus
     Left = 0
-    Height = 497
+    Height = 502
     Top = 26
     Width = 1000
     TabIndex = 0
@@ -1273,7 +1273,7 @@ object FormularioPrincipal: TFormularioPrincipal
       AnchorSideBottom.Control = Navegador
       AnchorSideBottom.Side = asrBottom
       Left = 10
-      Height = 464
+      Height = 469
       Top = 31
       Width = 486
       Anchors = [akTop, akLeft, akBottom]
@@ -1281,7 +1281,7 @@ object FormularioPrincipal: TFormularioPrincipal
       BorderSpacing.Top = 8
       BorderWidth = 1
       BorderStyle = bsSingle
-      ClientHeight = 460
+      ClientHeight = 465
       ClientWidth = 482
       TabOrder = 1
       object BtnAbrirImagens: TBitBtn
@@ -1310,7 +1310,7 @@ object FormularioPrincipal: TFormularioPrincipal
         AnchorSideBottom.Control = PainelImagens
         AnchorSideBottom.Side = asrBottom
         Left = 10
-        Height = 379
+        Height = 384
         Top = 71
         Width = 462
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -1380,7 +1380,7 @@ object FormularioPrincipal: TFormularioPrincipal
       AnchorSideBottom.Side = asrBottom
       Left = 504
       Height = 30
-      Top = 457
+      Top = 462
       Width = 486
       Anchors = [akLeft, akRight, akBottom]
       BorderSpacing.Left = 8
@@ -1399,14 +1399,14 @@ object FormularioPrincipal: TFormularioPrincipal
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = BtnExecutar
       Left = 504
-      Height = 364
+      Height = 369
       Top = 85
       Width = 486
       HorzScrollBar.Page = 122
       VertScrollBar.Page = 116
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Around = 8
-      ClientHeight = 360
+      ClientHeight = 365
       ClientWidth = 482
       TabOrder = 4
       object CheckBoxCompactarImagens: TCheckBox
@@ -1438,7 +1438,7 @@ object FormularioPrincipal: TFormularioPrincipal
         State = cbChecked
         TabOrder = 1
       end
-      object CheckBoxGerarTif: TCheckBox
+      object CheckBoxGerarTIF: TCheckBox
         AnchorSideLeft.Control = ScrollBox1
         AnchorSideTop.Control = CheckBoxGerarPDF
         AnchorSideTop.Side = asrBottom
@@ -1454,7 +1454,7 @@ object FormularioPrincipal: TFormularioPrincipal
       end
       object CheckBoxApagarImagens: TCheckBox
         AnchorSideLeft.Control = ScrollBox1
-        AnchorSideTop.Control = CheckBoxGerarTif
+        AnchorSideTop.Control = CheckBoxGerarTIF
         AnchorSideTop.Side = asrBottom
         Left = 8
         Height = 19
@@ -1567,10 +1567,10 @@ object FormularioPrincipal: TFormularioPrincipal
         TabOrder = 5
       end
       object BtnTifDir: TBitBtn
-        AnchorSideLeft.Control = CheckBoxGerarTif
+        AnchorSideLeft.Control = CheckBoxGerarTIF
         AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = CheckBoxGerarTif
-        AnchorSideBottom.Control = CheckBoxGerarTif
+        AnchorSideTop.Control = CheckBoxGerarTIF
+        AnchorSideBottom.Control = CheckBoxGerarTIF
         AnchorSideBottom.Side = asrBottom
         Left = 80
         Height = 19
@@ -1619,14 +1619,15 @@ object FormularioPrincipal: TFormularioPrincipal
     end
   end
   object DialogoImagens: TOpenDialog
+    Title = 'Abrir arquivo'
     Filter = 'Imagens|*.jpg; *.png; *.jpeg; *.bitmap'
     Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
-    Left = 136
-    Top = 64
+    Left = 448
+    Top = 72
   end
   object SelectDirectoryRARDialog: TSelectDirectoryDialog
-    Left = 720
-    Top = 120
+    Left = 960
+    Top = 112
   end
   object FormStorage: TIniPropStorage
     StoredValues = <    
@@ -1644,20 +1645,19 @@ object FormularioPrincipal: TFormularioPrincipal
       end>
     IniFileName = 'config.ini'
     IniSection = 'diretorios'
-    Left = 714
-    Top = 288
+    Left = 960
+    Top = 232
   end
   object SelectDirectoryPDFDialog: TSelectDirectoryDialog
-    Left = 640
-    Top = 160
+    Left = 960
+    Top = 152
   end
   object SelectDirectoryTIFDialog: TSelectDirectoryDialog
-    Left = 640
+    Left = 960
     Top = 192
   end
   object MainMenu: TMainMenu
-    Left = 74
-    Top = 500
+    Left = 960
     object MenuItemSair: TMenuItem
       Caption = 'Sair'
       OnClick = MenuItemSairClick
