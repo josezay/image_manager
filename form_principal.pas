@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, ftptsend;
+  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, fphttpclient;
 
 type
 
@@ -53,12 +53,17 @@ type
     function geraRAR(Matricula: string): boolean;
     function geraTIF(Matricula: string): boolean;
     function geraPDF(Matricula: string): boolean;
+    function sincronizaArquivo(): boolean;
     procedure apagaArquivosOrigem;
   private
 
   public
 
   end;
+
+const
+  FieldName = 'sendimage';
+  FileName = '022.pdf';
 
 var
   FormularioPrincipal: TFormularioPrincipal;
@@ -71,6 +76,7 @@ implementation
 
 procedure TFormularioPrincipal.FormCreate(Sender: TObject);
 begin
+  sincronizaArquivo;
   FormStorage.IniFileName:='config.ini';
   FormStorage.Restore;
   LabelDiretorioRAR.Caption:=FormStorage.StoredValue['DiretorioRAR'];
@@ -277,6 +283,26 @@ begin
       DeleteFile(Arquivo)
     end;
     geraPDF := true;
+end;
+
+function TFormularioPrincipal.sincronizaArquivo(): boolean;
+var
+   Respo: TStringStream;
+   S: String;
+begin
+   With TFPHttpClient.Create(Nil) do
+    try
+      Respo := TStringStream.Create('');
+      FileFormPost('http://localhost/servico_sincronizacao/pdf_sincroniza.php',
+                   FieldName,
+                   FileName,
+                   Respo);
+      S := Respo.DataString;
+      BarraDeStatus.SimpleText:=S;
+      Respo.Destroy;
+    finally
+      Free;
+    end;
 end;
 
 // Gera TIF
