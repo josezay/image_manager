@@ -6,15 +6,16 @@ interface
 
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, fphttpclient, FileUtil;
+  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, DCPsha256, fphttpclient,
+  FileUtil;
 
 type
 
   { TFormularioPrincipal }
 
   TFormularioPrincipal = class(TForm)
-    BarraDeStatus: TStatusBar;
     BarraDeFerramenta: TToolBar;
+    BarraDeStatus: TStatusBar;
     BtnTIFDir: TBitBtn;
     BtnPDFDir: TBitBtn;
     BtnRARDir: TBitBtn;
@@ -56,6 +57,7 @@ type
     function sincronizaArquivo(Arquivo: string): boolean;
     function ressincronizaArquivos(): boolean;
     function apagaArquivosOrigem(): boolean;
+    function sha256(S: String): String;
   private
 
   public
@@ -138,7 +140,6 @@ begin
   Matricula := CampoNumeroMatricula.Text;
   if valida then
   begin
-    // Compactar arquivos
     if (CheckBoxCompactarImagens.Checked) then
     begin
       geraRAR(Matricula);
@@ -290,11 +291,11 @@ var
    Respo: TStringStream;
    S, FieldName: string;
 begin
-   FieldName := 'sendimage';
+   FieldName := 'file';
    With TFPHttpClient.Create(Nil) do
    try
       Respo := TStringStream.Create('');
-      FileFormPost('http://localhost/servico_sincronizacao/pdf_sincroniza.php',
+      FileFormPost('http://localhost/servico_sincronizacao/pdf_sincroniza.php?token=' + sha256('teste'),
                     FieldName,
                     Arquivo,
                     Respo);
@@ -330,15 +331,16 @@ begin
    ArquivosPendentes := TStringList.Create;
    try
       FindAllFiles(ArquivosPendentes, 'pendentes', '*.pdf', true);
-      ShowMessage(Format('Encontrados %d arquivos não sincronizados', [ArquivosPendentes.Count]));
-
-      for I := 0 to ArquivosPendentes.Count - 1 do
+      if (ArquivosPendentes.Count > 0) then
       begin
-         sincronizaArquivo(ArquivosPendentes[I]);
+         ShowMessage(Format('Encontrados %d arquivo(s) não sincronizado(s)', [ArquivosPendentes.Count]));
+         for I := 0 to ArquivosPendentes.Count - 1 do
+         begin
+            sincronizaArquivo(ArquivosPendentes[I]);
+         end;
       end;
-
-      ressincronizaArquivos := true;
    finally
+      ressincronizaArquivos := true;
    end;
 end;
 
@@ -391,7 +393,7 @@ begin
 
     for I := 0 to DialogoImagens.Files.Count - 1 do
     begin
-         RunProgram.Parameters.Add(DialogoImagens.Files[I]);
+       RunProgram.Parameters.Add(DialogoImagens.Files[I]);
     end;
 
     RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioTIF'] + '/' + SubdiretorioTif + '/' + NomeTif + '.tif');
@@ -413,7 +415,31 @@ begin
           DeleteFile(DialogoImagens.Files[I])
      end;
    end;
+   ListaArquivos.Clear;
    apagaArquivosOrigem := true;
 end;
 
+
+function TFormularioPrincipal.sha256(S: String): String;
+var
+    Hash: TDCP_sha256;
+    Digest: array[0..31] of byte;
+    Source: string;
+    i: integer;
+    str1: string;
+begin
+    Source:= S;
+
+    if Source <> '' then
+    begin
+      Hash:= TDCP_sha256.Create(nil);
+      Hash.Init;
+      Hash.UpdateStr(Source);
+      Hash.Final(Digest);
+      str1:= '';
+      for i:= 0 to 31 do
+        str1:= str1 + IntToHex(Digest[i],2);
+      sha256:=LowerCase(str1);
+    end;
+end;
 end.

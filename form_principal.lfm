@@ -1,7 +1,7 @@
 object FormularioPrincipal: TFormularioPrincipal
-  Left = 21
+  Left = 319
   Height = 571
-  Top = 158
+  Top = 162
   Width = 1000
   Caption = 'Notaire_image'
   ClientHeight = 551
@@ -1240,41 +1240,29 @@ object FormularioPrincipal: TFormularioPrincipal
     Width = 1000
     Panels = <>
   end
-  object BarraDeFerramenta: TToolBar
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    Left = 0
-    Height = 26
-    Top = 0
-    Width = 1000
-    Caption = 'BarraDeFerramenta'
-    TabOrder = 1
-  end
   object Navegador: TTabControl
     AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = BarraDeFerramenta
-    AnchorSideTop.Side = asrBottom
+    AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = BarraDeStatus
     Left = 0
-    Height = 502
-    Top = 26
+    Height = 528
+    Top = 0
     Width = 1000
     TabIndex = 0
     Tabs.Strings = (
       'Organizar matrículas'
     )
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabOrder = 2
+    TabOrder = 1
     object PainelImagens: TPanel
       AnchorSideLeft.Control = Navegador
       AnchorSideTop.Control = Navegador
       AnchorSideBottom.Control = Navegador
       AnchorSideBottom.Side = asrBottom
       Left = 10
-      Height = 469
+      Height = 495
       Top = 31
       Width = 486
       Anchors = [akTop, akLeft, akBottom]
@@ -1282,7 +1270,7 @@ object FormularioPrincipal: TFormularioPrincipal
       BorderSpacing.Top = 8
       BorderWidth = 1
       BorderStyle = bsSingle
-      ClientHeight = 465
+      ClientHeight = 491
       ClientWidth = 482
       TabOrder = 1
       object BtnAbrirImagens: TBitBtn
@@ -1311,7 +1299,7 @@ object FormularioPrincipal: TFormularioPrincipal
         AnchorSideBottom.Control = PainelImagens
         AnchorSideBottom.Side = asrBottom
         Left = 10
-        Height = 384
+        Height = 410
         Top = 71
         Width = 462
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -1381,7 +1369,7 @@ object FormularioPrincipal: TFormularioPrincipal
       AnchorSideBottom.Side = asrBottom
       Left = 504
       Height = 30
-      Top = 462
+      Top = 488
       Width = 486
       Anchors = [akLeft, akRight, akBottom]
       BorderSpacing.Left = 8
@@ -1400,14 +1388,14 @@ object FormularioPrincipal: TFormularioPrincipal
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = BtnExecutar
       Left = 504
-      Height = 369
+      Height = 395
       Top = 85
       Width = 486
       HorzScrollBar.Page = 137
       VertScrollBar.Page = 143
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Around = 8
-      ClientHeight = 365
+      ClientHeight = 391
       ClientWidth = 482
       TabOrder = 4
       object CheckBoxCompactarImagens: TCheckBox
@@ -1669,6 +1657,17 @@ object FormularioPrincipal: TFormularioPrincipal
         ParentColor = False
       end
     end
+  end
+  object BarraDeFerramenta: TToolBar
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 1000
+    Caption = 'BarraDeFerramenta'
+    TabOrder = 2
   end
   object DialogoImagens: TOpenDialog
     Title = 'Abrir arquivo'
