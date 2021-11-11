@@ -1,0 +1,118 @@
+object Config: TConfig
+  Left = 730
+  Height = 240
+  Top = 298
+  Width = 320
+  BorderIcons = []
+  Caption = 'Configuração'
+  ClientHeight = 240
+  ClientWidth = 320
+  OnCreate = FormCreate
+  LCLVersion = '2.0.12.0'
+  object BtnConfigSalvar: TBitBtn
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrCenter
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 8
+    Height = 24
+    Top = 208
+    Width = 152
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Around = 8
+    Caption = 'Salvar'
+    OnClick = BtnConfigSalvarClick
+    TabOrder = 0
+  end
+  object BtnConfigCancelar: TBitBtn
+    AnchorSideLeft.Control = BtnConfigSalvar
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 168
+    Height = 24
+    Top = 208
+    Width = 144
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Around = 8
+    Caption = 'Cancelar'
+    OnClick = BtnConfigCancelarClick
+    TabOrder = 1
+  end
+  object LabelDiretorio: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 8
+    Height = 15
+    Top = 8
+    Width = 131
+    BorderSpacing.Around = 8
+    Caption = 'Diretório notaire remoto:'
+    ParentColor = False
+  end
+  object EditDiretorioRemoto: TEdit
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = LabelDiretorio
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 8
+    Height = 23
+    Hint = 'http://localhost/notaire/'
+    Top = 31
+    Width = 304
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 8
+    MaxLength = 200
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+  end
+  object LabelSenha: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = EditDiretorioRemoto
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 15
+    Top = 62
+    Width = 32
+    BorderSpacing.Around = 8
+    Caption = 'Senha'
+    ParentColor = False
+  end
+  object EditSenha: TEdit
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = LabelSenha
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 8
+    Height = 23
+    Top = 85
+    Width = 304
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 8
+    EchoMode = emPassword
+    MaxLength = 30
+    PasswordChar = '*'
+    TabOrder = 3
+  end
+  object ConfigStorage: TIniPropStorage
+    StoredValues = <    
+      item
+        Name = 'DiretorioRemoto'
+      end    
+      item
+        Name = 'Senha'
+        KeyString = 'Q#4ubh23iub4IQ#$Bui3b4u2b35QO*(#%(uyb'
+      end>
+    IniFileName = 'config.ini'
+    IniSection = 'config'
+    OnRestoreProperties = ConfigStorageRestoreProperties
+    Left = 273
+    Top = 144
+  end
+end
