@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, DCPsha256, fphttpclient,
-  FileUtil, form_config;
+  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, PairSplitter, DCPsha256,
+  fphttpclient, FileUtil, form_config;
 
 type
 
@@ -303,7 +303,9 @@ end;
 function TPrincipal.sincronizaArquivo(Arquivo: string): boolean;
 var
    Respo: TStringStream;
-   S, FieldName: string;
+   S, FieldName, Tamanho: string;
+   f : TextFile;
+   Info : TSearchRec;
 begin
    FieldName := 'file';
    With TFPHttpClient.Create(Nil) do
@@ -321,6 +323,21 @@ begin
      end;
    finally
       Free;
+      //if not (FileExists('log.csv')) then
+      //begin
+          // try
+           //   FileCreate('log.csv')
+          // finally
+         //  end;
+     // end;
+     // AssignFile(f,'log.csv');
+     // Append(f);
+
+     // If FindFirst(Arquivo,0,Info)=0 then
+     //     Tamanho := IntToStr(Info.SIze)
+     // else
+      //    Tamanho := '0';
+
       if (S = '1') then    // Se sucesso
       begin
          BarraDeStatus.SimpleText := '';
@@ -329,14 +346,18 @@ begin
          begin
             DeleteFile(Arquivo)
          end;
+        // Writeln (f, 'Sucesso ao sincronizar arquivo, ' + Arquivo + ', de tamanho, ' + Tamanho);
       end
       else
       begin
+        // Writeln (f, 'Erro ao sincronizar arquivo, ' + Arquivo + ', de tamanho, ' + Tamanho + ', retorno:,' + S);
          BarraDeStatus.SimpleText := S;
          CreateDir('pendentes');
          RenameFile(Arquivo, 'pendentes/' + Arquivo);
          sincronizaArquivo := false;
       end;
+     // CloseFile(f);
+      FindClose(Info);
    end;
 end;
 
@@ -358,10 +379,10 @@ begin
            ShowMessage(Format('Encontrados %d arquivo(s) não sincronizado(s)', [ArquivosPendentes.Count]));
            for I := 0 to ArquivosPendentes.Count - 1 do
            begin
-              if(not Erro) then
-              begin
+              //if(not Erro) then
+              //begin
                    Erro := sincronizaArquivo(ArquivosPendentes[I]);
-              end;
+              //end;
            end;
         end;
       end;
@@ -472,4 +493,5 @@ begin
       sha256:=LowerCase(str1);
     end;
 end;
+
 end.

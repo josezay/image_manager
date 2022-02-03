@@ -1,7 +1,7 @@
 object Principal: TPrincipal
-  Left = 337
+  Left = 404
   Height = 617
-  Top = 114
+  Top = 133
   Width = 932
   Caption = 'Notaire_image'
   ClientHeight = 617
