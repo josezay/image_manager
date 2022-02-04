@@ -1,11 +1,11 @@
 object Principal: TPrincipal
-  Left = 203
+  Left = 486
   Height = 655
-  Top = 60
-  Width = 871
+  Top = 102
+  Width = 848
   Caption = 'Notaire_image'
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 655
+  ClientWidth = 848
   Color = 15134950
   Icon.Data = {
     1E980000000001000100685A0000010020000898000016000000280000006800
@@ -1236,7 +1236,7 @@ object Principal: TPrincipal
     Left = 0
     Height = 23
     Top = 632
-    Width = 871
+    Width = 848
     Panels = <>
   end
   object MenuToolBar: TToolBar
@@ -1247,7 +1247,7 @@ object Principal: TPrincipal
     Left = 0
     Height = 26
     Top = 0
-    Width = 871
+    Width = 848
     Caption = 'Menu'
     Color = 15134950
     ParentColor = False
@@ -1354,7 +1354,7 @@ object Principal: TPrincipal
     Left = 4
     Height = 598
     Top = 30
-    Width = 863
+    Width = 840
     ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 4
@@ -1365,7 +1365,7 @@ object Principal: TPrincipal
     object TabSheet1: TTabSheet
       Caption = 'Conversão e Backup'
       ClientHeight = 570
-      ClientWidth = 855
+      ClientWidth = 832
       ParentBiDiMode = False
       ParentFont = False
       ParentShowHint = False
@@ -1628,18 +1628,18 @@ object Principal: TPrincipal
         Left = 432
         Height = 554
         Top = 8
-        Width = 415
-        ActivePage = TabSheet2
+        Width = 392
+        ActivePage = TabSheet3
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 1
         object TabSheet2: TTabSheet
           AnchorSideLeft.Control = PageControl2
           AnchorSideRight.Control = PageControl2
           Caption = 'Matrícula'
           ClientHeight = 526
-          ClientWidth = 407
+          ClientWidth = 384
           object CampoNumeroMatricula: TEdit
             AnchorSideLeft.Control = TabSheet2
             AnchorSideTop.Control = LabelNumeroMatricula
@@ -1680,18 +1680,18 @@ object Principal: TPrincipal
             Left = 8
             Height = 428
             Top = 62
-            Width = 391
+            Width = 368
             HorzScrollBar.Page = 137
             VertScrollBar.Page = 143
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Bottom = 28
             BorderSpacing.Around = 8
             ClientHeight = 424
-            ClientWidth = 387
+            ClientWidth = 364
             Color = 26112
             ParentColor = False
             TabOrder = 1
-            object CheckBoxCompactarImagens: TCheckBox
+            object CheckBoxGerarRARMatricula: TCheckBox
               AnchorSideLeft.Control = ScrollBox1
               AnchorSideTop.Control = ScrollBox1
               AnchorSideBottom.Control = ScrollBox1
@@ -1714,9 +1714,9 @@ object Principal: TPrincipal
               State = cbChecked
               TabOrder = 0
             end
-            object CheckBoxGerarPDF: TCheckBox
+            object CheckBoxGerarPDFMatricula: TCheckBox
               AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = CheckBoxCompactarImagens
+              AnchorSideTop.Control = CheckBoxGerarRARMatricula
               AnchorSideTop.Side = asrBottom
               Left = 8
               Height = 19
@@ -1728,9 +1728,9 @@ object Principal: TPrincipal
               State = cbChecked
               TabOrder = 1
             end
-            object CheckBoxGerarTIF: TCheckBox
+            object CheckBoxGerarTIFMatricula: TCheckBox
               AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = CheckBoxGerarPDF
+              AnchorSideTop.Control = CheckBoxGerarPDFMatricula
               AnchorSideTop.Side = asrBottom
               Left = 8
               Height = 19
@@ -1742,9 +1742,9 @@ object Principal: TPrincipal
               State = cbChecked
               TabOrder = 2
             end
-            object CheckBoxApagarImagens: TCheckBox
+            object CheckBoxApagarImagensMatricula: TCheckBox
               AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = CheckBoxGerarTIF
+              AnchorSideTop.Control = CheckBoxGerarTIFMatricula
               AnchorSideTop.Side = asrBottom
               Left = 8
               Height = 19
@@ -1758,7 +1758,7 @@ object Principal: TPrincipal
             end
             object CheckBoxEnviarNuvem: TCheckBox
               AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = CheckBoxApagarImagens
+              AnchorSideTop.Control = CheckBoxApagarImagensMatricula
               AnchorSideTop.Side = asrBottom
               Left = 8
               Height = 19
@@ -1771,7 +1771,7 @@ object Principal: TPrincipal
               State = cbChecked
               TabOrder = 4
             end
-            object LabelDiretorioRAR: TLabel
+            object LabelRARMatricula: TLabel
               AnchorSideLeft.Control = BtnRARDirMatricula
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = BtnRARDirMatricula
@@ -1780,10 +1780,10 @@ object Principal: TPrincipal
               Height = 1
               Top = 18
               Width = 1
-              BorderSpacing.Around = 8
+              BorderSpacing.Left = 8
               ParentColor = False
             end
-            object LabelDiretorioPDF: TLabel
+            object LabelPDFMatricula: TLabel
               AnchorSideLeft.Control = BtnPDFDirMatricula
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = BtnPDFDirMatricula
@@ -1795,7 +1795,7 @@ object Principal: TPrincipal
               BorderSpacing.Around = 8
               ParentColor = False
             end
-            object LabelDiretorioTIF: TLabel
+            object LabelTIFMatricula: TLabel
               AnchorSideLeft.Control = BtnTIFDirMatricula
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = BtnTIFDirMatricula
@@ -1808,10 +1808,10 @@ object Principal: TPrincipal
               ParentColor = False
             end
             object BtnRARDirMatricula: TSpeedButton
-              AnchorSideLeft.Control = CheckBoxCompactarImagens
+              AnchorSideLeft.Control = CheckBoxGerarRARMatricula
               AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = CheckBoxCompactarImagens
-              AnchorSideBottom.Control = CheckBoxCompactarImagens
+              AnchorSideTop.Control = CheckBoxGerarRARMatricula
+              AnchorSideBottom.Control = CheckBoxGerarRARMatricula
               AnchorSideBottom.Side = asrBottom
               Left = 89
               Height = 20
@@ -1858,9 +1858,9 @@ object Principal: TPrincipal
               OnClick = BtnRARDirMatriculaClick
             end
             object BtnPDFDirMatricula: TSpeedButton
-              AnchorSideLeft.Control = CheckBoxGerarPDF
+              AnchorSideLeft.Control = CheckBoxGerarPDFMatricula
               AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = CheckBoxGerarPDF
+              AnchorSideTop.Control = CheckBoxGerarPDFMatricula
               AnchorSideTop.Side = asrCenter
               Left = 88
               Height = 20
@@ -1904,12 +1904,12 @@ object Principal: TPrincipal
                 0000000000000000000000000000000000000000000000000000000000000000
                 0000000000000000000000000000000000000000000000000000
               }
-              OnClick = BtnPdfDirClick
+              OnClick = BtnPDFDirMatriculaClick
             end
             object BtnTIFDirMatricula: TSpeedButton
-              AnchorSideLeft.Control = CheckBoxGerarTIF
+              AnchorSideLeft.Control = CheckBoxGerarTIFMatricula
               AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = CheckBoxGerarTIF
+              AnchorSideTop.Control = CheckBoxGerarTIFMatricula
               Left = 82
               Height = 20
               Top = 62
@@ -2146,11 +2146,31 @@ object Principal: TPrincipal
             Transparent = False
             OnClick = BtnExecutarMatriculaClick
           end
+          object ProgressBarMatricula: TProgressBar
+            AnchorSideLeft.Control = BtnExecutarMatricula
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = BtnExecutarMatricula
+            AnchorSideTop.Side = asrCenter
+            AnchorSideRight.Control = TabSheet2
+            AnchorSideRight.Side = asrBottom
+            AnchorSideBottom.Control = TabSheet2
+            AnchorSideBottom.Side = asrBottom
+            Left = 87
+            Height = 18
+            Top = 502
+            Width = 289
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Right = 8
+            Color = 26112
+            ParentColor = False
+            TabOrder = 2
+            Visible = False
+          end
         end
         object TabSheet3: TTabSheet
           Caption = 'Auxiliar'
           ClientHeight = 526
-          ClientWidth = 407
+          ClientWidth = 384
           object LabelNumeroAuxiliar: TLabel
             AnchorSideLeft.Control = TabSheet3
             AnchorSideTop.Control = TabSheet3
@@ -2184,14 +2204,14 @@ object Principal: TPrincipal
             Left = 8
             Height = 428
             Top = 62
-            Width = 391
-            HorzScrollBar.Page = 194
+            Width = 368
+            HorzScrollBar.Page = 181
             VertScrollBar.Page = 89
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Bottom = 28
             BorderSpacing.Around = 8
             ClientHeight = 424
-            ClientWidth = 387
+            ClientWidth = 364
             TabOrder = 1
             object CheckBoxGerarPDFAuxiliar: TCheckBox
               AnchorSideLeft.Control = ScrollBox2
@@ -2284,12 +2304,17 @@ object Principal: TPrincipal
               }
               OnClick = BtnPDFDirAuxiliarClick
             end
-            object LabelDiretorioPDFDirAuxiliar: TStaticText
-              Left = 129
-              Height = 17
-              Top = 5
+            object LabelPDFAuxiliar: TStaticText
+              AnchorSideLeft.Control = BtnPDFDirAuxiliar
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = CheckBoxGerarPDFAuxiliar
+              AnchorSideTop.Side = asrCenter
+              Left = 116
+              Height = 1
+              Top = 17
               Width = 65
-              Caption = 'LabelDiretorioPDFDirAuxiliar'
+              AutoSize = True
+              BorderSpacing.Left = 8
               TabOrder = 3
             end
           end
@@ -2481,38 +2506,58 @@ object Principal: TPrincipal
               2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF
             }
             Transparent = False
+            OnClick = BtnExecutarAuxiliarClick
+          end
+          object ProgressBarAuxiliar: TProgressBar
+            AnchorSideLeft.Control = BtnExecutarAuxiliar
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = BtnExecutarAuxiliar
+            AnchorSideTop.Side = asrCenter
+            AnchorSideRight.Control = TabSheet3
+            AnchorSideRight.Side = asrBottom
+            Left = 87
+            Height = 18
+            Top = 502
+            Width = 289
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Right = 8
+            ParentColor = False
+            TabOrder = 2
+            Visible = False
           end
         end
       end
     end
   end
-  object SelectDirectoryRARDialog: TSelectDirectoryDialog
-    Left = 1376
-    Top = 24
+  object DirectoryRARMatricula: TSelectDirectoryDialog
+    Left = 656
+    Top = 56
   end
-  object SelectDirectoryPDFDialog: TSelectDirectoryDialog
-    Left = 1344
-    Top = 24
+  object DirectoryPDFMatricula: TSelectDirectoryDialog
+    Left = 624
+    Top = 56
   end
-  object SelectDirectoryTIFDialog: TSelectDirectoryDialog
-    Left = 1312
-    Top = 24
+  object DirectoryTIFMatricula: TSelectDirectoryDialog
+    Left = 592
+    Top = 56
   end
   object FormStorage: TIniPropStorage
     StoredValues = <    
       item
-        Name = 'DiretorioRAR'
+        Name = 'DiretorioRARMatricula'
       end    
       item
-        Name = 'DiretorioPDF'
+        Name = 'DiretorioPDFMatricula'
       end    
       item
-        Name = 'DiretorioTIF'
+        Name = 'DiretorioTIFMatricula'
+      end    
+      item
+        Name = 'DiretorioPDFAuxiliar'
       end>
     IniFileName = 'config.ini'
     IniSection = 'diretorios'
-    Left = 1280
-    Top = 24
+    Left = 776
   end
   object ConfigStorage: TIniPropStorage
     StoredValues = <    
@@ -2531,14 +2576,17 @@ object Principal: TPrincipal
       end>
     IniFileName = 'config.ini'
     IniSection = 'config'
-    Left = 1248
-    Top = 24
+    Left = 808
   end
   object DialogoImagens: TOpenDialog
     Title = 'Abrir arquivo'
     Filter = 'Imagens|*.jpg; *.png; *.jpeg; *.bitmap; *.bmp'
     Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
-    Left = 1408
-    Top = 24
+    Left = 112
+    Top = 64
+  end
+  object DirectoryPDFAuxiliar: TSelectDirectoryDialog
+    Left = 688
+    Top = 56
   end
 end

@@ -1,7 +1,7 @@
 object Config: TConfig
-  Left = 837
+  Left = 838
   Height = 240
-  Top = 258
+  Top = 259
   Width = 320
   BorderIcons = []
   Caption = 'Configuração'

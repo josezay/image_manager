@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, DCPsha256,
-  fphttpclient, FileUtil, CheckBoxThemed, form_config;
+  fphttpclient, FileUtil, form_config;
 
 type
 
@@ -19,31 +19,33 @@ type
     CheckBoxApagarImagensAuxiliar: TCheckBox;
     CheckBoxBackupAuxiliar: TCheckBox;
     CheckBoxGerarPDFAuxiliar: TCheckBox;
-    CheckBoxApagarImagens: TCheckBox;
-    CheckBoxCompactarImagens: TCheckBox;
+    CheckBoxApagarImagensMatricula: TCheckBox;
+    CheckBoxGerarRARMatricula: TCheckBox;
     CheckBoxEnviarNuvem: TCheckBox;
-    CheckBoxGerarPDF: TCheckBox;
-    CheckBoxGerarTIF: TCheckBox;
+    CheckBoxGerarPDFMatricula: TCheckBox;
+    CheckBoxGerarTIFMatricula: TCheckBox;
     ConfigStorage: TIniPropStorage;
     DialogoImagens: TOpenDialog;
     CampoNumeroAuxiliar: TEdit;
     FormStorage: TIniPropStorage;
     LabelNumeroAuxiliar: TLabel;
-    LabelDiretorioPDF: TLabel;
-    LabelDiretorioRAR: TLabel;
-    LabelDiretorioTIF: TLabel;
+    LabelPDFMatricula: TLabel;
+    LabelRARMatricula: TLabel;
+    LabelTIFMatricula: TLabel;
     LabelListaArquivos: TLabel;
     LabelNumeroMatricula: TLabel;
     ListaArquivos: TListBox;
     PageControl1: TPageControl;
     PageControl2: TPageControl;
     PainelImagens: TPanel;
+    ProgressBarAuxiliar: TProgressBar;
+    ProgressBarMatricula: TProgressBar;
     ScrollBox1: TScrollBox;
     MenuToolBar: TToolBar;
     ScrollBox2: TScrollBox;
-    SelectDirectoryPDFDialog: TSelectDirectoryDialog;
-    SelectDirectoryRARDialog: TSelectDirectoryDialog;
-    SelectDirectoryTIFDialog: TSelectDirectoryDialog;
+    DirectoryPDFMatricula: TSelectDirectoryDialog;
+    DirectoryRARMatricula: TSelectDirectoryDialog;
+    DirectoryTIFMatricula: TSelectDirectoryDialog;
     BtnSair: TSpeedButton;
     BtnRARDirMatricula: TSpeedButton;
     BtnAbrirImagem: TSpeedButton;
@@ -53,25 +55,26 @@ type
     BtnConfig: TSpeedButton;
     BtnExecutarAuxiliar: TSpeedButton;
     BtnPDFDirAuxiliar: TSpeedButton;
-    LabelDiretorioPDFDirAuxiliar: TStaticText;
+    LabelPDFAuxiliar: TStaticText;
+    DirectoryPDFAuxiliar: TSelectDirectoryDialog;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     procedure BtnAbrirImagemClick(Sender: TObject);
+    procedure BtnExecutarAuxiliarClick(Sender: TObject);
     procedure BtnPDFDirAuxiliarClick(Sender: TObject);
-    procedure BtnPDFDirClick(Sender: TObject);
+    procedure BtnPDFDirMatriculaClick(Sender: TObject);
     procedure BtnTIFDirMatriculaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BtnExecutarMatriculaClick(Sender: TObject);
-    procedure BtnAbrirImgMatriculaClick(Sender: TObject);
     procedure BtnSairClick(Sender: TObject);
     procedure BtnRARDirMatriculaClick(Sender: TObject);
     procedure BtnConfigClick(Sender: TObject);
-    function valida(): boolean;
+    function valida(Tipo: integer): boolean;
     function geraRAR(Matricula: string): boolean;
     function geraTIF(Matricula: string): boolean;
-    function geraPDF(Matricula: string): boolean;
-    function sincronizaArquivo(Arquivo: string): boolean;
+    function geraPDF(Numero: string; Tipo: integer): boolean;
+    function sincronizaArquivo(Arquivo: string; Tipo: integer): boolean;
     function ressincronizaArquivos(): boolean;
     function apagaArquivosOrigem(): boolean;
     function sha256(S: String): String;
@@ -90,235 +93,322 @@ implementation
 
 { TPrincipal }
 
-//**********Eventos gerais *****************************************************
+//********** Eventos gerais ****************************************************
 
 // Ao iniciar
 procedure TPrincipal.FormCreate(Sender: TObject);
 begin
-  FormStorage.IniFileName := 'config.ini';
-  FormStorage.Restore;
-  ConfigStorage.IniFileName := 'config.ini';
-  ConfigStorage.Restore;
-  LabelDiretorioRAR.Caption := FormStorage.StoredValue['DiretorioRAR'];
-  LabelDiretorioPDF.Caption := FormStorage.StoredValue['DiretorioPDF'];
-  LabelDiretorioTIF.Caption := FormStorage.StoredValue['DiretorioTIF'];
-  ressincronizaArquivos;
+    // Carrega as configurações para o programa
+    FormStorage.IniFileName     := 'config.ini';
+    ConfigStorage.IniFileName   := 'config.ini';
+    FormStorage.Restore;
+    ConfigStorage.Restore;
 
+    // Define os labels dos diretórios com os dados das configurações
+    LabelRARMatricula.Caption := FormStorage.StoredValue['DiretorioRARMatricula'];
+    LabelPDFMatricula.Caption := FormStorage.StoredValue['DiretorioPDFMatricula'];
+    LabelTIFMatricula.Caption := FormStorage.StoredValue['DiretorioTIFMatricula'];
+    LabelPDFAuxiliar.Caption  := FormStorage.StoredValue['DiretorioPDFAuxiliar'];
+
+    // Ressincroniza os arquivos constantes na pasta pendentes
+    ressincronizaArquivos;
+
+    // Define a pasta inicial para os diálogos de diretório
+    DirectoryRARMatricula.InitialDir := FormStorage.StoredValue['DiretorioRARMatricula'];
+    DirectoryPDFMatricula.InitialDir := FormStorage.StoredValue['DiretorioPDFMatricula'];
+    DirectoryTIFMatricula.InitialDir := FormStorage.StoredValue['DiretorioTIFMatricula'];
+    DirectoryPDFAuxiliar.InitialDir  := FormStorage.StoredValue['DiretorioPDFAuxiliar'];
 end;
 
-//Ao clicar para sair
+// Ao clicar para sair
 procedure TPrincipal.BtnSairClick(Sender: TObject);
 begin
     if QuestionDlg ('Sair','Deseja sair?',mtCustom,[mrYes,'Sim', mrNo, 'Não'],'') = mrYes then
-      Close;
+        Close;
 end;
 
-//Ao clicar para configurar
+// Ao clicar para configurar
 procedure TPrincipal.BtnConfigClick(Sender: TObject);
 begin
-  Config.ShowModal;
+    Config.ShowModal;
 end;
 
-//Ao clicar para abrir imagem
+// Ao clicar para abrir imagem
 procedure TPrincipal.BtnAbrirImagemClick(Sender: TObject);
 var
-  I: integer;
+    I: integer;
 begin
-  if DialogoImagens.Execute then
-  begin
-    ListaArquivos.Items.Clear;
-    for I := 0 to DialogoImagens.Files.Count - 1 do
-    begin
-      ListaArquivos.items.add(ExtractFileName(DialogoImagens.Files[I]));
-    end;
-  end;
-end;
-
-//**********Eventos Matricula***************************************************
-
-//Ao clicar para escolha do destino do RAR da Matrícula
-procedure TPrincipal.BtnRARDirMatriculaClick(Sender: TObject);
-begin
-  if SelectDirectoryRARDialog.Execute then
-  begin
-    LabelDiretorioRAR.Caption := SelectDirectoryRARDialog.Filename;
-    FormStorage.StoredValue['DiretorioRAR'] := SelectDirectoryRARDialog.Filename;
-    FormStorage.Save;
-  end
-end;
-
-//Ao clicar para escolha do destino do TIF da Matrícula
-procedure TPrincipal.BtnTIFDirMatriculaClick(Sender: TObject);
-begin
-  if SelectDirectoryTIFDialog.Execute then
-  begin
-    LabelDiretorioTIF.Caption := SelectDirectoryTIFDialog.Filename;
-    FormStorage.StoredValue['DiretorioTIF'] := SelectDirectoryTIFDialog.Filename;
-    FormStorage.Save;
-  end
-end;
-
-//Ao clicar para escolha do destino do PDF da Matrícula
-procedure TPrincipal.BtnPDFDirClick(Sender: TObject);
-begin
-  if SelectDirectoryPDFDialog.Execute then
-  begin
-    LabelDiretorioPDF.Caption := SelectDirectoryPDFDialog.Filename;
-    FormStorage.StoredValue['DiretorioPDF'] := SelectDirectoryPDFDialog.Filename;
-    FormStorage.Save;
-  end
-end;
-
-//Ao clicar para executar a conversão e backup
-procedure TPrincipal.BtnExecutarMatriculaClick(Sender: TObject);
-var
-   Matricula: String;
-begin
-  Matricula := CampoNumeroMatricula.Text;
-  BtnExecutarMatricula.Enabled := false;
-  Principal.Update;
-
-  if valida then
-  begin
-      if (CheckBoxCompactarImagens.Checked) then
-      begin
-        geraRAR(Matricula);
-      end;
-
-      if (CheckBoxGerarPDF.Checked) then
-      begin
-        geraPDF(Matricula);
-      end;
-
-      if (CheckBoxGerarTIF.Checked) then
-      begin
-        if not (geraTIF(Matricula)) then ShowMessage('Ocorreu erro ao formar TIF!');
-      end;
-
-      if (CheckBoxApagarImagens.Checked) then
-      begin
-        apagaArquivosOrigem;
-      end;
-
-      ShowMessage('Concluido!');
-      BtnExecutarMatricula.Enabled:=true;
-  end;
-
-  BtnExecutarMatricula.Visible:=true;
-end;
-
-
-//**********Eventos Auxiliar****************************************************
-
-//Ao clicar para escolha do destino do PDF do Auxiliar
-procedure TPrincipal.BtnPDFDirAuxiliarClick(Sender: TObject);
-begin
-
-end;
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Validações
-function TPrincipal.valida(): boolean;
-var
-   I: integer;
-begin
-  valida := true;
-  if (DialogoImagens.Files.Count = 0) then
-  begin
-    MessageDlg('É necessário escolher ao menos uma imagem!', mtError, mbOKCancel, 0);
     if DialogoImagens.Execute then
     begin
-      ListaArquivos.Items.Clear;
-      for I := 0 to DialogoImagens.Files.Count - 1 do
-      begin
-        ListaArquivos.items.add(ExtractFileName(DialogoImagens.Files[I]));
-      end;
-      valida := false;
-      Exit;
+        ListaArquivos.Items.Clear;
+        for I := 0 to DialogoImagens.Files.Count - 1 do
+        begin
+            ListaArquivos.items.add(ExtractFileName(DialogoImagens.Files[I]));
+        end;
+
+        ProgressBarMatricula.Visible    := false;                                // Ao escolher novas imagens esconde as barras de progresso.
+        ProgressBarAuxiliar.Visible     := false;
     end;
-  end;
+end;
 
-  if (CampoNumeroMatricula.Text = '') then
-  begin
-    MessageDlg('Preencha o número da matrícula!', mtError, mbOKCancel, 0);
-    CampoNumeroMatricula.SetFocus;
-    valida := false;
-    Exit;
-  end;
+//********** Eventos Matricula *************************************************
 
-  if (FormStorage.StoredValue['DiretorioRAR'] = '') then
-  begin
-     MessageDlg('É necessário escolher o diretório de destino para arquivos RAR!', mtError, mbOKCancel, 0);
-     valida := false;
-     Exit;
-  end;
+// Ao clicar para escolha do destino do RAR da Matrícula
+procedure TPrincipal.BtnRARDirMatriculaClick(Sender: TObject);
+begin
+    if DirectoryRARMatricula.Execute then
+    begin
+        LabelRARMatricula.Caption := DirectoryRARMatricula.Filename;
+        DirectoryRARMatricula.InitialDir := DirectoryRARMatricula.Filename;
+        FormStorage.StoredValue['DiretorioRARMatricula'] := DirectoryRARMatricula.Filename;
+        FormStorage.Save;
+    end
+end;
 
-  if (FormStorage.StoredValue['DiretorioPDF'] = '') then
-  begin
-     MessageDlg('É necessário escolher o diretório de destino para arquivos PDF!', mtError, mbOKCancel, 0);
-     valida := false;
-     Exit;
-  end;
+// Ao clicar para escolha do destino do PDF da Matrícula
+procedure TPrincipal.BtnPDFDirMatriculaClick(Sender: TObject);
+begin
+    if DirectoryPDFMatricula.Execute then
+    begin
+        LabelPDFMatricula.Caption := DirectoryPDFMatricula.Filename;
+        DirectoryPDFMatricula.InitialDir := DirectoryPDFMatricula.Filename;
+        FormStorage.StoredValue['DiretorioPDFMatricula'] := DirectoryPDFMatricula.Filename;
+        FormStorage.Save;
+    end
+end;
 
-  if (FormStorage.StoredValue['DiretorioTIF'] = '') then
-  begin
-     MessageDlg('É necessário escolher o diretório de destino para arquivos TIF!', mtError, mbOKCancel, 0);
-     valida := false;
-     Exit;
-  end;
+// Ao clicar para escolha do destino do TIF da Matrícula
+procedure TPrincipal.BtnTIFDirMatriculaClick(Sender: TObject);
+begin
+    if DirectoryTIFMatricula.Execute then
+    begin
+        LabelTIFMatricula.Caption := DirectoryTIFMatricula.Filename;
+        DirectoryTIFMatricula.InitialDir := DirectoryTIFMatricula.Filename;
+        FormStorage.StoredValue['DiretorioTIFMatricula'] := DirectoryTIFMatricula.Filename;
+        FormStorage.Save;
+    end
+end;
+
+// Ao clicar para executar a conversão e backup da matrícula
+procedure TPrincipal.BtnExecutarMatriculaClick(Sender: TObject);
+var
+    Matricula: String;
+begin
+    Matricula := CampoNumeroMatricula.Text;
+    BtnExecutarMatricula.Enabled    := false;
+    ProgressBarMatricula.Visible    := true;
+    ProgressBarMatricula.Position   := 0;
+    Principal.Update;                                                           // Atualiza o formulário para que o botão executar apareça desabilitado antes que as atividades de conversão iniciem.
+
+    if valida(2) then
+    begin
+        ProgressBarMatricula.Position   := 10;
+        if (CheckBoxGerarRARMatricula.Checked) then
+        begin
+            geraRAR(Matricula);
+        end;
+
+        ProgressBarMatricula.Position   := 30;
+        Principal.Update;
+
+        if (CheckBoxGerarPDFMatricula.Checked) then
+        begin
+            geraPDF(Matricula, 2);
+        end;
+
+        ProgressBarMatricula.Position   := 40;
+        Principal.Update;
+
+        if (CheckBoxGerarTIFMatricula.Checked) then
+        begin
+            if not (geraTIF(Matricula)) then ShowMessage('Ocorreu erro ao formar TIF!');
+        end;
+
+        ProgressBarMatricula.Position   := 90;
+        Principal.Update;
+
+        if (CheckBoxApagarImagensMatricula.Checked) then
+        begin
+            apagaArquivosOrigem;
+            Principal.Update;
+        end;
+
+        ProgressBarMatricula.Position   := 100;
+        ShowMessage('Concluido!');
+    end;
+
+    BtnExecutarMatricula.Enabled:=true;
+end;
+
+//********** Eventos Auxiliar **************************************************
+// Ao clicar para escolha do destino do PDF do Auxiliar
+procedure TPrincipal.BtnPDFDirAuxiliarClick(Sender: TObject);
+begin
+    if DirectoryPDFAuxiliar.Execute then
+    begin
+        LabelPDFAuxiliar.Caption := DirectoryPDFAuxiliar.Filename;
+        DirectoryPDFAuxiliar.InitialDir := DirectoryPDFAuxiliar.Filename;
+        FormStorage.StoredValue['DiretorioPDFAuxiliar'] := DirectoryPDFAuxiliar.Filename;
+        FormStorage.Save;
+    end
+end;
+
+// Ao clicar para executar a conversão e backup do Auxiliar
+procedure TPrincipal.BtnExecutarAuxiliarClick(Sender: TObject);
+var
+    Auxiliar: String;
+begin
+    Auxiliar := CampoNumeroAuxiliar.Text;
+    BtnExecutarAuxiliar.Enabled     := false;
+    ProgressBarAuxiliar.Visible     := true;
+    ProgressBarAuxiliar.Position    := 0;
+    Principal.Update;                                                           // Atualiza o formulário para que o botão executar apareça desabilitado antes que as atividades de conversão iniciem.
+
+    if valida(3) then
+    begin
+        ProgressBarAuxiliar.Position    := 20;
+        if (CheckBoxGerarPDFAuxiliar.Checked) then
+        begin
+            geraPDF(Auxiliar, 3);
+        end;
+
+        ProgressBarAuxiliar.Position    := 70;
+        Principal.Update;
+
+        if (CheckBoxApagarImagensAuxiliar.Checked) then
+        begin
+            apagaArquivosOrigem;
+        end;
+
+        ProgressBarAuxiliar.Position    := 100;
+        Principal.Update;
+        ShowMessage('Concluido!');
+    end;
+
+    BtnExecutarAuxiliar.Enabled := true;
+end;
+
+//********** Regra Negocial ****************************************************
+
+// Validações
+// Tipo : 2 se matrícula, 3 se auxiliar
+function TPrincipal.valida(Tipo: integer): boolean;
+var
+    I: integer;
+begin
+    valida := true;
+    if (DialogoImagens.Files.Count = 0) then
+    begin
+        MessageDlg('É necessário escolher ao menos uma imagem!', mtError, mbOKCancel, 0);
+        if DialogoImagens.Execute then
+        begin
+            ListaArquivos.Items.Clear;
+            for I := 0 to DialogoImagens.Files.Count - 1 do
+            begin
+                ListaArquivos.items.add(ExtractFileName(DialogoImagens.Files[I]));
+            end;
+            valida := false;
+            Exit;
+        end;
+    end;
+
+    if (Tipo = 2) then
+    begin
+        if (CampoNumeroMatricula.Text = '') then
+        begin
+            MessageDlg('Preencha o número da matrícula!', mtError, [mbOK], 0);
+            CampoNumeroMatricula.SetFocus;
+            valida := false;
+            Exit;
+        end;
+
+        if (FormStorage.StoredValue['DiretorioRARMatricula'] = '') then
+        begin
+            MessageDlg('É necessário escolher o diretório de destino para arquivos RAR!', mtError, [mbOK], 0);
+            valida := false;
+            Exit;
+        end;
+
+        if (FormStorage.StoredValue['DiretorioPDFMatricula'] = '') then
+        begin
+            MessageDlg('É necessário escolher o diretório de destino para arquivos PDF!', mtError, [mbOK], 0);
+            valida := false;
+            Exit;
+        end;
+
+        if (FormStorage.StoredValue['DiretorioTIFMatricula'] = '') then
+        begin
+            MessageDlg('É necessário escolher o diretório de destino para arquivos TIF!', mtError, [mbOK], 0);
+            valida := false;
+            Exit;
+        end;
+    end
+    else
+    begin
+        if (Tipo = 3) then
+        begin
+            if (CampoNumeroAuxiliar.Text = '') then
+            begin
+                MessageDlg('Preencha o número do Registro Auxiliar!', mtError, [mbOK], 0);
+                CampoNumeroAuxiliar.SetFocus;
+                valida := false;
+                Exit;
+            end;
+
+            if (FormStorage.StoredValue['DiretorioPDFAuxiliar'] = '') then
+            begin
+                MessageDlg('É necessário escolher o diretório de destino para arquivos PDF!', mtError, [mbOK], 0);
+                valida := false;
+                Exit;
+            end;
+        end;
+    end;
 end;
 
 // Compacta arquivos
 function TPrincipal.geraRAR(Matricula: string): boolean;
 var
-   RunProgram: TProcess;
-   I: integer;
+    RunProgram: TProcess;
+    I: integer;
 begin
-  RunProgram := TProcess.Create(nil);
-  RunProgram.Executable := 'bin/rar.exe';
-  RunProgram.Parameters.Add('a');          // Compactar
-  RunProgram.Parameters.Add('-ep1');       // Sem manter estrutura de arquivos
-  RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioRAR'] + '/' + Matricula + '.rar"');
+    RunProgram := TProcess.Create(nil);
+    RunProgram.Executable := 'bin/rar.exe';
+    RunProgram.Parameters.Add('a');                                             // Compactar
+    RunProgram.Parameters.Add('-ep1');                                          // Sem manter estrutura de arquivos
+    RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioRARMatricula'] + '/' + Matricula + '.rar"');
 
-  for I := 0 to DialogoImagens.Files.Count - 1 do
-  begin
-    RunProgram.Parameters.Add(DialogoImagens.Files[I]);
-  end;
+    for I := 0 to DialogoImagens.Files.Count - 1 do
+    begin
+        RunProgram.Parameters.Add(DialogoImagens.Files[I]);
+    end;
 
-  RunProgram.Options := RunProgram.Options + [poWaitOnExit];
-  RunProgram.Execute;
-  RunProgram.Free;
-  geraRar := true;
+    RunProgram.Options := RunProgram.Options + [poWaitOnExit];
+    RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
+    RunProgram.Execute;
+    RunProgram.Free;
+    geraRar := true;
 end;
 
 // Gera PDF-A
-function TPrincipal.geraPDF(Matricula: string): boolean;
+// Numero: Nome do PDF
+// Tipo: 2 se matrícula, 3 se auxiliar
+function TPrincipal.geraPDF(Numero: string; Tipo: integer): boolean;
 var
-   RunProgram: TProcess;
-   Arquivo: string;
-   I: integer;
+    RunProgram: TProcess;
+    I: integer;
 begin
-   // Gera PDF normal temporário
+    // Gera PDF normal temporário
     RunProgram := TProcess.Create(nil);
     RunProgram.Executable := 'magick';
+
     for I := 0 to DialogoImagens.Files.Count - 1 do
     begin
-      RunProgram.Parameters.Add(DialogoImagens.Files[I]);
+        RunProgram.Parameters.Add(DialogoImagens.Files[I]);
     end;
-    RunProgram.Parameters.Add(Matricula + '.pdf');
 
+    RunProgram.Parameters.Add(Numero + '.pdf');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
+    RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
     RunProgram.Free;
 
@@ -335,126 +425,125 @@ begin
     RunProgram.Parameters.Add('-dDOPDFMARKS=false');
     RunProgram.Parameters.Add('-dCompatibilityLevel=1.7');
     RunProgram.Parameters.Add('-dPDFACompatibilityPolicy=2');
-    RunProgram.Parameters.Add('-sOutputFile=' + '"' + StringReplace(FormStorage.StoredValue['DiretorioPDF'], '/', '\',[rfReplaceAll]) + '\' + CampoNumeroMatricula.Text + '.pdf"');
+    RunProgram.Parameters.Add('-sOutputFile=' + '"' + StringReplace(FormStorage.StoredValue['DiretorioPDFMatricula'], '/', '\',[rfReplaceAll]) + '\' + Numero + '.pdf"');
     RunProgram.Parameters.Add('bin\PDFA_def.ps');
-    RunProgram.Parameters.Add(Matricula + '.pdf');
+    RunProgram.Parameters.Add(Numero + '.pdf');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
+    RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
     RunProgram.Free;
 
-    Arquivo := Matricula + '.pdf';
-    // Sincroniza arquivo com servidor
-    sincronizaArquivo(Arquivo);
-    // Deleta PDF normal temporário.
-    if (FileExists(Arquivo)) then
+    sincronizaArquivo(StringReplace(FormStorage.StoredValue['DiretorioPDFMatricula'], '/', '\',[rfReplaceAll]) + '\' + Numero + '.pdf', Tipo);  // Sincroniza arquivo PDF-A com servidor
+
+    if (FileExists(Numero + '.pdf')) then
     begin
-      DeleteFile(Arquivo)
+        DeleteFile(Numero + '.pdf')                                             // Deleta PDF normal temporário.
     end;
     geraPDF := true;
 end;
 
 // Sincroniza um arquivo para o servidor
-function TPrincipal.sincronizaArquivo(Arquivo: string): boolean;
+function TPrincipal.sincronizaArquivo(Arquivo: string; Tipo: integer): boolean;
 var
-   Respo: TStringStream;
-   S, FieldName: string;
+    Respo: TStringStream;
+    S, FieldName: string;
 begin
-   FieldName := 'file';
-   With TFPHttpClient.Create(Nil) do
-   try
-     try
-        Respo := TStringStream.Create('');
-        FileFormPost(ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(ExtractFileName(Arquivo) + ConfigStorage.StoredValue['Senha']),
-                      FieldName,
-                      Arquivo,
-                      Respo);
-        S := Respo.DataString;
-        Respo.Destroy;
-     except
-        BarraDeStatus.SimpleText := 'Sem conexão com a internet';
-     end;
-   finally
-      Free;
-      if (S = '1') then    // Se sucesso
-      begin
-         BarraDeStatus.SimpleText := '';
-         sincronizaArquivo := true;
-         if (FileExists(Arquivo)) then
-         begin
-            DeleteFile(Arquivo)
-         end;
-      end
-      else
-      begin
-         BarraDeStatus.SimpleText := S;
-         CreateDir('pendentes');
-         RenameFile(Arquivo, 'pendentes/' + Arquivo);
-         sincronizaArquivo := false;
-      end;
-   end;
+    FieldName := 'file';
+    With TFPHttpClient.Create(Nil) do
+    try
+        try
+            Respo := TStringStream.Create('');
+            FileFormPost(ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(ExtractFileName(Arquivo) + ConfigStorage.StoredValue['Senha']),
+                         FieldName,
+                         Arquivo,
+                         Respo);
+            S := Respo.DataString;
+            Respo.Destroy;
+        except
+            BarraDeStatus.SimpleText := 'Sem conexão com a internet';
+        end;
+    finally
+        Free;
+        if (S = '1') then                                                       // Se sucesso
+        begin
+            BarraDeStatus.SimpleText := '';
+            sincronizaArquivo := true;
+            if (FileExists(Arquivo)) then
+            begin
+                DeleteFile(Arquivo)
+            end;
+        end
+        else
+        begin
+            BarraDeStatus.SimpleText := S;
+            CreateDir('pendentes');
+            RenameFile(Arquivo, 'pendentes/' + Arquivo);
+            sincronizaArquivo := false;
+        end;
+    end;
 end;
 
 // Ressincroniza arquivos pendentes
 function TPrincipal.ressincronizaArquivos(): boolean;
 var
-   ArquivosPendentes: TStringList;
-   I: integer;
-   Erro: boolean;
+    ArquivosPendentes: TStringList;
+    I: integer;
 begin
-   Erro:= false;
-   ArquivosPendentes:= TStringList.Create;
-   try
-      if (ConfigStorage.StoredValue['Ressincroniza'] = 'true') then
-      begin
-        FindAllFiles(ArquivosPendentes, 'pendentes', '*.pdf', true);
-        if (ArquivosPendentes.Count > 0) then
+    ArquivosPendentes:= TStringList.Create;
+    try
+        if (ConfigStorage.StoredValue['Ressincroniza'] = 'true') then
         begin
-           ShowMessage(Format('Encontrados %d arquivo(s) não sincronizado(s)', [ArquivosPendentes.Count]));
-           for I := 0 to ArquivosPendentes.Count - 1 do
-           begin
-              //if(not Erro) then
-              //begin
-                   Erro := sincronizaArquivo(ArquivosPendentes[I]);
-              //end;
-           end;
+            FindAllFiles(ArquivosPendentes, 'pendentes', '*.pdf', true);
+            if (ArquivosPendentes.Count > 0) then
+            begin
+                ShowMessage(Format('Encontrados %d arquivo(s) não sincronizado(s)', [ArquivosPendentes.Count]));
+                for I := 0 to ArquivosPendentes.Count - 1 do
+                begin
+                //if(not Erro) then
+                //begin
+                     sincronizaArquivo(ArquivosPendentes[I], 2); // TODO: Ressincronizar separadamente;
+                //end;
+                end;
+            end;
         end;
-      end;
-   finally
-      ressincronizaArquivos := true;
-   end;
+    finally
+        ressincronizaArquivos := true;
+    end;
 end;
 
 // Gera TIF
 function TPrincipal.geraTIF(Matricula: string): boolean;
 var
-   I: integer;
-   SubdiretorioTif, NomeTif: string;
-   RunProgram: TProcess;
+    I: integer;
+    SubdiretorioTif, NomeTif: string;
+    RunProgram: TProcess;
 begin
     // Gera diretório
-    SubdiretorioTif := '00000000'; // Caso não entre no if abaixo
+    SubdiretorioTif := '00000000';                                              // Caso não entre no if abaixo
     if (Matricula.Length > 3) then
     begin
-      SubdiretorioTif := '';
-      for I := 1 to Matricula.Length - 3 do
-      begin
-        SubdiretorioTif := SubdiretorioTif + Matricula[I];
-      end;
-      NomeTif := ''; // Usa o nometif como temporário somente
-      for I := SubdiretorioTif.Length to 7 do
-      begin
-        NomeTif := NomeTif + '0';
-      end;
-      SubdiretorioTif := NomeTif + SubdiretorioTif;
+        SubdiretorioTif := '';
+        for I := 1 to Matricula.Length - 3 do
+        begin
+            SubdiretorioTif := SubdiretorioTif + Matricula[I];
+        end;
+
+        NomeTif := '';                                                          // Usa o nometif como temporário somente
+        for I := SubdiretorioTif.Length to 7 do
+        begin
+            NomeTif := NomeTif + '0';
+        end;
+
+        SubdiretorioTif := NomeTif + SubdiretorioTif;
     end;
 
-    if not DirectoryExists(FormStorage.StoredValue['DiretorioTIF'] + '/' + SubdiretorioTif) then
+    if not DirectoryExists(FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTif) then
     begin
-      if not CreateDir(FormStorage.StoredValue['DiretorioTIF'] + '/' + SubdiretorioTif) then
-      begin
-        MessageDlg('Falha ao criar subdiretório Tif, crie manualmente uma pasta de nome ' + SubdiretorioTif + ' dentro de ' + FormStorage.StoredValue['DiretorioTIF'], mtError, mbOKCancel, 0);
-        geraTif := false;
-      end;
+        if not CreateDir(FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTif) then
+        begin
+            MessageDlg('Falha ao criar subdiretório Tif, crie manualmente uma pasta de nome ' + SubdiretorioTif + ' dentro de ' + FormStorage.StoredValue['DiretorioTIF'], mtError, mbOKCancel, 0);
+            geraTif := false;
+        end;
     end;
 
     // Gera nome com 0MenuItemSair à esquerda
@@ -473,16 +562,18 @@ begin
 
     for I := 0 to DialogoImagens.Files.Count - 1 do
     begin
-       RunProgram.Parameters.Add(DialogoImagens.Files[I]);
+        RunProgram.Parameters.Add(DialogoImagens.Files[I]);
     end;
 
-    if (ConfigStorage.StoredValue['ComprimirTif'] = 'true') then
+    if (ConfigStorage.StoredValue['ComprimirTif'] = 'true') then                // Comprime o tif (preto e branco) se marcado para tal na configuração.
     begin
-      RunProgram.Parameters.Add('-compress');
-      RunProgram.Parameters.Add('group4');
+        RunProgram.Parameters.Add('-compress');
+        RunProgram.Parameters.Add('group4');
     end;
+
     RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioTIF'] + '/' + SubdiretorioTif + '/' + NomeTif + '.tif');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
+    RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
     RunProgram.Free;
     geraTif := true;
@@ -491,17 +582,18 @@ end;
 // Apaga arquivos de origem
 function TPrincipal.apagaArquivosOrigem(): boolean;
 var
-   I: integer;
+    I: integer;
 begin
-   for I := 0 to DialogoImagens.Files.Count - 1 do
-   begin
-     if (FileExists(DialogoImagens.Files[I])) then
-     begin
-          DeleteFile(DialogoImagens.Files[I])
-     end;
-   end;
-   ListaArquivos.Clear;
-   apagaArquivosOrigem := true;
+    for I := 0 to DialogoImagens.Files.Count - 1 do
+    begin
+        if (FileExists(DialogoImagens.Files[I])) then
+        begin
+            DeleteFile(DialogoImagens.Files[I])
+        end;
+    end;
+
+    ListaArquivos.Clear;
+    apagaArquivosOrigem := true;
 end;
 
 function TPrincipal.sha256(S: String): String;
@@ -512,18 +604,19 @@ var
     i: integer;
     str1: string;
 begin
-    Source:= S;
+    Source := S;
 
     if Source <> '' then
     begin
-      Hash:= TDCP_sha256.Create(nil);
-      Hash.Init;
-      Hash.UpdateStr(Source);
-      Hash.Final(Digest);
-      str1:= '';
-      for i:= 0 to 31 do
-        str1:= str1 + IntToHex(Digest[i],2);
-      sha256:=LowerCase(str1);
+        Hash := TDCP_sha256.Create(nil);
+        Hash.Init;
+        Hash.UpdateStr(Source);
+        Hash.Final(Digest);
+        str1 := '';
+        for i:= 0 to 31 do
+            str1 := str1 + IntToHex(Digest[i],2);
+
+        sha256 :=LowerCase(str1);
     end;
 end;
 
