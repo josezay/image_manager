@@ -74,7 +74,7 @@ type
     function geraRAR(Matricula: string): boolean;
     function geraTIF(Matricula: string): boolean;
     function geraPDF(Numero: string; Tipo: integer): boolean;
-    function sincronizaArquivo(Arquivo: string; Tipo: integer): boolean;
+    function sincronizaArquivo(Numero: string; Tipo: integer): boolean;
     function ressincronizaArquivos(): boolean;
     function apagaArquivosOrigem(): boolean;
     function sha256(S: String): String;
@@ -296,6 +296,7 @@ function TPrincipal.valida(Tipo: integer): boolean;
 var
     I: integer;
 begin
+    // Validações gerais;
     valida := true;
     if (DialogoImagens.Files.Count = 0) then
     begin
@@ -312,6 +313,7 @@ begin
         end;
     end;
 
+    // Validações específicas
     if (Tipo = 2) then
     begin
         if (CampoNumeroMatricula.Text = '') then
@@ -366,6 +368,7 @@ begin
 end;
 
 // Compacta arquivos
+// Somente tipo 2 gera RAR
 function TPrincipal.geraRAR(Matricula: string): boolean;
 var
     RunProgram: TProcess;
@@ -425,7 +428,17 @@ begin
     RunProgram.Parameters.Add('-dDOPDFMARKS=false');
     RunProgram.Parameters.Add('-dCompatibilityLevel=1.7');
     RunProgram.Parameters.Add('-dPDFACompatibilityPolicy=2');
-    RunProgram.Parameters.Add('-sOutputFile=' + '"' + StringReplace(FormStorage.StoredValue['DiretorioPDFMatricula'], '/', '\',[rfReplaceAll]) + '\' + Numero + '.pdf"');
+
+    if (Tipo = 2) then
+    begin
+        RunProgram.Parameters.Add('-sOutputFile=' + '"' + FormStorage.StoredValue['DiretorioPDFMatricula'] + '\' + Numero + '.pdf"');
+    end;
+
+    if (Tipo = 3) then
+    begin
+        RunProgram.Parameters.Add('-sOutputFile=' + '"' + FormStorage.StoredValue['DiretorioPDFAuxiliar'] + '\' + Numero + '.pdf"');
+    end;
+
     RunProgram.Parameters.Add('bin\PDFA_def.ps');
     RunProgram.Parameters.Add(Numero + '.pdf');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
@@ -433,28 +446,38 @@ begin
     RunProgram.Execute;
     RunProgram.Free;
 
-    sincronizaArquivo(StringReplace(FormStorage.StoredValue['DiretorioPDFMatricula'], '/', '\',[rfReplaceAll]) + '\' + Numero + '.pdf', Tipo);  // Sincroniza arquivo PDF-A com servidor
+    sincronizaArquivo(Numero, Tipo);                                            // Sincroniza arquivo PDF-A com servidor
 
     if (FileExists(Numero + '.pdf')) then
     begin
         DeleteFile(Numero + '.pdf')                                             // Deleta PDF normal temporário.
     end;
+
     geraPDF := true;
 end;
 
 // Sincroniza um arquivo para o servidor
-function TPrincipal.sincronizaArquivo(Arquivo: string; Tipo: integer): boolean;
+function TPrincipal.sincronizaArquivo(Numero: string; Tipo: integer): boolean;
 var
     Respo: TStringStream;
-    S, FieldName: string;
+    S, Arquivo: string;
 begin
-    FieldName := 'file';
+    if (Tipo = 2) then
+    begin
+        Arquivo := StringReplace(FormStorage.StoredValue['DiretorioPDFMatricula'], '\', '/',[rfReplaceAll]) + '/' + Numero + '.pdf';
+    end;
+
+    if (Tipo = 3) then
+    begin
+        Arquivo := StringReplace(FormStorage.StoredValue['DiretorioPDFAuxiliar'], '\', '/',[rfReplaceAll]) + '/' + Numero + '.pdf';
+    end;
+
     With TFPHttpClient.Create(Nil) do
     try
         try
             Respo := TStringStream.Create('');
-            FileFormPost(ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(ExtractFileName(Arquivo) + ConfigStorage.StoredValue['Senha']),
-                         FieldName,
+            FileFormPost(ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(ExtractFileName(Arquivo) + ConfigStorage.StoredValue['Senha'] + '&tipo=' + IntToStr(Tipo)),
+                         'file',
                          Arquivo,
                          Respo);
             S := Respo.DataString;
@@ -463,21 +486,26 @@ begin
             BarraDeStatus.SimpleText := 'Sem conexão com a internet';
         end;
     finally
-        Free;
-        if (S = '1') then                                                       // Se sucesso
+        if (S = '1') then                                                       // Se sucesso.
         begin
             BarraDeStatus.SimpleText := '';
-            sincronizaArquivo := true;
-            if (FileExists(Arquivo)) then
-            begin
-                DeleteFile(Arquivo)
-            end;
+            sincronizaArquivo := true;                                          // Sincroniza o arquivo PDF-A original.
         end
         else
         begin
-            BarraDeStatus.SimpleText := S;
-            CreateDir('pendentes');
-            RenameFile(Arquivo, 'pendentes/' + Arquivo);
+            BarraDeStatus.SimpleText := 'Erro ao sincronizar com Nuvem';
+            if (Tipo = 2) then
+            begin
+                CreateDir('matriculas_pendentes');
+                CopyFile(Arquivo, 'matriculas_pendentes/' + Numero + '.pdf');   // Copia o arquivo original na pasta pendentes.
+            end;
+
+            if (Tipo = 3) then
+            begin
+                CreateDir('auxiliares_pendentes');
+                CopyFile(Arquivo, 'auxiliares_pendentes/' + Numero + '.pdf');
+            end;
+
             sincronizaArquivo := false;
         end;
     end;
@@ -493,16 +521,23 @@ begin
     try
         if (ConfigStorage.StoredValue['Ressincroniza'] = 'true') then
         begin
-            FindAllFiles(ArquivosPendentes, 'pendentes', '*.pdf', true);
+            FindAllFiles(ArquivosPendentes, 'matriculas_pendentes', '*.pdf', true);
             if (ArquivosPendentes.Count > 0) then
             begin
-                ShowMessage(Format('Encontrados %d arquivo(s) não sincronizado(s)', [ArquivosPendentes.Count]));
+                ShowMessage(Format('Encontradas %d matricula(s) não sincronizada(s)', [ArquivosPendentes.Count]));
                 for I := 0 to ArquivosPendentes.Count - 1 do
                 begin
-                //if(not Erro) then
-                //begin
-                     sincronizaArquivo(ArquivosPendentes[I], 2); // TODO: Ressincronizar separadamente;
-                //end;
+                     sincronizaArquivo(ArquivosPendentes[I], 2);
+                end;
+            end;
+
+            FindAllFiles(ArquivosPendentes, 'auxiliares_pendentes', '*.pdf', true);
+            if (ArquivosPendentes.Count > 0) then
+            begin
+                ShowMessage(Format('Encontrados %d registros auxiliar(es) não sincronizado(s)', [ArquivosPendentes.Count]));
+                for I := 0 to ArquivosPendentes.Count - 1 do
+                begin
+                     sincronizaArquivo(ArquivosPendentes[I], 3);
                 end;
             end;
         end;
@@ -571,7 +606,7 @@ begin
         RunProgram.Parameters.Add('group4');
     end;
 
-    RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioTIF'] + '/' + SubdiretorioTif + '/' + NomeTif + '.tif');
+    RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTif + '/' + NomeTif + '.tif');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
