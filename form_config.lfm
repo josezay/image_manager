@@ -1,14 +1,17 @@
 object Config: TConfig
-  Left = 838
-  Height = 240
-  Top = 259
-  Width = 320
+  Left = 474
+  Height = 506
+  Top = 139
+  Width = 497
+  AllowDropFiles = True
+  AutoSize = True
   BorderIcons = []
   Caption = 'Configuração'
-  ClientHeight = 240
-  ClientWidth = 320
+  ClientHeight = 506
+  ClientWidth = 497
   Color = clNone
   OnCreate = FormCreate
+  OnDropFiles = FormDropFiles
   LCLVersion = '2.0.12.0'
   object LabelDiretorio: TLabel
     AnchorSideLeft.Control = Owner
@@ -31,9 +34,10 @@ object Config: TConfig
     Height = 23
     Hint = 'http://localhost/notaire/'
     Top = 31
-    Width = 304
+    Width = 481
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
+    Constraints.MinWidth = 300
     MaxLength = 200
     ParentShowHint = False
     ShowHint = True
@@ -60,7 +64,7 @@ object Config: TConfig
     Left = 8
     Height = 23
     Top = 85
-    Width = 304
+    Width = 481
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
     EchoMode = emPassword
@@ -69,10 +73,14 @@ object Config: TConfig
     TabOrder = 1
   end
   object CheckBoxRessincroniza: TCheckBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = EditSenha
+    AnchorSideTop.Side = asrBottom
     Left = 8
     Height = 19
-    Top = 120
+    Top = 116
     Width = 225
+    BorderSpacing.Around = 8
     Caption = 'Ressincronizar PDFs pendentes ao abrir'
     TabOrder = 2
   end
@@ -82,7 +90,7 @@ object Config: TConfig
     AnchorSideTop.Side = asrBottom
     Left = 8
     Height = 19
-    Top = 147
+    Top = 143
     Width = 96
     BorderSpacing.Around = 8
     Caption = 'Comprimir TIF'
@@ -90,13 +98,14 @@ object Config: TConfig
   end
   object BtnConfigGravar: TSpeedButton
     AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = CheckBoxComprimirTIF
+    AnchorSideTop.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 8
     Height = 22
-    Top = 210
+    Top = 170
     Width = 79
-    Anchors = [akLeft, akBottom]
     AutoSize = True
     BorderSpacing.Left = 8
     BorderSpacing.Bottom = 8
@@ -276,17 +285,19 @@ object Config: TConfig
       2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF
     }
     Transparent = False
+    OnClick = BtnConfigGravarClick
   end
   object BtnConfigCancelar: TSpeedButton
     AnchorSideLeft.Control = BtnConfigGravar
     AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = CheckBoxComprimirTIF
+    AnchorSideTop.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 87
     Height = 22
-    Top = 210
+    Top = 170
     Width = 79
-    Anchors = [akLeft, akBottom]
     AutoSize = True
     BorderSpacing.Bottom = 8
     Color = clNone
@@ -467,6 +478,95 @@ object Config: TConfig
     Transparent = False
     OnClick = BtnConfigCancelarClick
   end
+  object PanelSecreto: TPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = BtnConfigGravar
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 8
+    Height = 33
+    Top = 200
+    Width = 481
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 8
+    ClientHeight = 33
+    ClientWidth = 481
+    TabOrder = 4
+    Visible = False
+    object Label1: TLabel
+      AnchorSideLeft.Control = PanelSecreto
+      AnchorSideTop.Control = PanelSecreto
+      Left = 9
+      Height = 15
+      Top = 9
+      Width = 128
+      BorderSpacing.Around = 8
+      Caption = 'Diretório de Pendências:'
+      ParentColor = False
+    end
+    object BtnDirPendencias: TSpeedButton
+      AnchorSideLeft.Control = Label1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = Label1
+      AnchorSideTop.Side = asrCenter
+      Left = 145
+      Height = 20
+      Top = 6
+      Width = 20
+      AutoSize = True
+      Flat = True
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000055
+        55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+        2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
+        2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+        2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
+        2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+        00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+        2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+        00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+        2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+        00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+        2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+        00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+        2AA92A802CAA0000000000000000000000000000000000000000000000000000
+        00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+        2AA92A802CAA0000000000000000000000000000000000000000000000000000
+        00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
+        2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+        2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
+        2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+        2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
+        2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
+        0000000000000000000000000000000000000000000000000000000000000055
+        55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      OnClick = BtnDirPendenciasClick
+    end
+    object LabelDirPendencias: TLabel
+      AnchorSideLeft.Control = BtnDirPendencias
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = BtnDirPendencias
+      AnchorSideTop.Side = asrCenter
+      Left = 173
+      Height = 1
+      Top = 16
+      Width = 1
+      BorderSpacing.Left = 8
+      ParentColor = False
+    end
+  end
   object ConfigStorage: TIniPropStorage
     StoredValues = <    
       item
@@ -481,11 +581,17 @@ object Config: TConfig
       end    
       item
         Name = 'ComprimirTIF'
+      end    
+      item
+        Name = 'DiretorioPendencias'
       end>
     IniFileName = 'config.ini'
     IniSection = 'config'
-    OnRestoreProperties = ConfigStorageRestoreProperties
-    Left = 273
-    Top = 144
+    Left = 456
+    Top = 464
+  end
+  object DiretorioPendencias: TOpenDialog
+    Left = 416
+    Top = 464
   end
 end

@@ -25,8 +25,8 @@ type
     CheckBoxGerarPDFMatricula: TCheckBox;
     CheckBoxGerarTIFMatricula: TCheckBox;
     ConfigStorage: TIniPropStorage;
-    DialogoImagens: TOpenDialog;
     CampoNumeroAuxiliar: TEdit;
+    DialogoImagens: TOpenDialog;
     FormStorage: TIniPropStorage;
     LabelNumeroAuxiliar: TLabel;
     LabelPDFMatricula: TLabel;
@@ -70,6 +70,7 @@ type
     procedure BtnSairClick(Sender: TObject);
     procedure BtnRARDirMatriculaClick(Sender: TObject);
     procedure BtnConfigClick(Sender: TObject);
+    procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     function valida(Tipo: integer): boolean;
     function geraRAR(Matricula: string): boolean;
     function geraTIF(Matricula: string): boolean;
@@ -99,8 +100,8 @@ implementation
 procedure TPrincipal.FormCreate(Sender: TObject);
 begin
     // Carrega as configurações para o programa
-    FormStorage.IniFileName     := 'config.ini';
-    ConfigStorage.IniFileName   := 'config.ini';
+    FormStorage.IniFileName   := 'config.ini';
+    ConfigStorage.IniFileName := 'config.ini';
     FormStorage.Restore;
     ConfigStorage.Restore;
 
@@ -133,6 +134,21 @@ begin
     Config.ShowModal;
 end;
 
+procedure TPrincipal.FormDropFiles(Sender: TObject;
+  const FileNames: array of String);
+var
+  I: Integer;
+begin
+    ListaArquivos.Items.Clear;
+    for I := Low(FileNames) to High(FileNames) do
+    begin
+        ListaArquivos.items.add(FileNames[I]);
+    end;
+
+    ProgressBarMatricula.Visible := false;                                  // Ao escolher novas imagens esconde as barras de progresso.
+    ProgressBarAuxiliar.Visible  := false;
+end;
+
 // Ao clicar para abrir imagem
 procedure TPrincipal.BtnAbrirImagemClick(Sender: TObject);
 var
@@ -146,8 +162,8 @@ begin
             ListaArquivos.items.add(ExtractFileName(DialogoImagens.Files[I]));
         end;
 
-        ProgressBarMatricula.Visible    := false;                                // Ao escolher novas imagens esconde as barras de progresso.
-        ProgressBarAuxiliar.Visible     := false;
+        ProgressBarMatricula.Visible := false;                                  // Ao escolher novas imagens esconde as barras de progresso.
+        ProgressBarAuxiliar.Visible  := false;
     end;
 end;
 
@@ -195,20 +211,20 @@ var
     Matricula: String;
 begin
     Matricula := CampoNumeroMatricula.Text;
-    BtnExecutarMatricula.Enabled    := false;
-    ProgressBarMatricula.Visible    := true;
-    ProgressBarMatricula.Position   := 0;
+    BtnExecutarMatricula.Enabled  := false;
+    ProgressBarMatricula.Visible  := true;
+    ProgressBarMatricula.Position := 0;
     Principal.Update;                                                           // Atualiza o formulário para que o botão executar apareça desabilitado antes que as atividades de conversão iniciem.
 
     if valida(2) then
     begin
-        ProgressBarMatricula.Position   := 10;
+        ProgressBarMatricula.Position := 10;
         if (CheckBoxGerarRARMatricula.Checked) then
         begin
             geraRAR(Matricula);
         end;
 
-        ProgressBarMatricula.Position   := 30;
+        ProgressBarMatricula.Position := 30;
         Principal.Update;
 
         if (CheckBoxGerarPDFMatricula.Checked) then
@@ -216,7 +232,7 @@ begin
             geraPDF(Matricula, 2);
         end;
 
-        ProgressBarMatricula.Position   := 40;
+        ProgressBarMatricula.Position := 40;
         Principal.Update;
 
         if (CheckBoxGerarTIFMatricula.Checked) then
@@ -224,7 +240,7 @@ begin
             if not (geraTIF(Matricula)) then ShowMessage('Ocorreu erro ao formar TIF!');
         end;
 
-        ProgressBarMatricula.Position   := 90;
+        ProgressBarMatricula.Position := 90;
         Principal.Update;
 
         if (CheckBoxApagarImagensMatricula.Checked) then
@@ -233,7 +249,7 @@ begin
             Principal.Update;
         end;
 
-        ProgressBarMatricula.Position   := 100;
+        ProgressBarMatricula.Position := 100;
         ShowMessage('Concluido!');
     end;
 
@@ -259,20 +275,20 @@ var
     Auxiliar: String;
 begin
     Auxiliar := CampoNumeroAuxiliar.Text;
-    BtnExecutarAuxiliar.Enabled     := false;
-    ProgressBarAuxiliar.Visible     := true;
-    ProgressBarAuxiliar.Position    := 0;
+    BtnExecutarAuxiliar.Enabled  := false;
+    ProgressBarAuxiliar.Visible  := true;
+    ProgressBarAuxiliar.Position := 0;
     Principal.Update;                                                           // Atualiza o formulário para que o botão executar apareça desabilitado antes que as atividades de conversão iniciem.
 
     if valida(3) then
     begin
-        ProgressBarAuxiliar.Position    := 20;
+        ProgressBarAuxiliar.Position := 20;
         if (CheckBoxGerarPDFAuxiliar.Checked) then
         begin
             geraPDF(Auxiliar, 3);
         end;
 
-        ProgressBarAuxiliar.Position    := 70;
+        ProgressBarAuxiliar.Position := 70;
         Principal.Update;
 
         if (CheckBoxApagarImagensAuxiliar.Checked) then
@@ -280,7 +296,7 @@ begin
             apagaArquivosOrigem;
         end;
 
-        ProgressBarAuxiliar.Position    := 100;
+        ProgressBarAuxiliar.Position := 100;
         Principal.Update;
         ShowMessage('Concluido!');
     end;
@@ -298,7 +314,7 @@ var
 begin
     // Validações gerais;
     valida := true;
-    if (DialogoImagens.Files.Count = 0) then
+    if (ListaArquivos.Items.Count = 0) then
     begin
         MessageDlg('É necessário escolher ao menos uma imagem!', mtError, mbOKCancel, 0);
         if DialogoImagens.Execute then
@@ -476,7 +492,7 @@ begin
     try
         try
             Respo := TStringStream.Create('');
-            FileFormPost(ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(ExtractFileName(Arquivo) + ConfigStorage.StoredValue['Senha'] + '&tipo=' + IntToStr(Tipo)),
+            FileFormPost(ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(Numero + '.pdf' + ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo),
                          'file',
                          Arquivo,
                          Respo);

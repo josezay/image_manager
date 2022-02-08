@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, StdCtrls,
-  IniPropStorage;
+  IniPropStorage, ExtCtrls;
 
 type
 
@@ -18,14 +18,20 @@ type
     EditDiretorioRemoto: TEdit;
     EditSenha: TEdit;
     ConfigStorage: TIniPropStorage;
+    Label1: TLabel;
+    LabelDirPendencias: TLabel;
     LabelDiretorio: TLabel;
     LabelSenha: TLabel;
     BtnConfigGravar: TSpeedButton;
     BtnConfigCancelar: TSpeedButton;
+    DiretorioPendencias: TOpenDialog;
+    PanelSecreto: TPanel;
+    BtnDirPendencias: TSpeedButton;
     procedure BtnConfigCancelarClick(Sender: TObject);
     procedure BtnConfigGravarClick(Sender: TObject);
-    procedure ConfigStorageRestoreProperties(Sender: TObject);
+    procedure BtnDirPendenciasClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
   private
 
   public
@@ -59,6 +65,12 @@ begin
   end;
 end;
 
+procedure TConfig.FormDropFiles(Sender: TObject;
+  const FileNames: array of String);
+begin
+    PanelSecreto.Visible := true;
+end;
+
 procedure TConfig.BtnConfigGravarClick(Sender: TObject);
 begin
    ConfigStorage.StoredValue['DiretorioRemoto'] := EditDiretorioRemoto.Text;
@@ -86,14 +98,20 @@ begin
    Close;
 end;
 
+procedure TConfig.BtnDirPendenciasClick(Sender: TObject);
+begin
+    if DiretorioPendencias.Execute then
+    begin
+        LabelDirPendencias.Caption := DiretorioPendencias.Filename;
+        DiretorioPendencias.InitialDir := DiretorioPendencias.Filename;
+        ConfigStorage.StoredValue['DiretorioPendencias'] := DiretorioPendencias.Filename;
+        ConfigStorage.Save;
+    end
+end;
+
 procedure TConfig.BtnConfigCancelarClick(Sender: TObject);
 begin
   Close;
-end;
-
-procedure TConfig.ConfigStorageRestoreProperties(Sender: TObject);
-begin
-
 end;
 
 end.

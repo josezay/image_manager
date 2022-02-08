@@ -1,11 +1,12 @@
 object Principal: TPrincipal
-  Left = 486
+  Left = 364
   Height = 655
-  Top = 102
+  Top = 108
   Width = 848
+  AllowDropFiles = True
   Caption = 'Notaire_image'
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 655
+  ClientWidth = 848
   Color = 15134950
   Icon.Data = {
     1E980000000001000100685A0000010020000898000016000000280000006800
@@ -1228,6 +1229,7 @@ object Principal: TPrincipal
     0000
   }
   OnCreate = FormCreate
+  OnDropFiles = FormDropFiles
   LCLVersion = '2.0.12.0'
   object BarraDeStatus: TStatusBar
     AnchorSideLeft.Control = Owner
@@ -2573,20 +2575,24 @@ object Principal: TPrincipal
       end    
       item
         Name = 'ComprimirTIF'
+      end    
+      item
+        Name = 'DiretorioPendencias'
       end>
     IniFileName = 'config.ini'
     IniSection = 'config'
     Left = 808
   end
-  object DialogoImagens: TOpenDialog
-    Title = 'Abrir arquivo'
-    Filter = 'Imagens|*.jpg; *.png; *.jpeg; *.bitmap; *.bmp'
-    Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
-    Left = 112
-    Top = 64
-  end
   object DirectoryPDFAuxiliar: TSelectDirectoryDialog
     Left = 688
     Top = 56
+  end
+  object DialogoImagens: TOpenDialog
+    Title = 'Abrir arquivos'
+    DefaultExt = '.png'
+    Filter = 'Imagens|*.jpg; *.png; *.jpeg; *.bitmap; *.bmp'
+    Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
+    Left = 112
+    Top = 64
   end
 end
