@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus, JSONPropStorage,
-  DCPsha256, fphttpclient, FileUtil, form_config, PQConnection, mysql40conn;
+  ComCtrls, Buttons, StdCtrls, IniPropStorage, Menus,
+  DCPsha256, fphttpclient, FileUtil, form_config;
 
 type
 
@@ -76,7 +76,6 @@ type
     function geraTIF(Matricula: string): boolean;
     function geraPDF(Numero: string; Tipo: integer): boolean;
     function sincronizaArquivo(Numero: string; Tipo: integer): boolean;
-    function ressincronizaArquivos(): boolean;
     function apagaArquivosOrigem(): boolean;
     function sha256(S: String): String;
   private
@@ -112,16 +111,11 @@ begin
     LabelTIFMatricula.Caption := FormStorage.StoredValue['DiretorioTIFMatricula'];
     LabelPDFAuxiliar.Caption  := FormStorage.StoredValue['DiretorioPDFAuxiliar'];
 
-    // Ressincroniza os arquivos constantes na pasta pendentes
-    ressincronizaArquivos;
-
     // Define a pasta inicial para os diálogos de diretório
     DirectoryRARMatricula.InitialDir := FormStorage.StoredValue['DiretorioRARMatricula'];
     DirectoryPDFMatricula.InitialDir := FormStorage.StoredValue['DiretorioPDFMatricula'];
     DirectoryTIFMatricula.InitialDir := FormStorage.StoredValue['DiretorioTIFMatricula'];
     DirectoryPDFAuxiliar.InitialDir  := FormStorage.StoredValue['DiretorioPDFAuxiliar'];
-
-    //JSON.JSONFileName := ConfigStorage.StoredValue['DiretorioPendencias'] + '/pendencias.json';
 end;
 
 // Ao clicar para sair
@@ -219,19 +213,25 @@ end;
 procedure TPrincipal.BtnExecutarMatriculaClick(Sender: TObject);
 var
     Matricula: String;
+    Erro: boolean;
 begin
     Matricula := CampoNumeroMatricula.Text;
     BtnExecutarMatricula.Enabled  := false;                                     // Desabilita o botão.
     ProgressBarMatricula.Visible  := true;                                      // Deixa visível a barra de progresso.
     ProgressBarMatricula.Position := 0;
     Principal.Update;                                                           // Atualiza o formulário para que o botão executar apareça desabilitado antes que as atividades de conversão iniciem.
+    Erro := false;
 
     if valida(2) then
     begin
         ProgressBarMatricula.Position := 10;
         if (CheckBoxGerarRARMatricula.Checked) then
         begin
-            geraRAR(Matricula);
+            if not (geraRAR(Matricula)) then
+            begin
+                ShowMessage('Ocorreu erro ao formar RAR!');
+                Erro := true;
+            end;
         end;
 
         ProgressBarMatricula.Position := 30;
@@ -239,7 +239,11 @@ begin
 
         if (CheckBoxGerarPDFMatricula.Checked) then
         begin
-            geraPDF(Matricula, 2);
+            if not (geraPDF(Matricula, 2)) then
+            begin
+                ShowMessage('Ocorreu erro ao formar PDF!');
+                Erro := true;
+            end;
         end;
 
         ProgressBarMatricula.Position := 40;
@@ -247,7 +251,11 @@ begin
 
         if (CheckBoxGerarTIFMatricula.Checked) then
         begin
-            if not (geraTIF(Matricula)) then ShowMessage('Ocorreu erro ao formar TIF!');
+            if not (geraTIF(Matricula)) then
+            begin
+                ShowMessage('Ocorreu erro ao formar TIF!');
+                Erro := true;
+            end;
         end;
 
         ProgressBarMatricula.Position := 90;
@@ -255,12 +263,18 @@ begin
 
         if (CheckBoxApagarImagensMatricula.Checked) then
         begin
-            apagaArquivosOrigem;
+            if not (apagaArquivosOrigem) then
+            begin
+                ShowMessage('Ocorreu erro ao apagar arquivos temporários!');
+                Erro := true;
+            end;
             Principal.Update;
         end;
 
         ProgressBarMatricula.Position := 100;
-        ShowMessage('Concluido!');
+
+        if not (Erro) then
+            ShowMessage('Concluido!');
     end;
 
     BtnExecutarMatricula.Enabled:=true;
@@ -283,11 +297,13 @@ end;
 procedure TPrincipal.BtnExecutarAuxiliarClick(Sender: TObject);
 var
     Auxiliar: String;
+    Erro: boolean;
 begin
     Auxiliar := CampoNumeroAuxiliar.Text;
     BtnExecutarAuxiliar.Enabled  := false;
     ProgressBarAuxiliar.Visible  := true;
     ProgressBarAuxiliar.Position := 0;
+    Erro := false;
     Principal.Update;                                                           // Atualiza o formulário para que o botão executar apareça desabilitado antes que as atividades de conversão iniciem.
 
     if valida(3) then
@@ -295,7 +311,11 @@ begin
         ProgressBarAuxiliar.Position := 20;
         if (CheckBoxGerarPDFAuxiliar.Checked) then
         begin
-            geraPDF(Auxiliar, 3);
+            if not (geraPDF(Auxiliar, 3)) then
+            begin
+                ShowMessage('Ocorreu erro ao gerar PDF!');
+                Erro := true;
+            end;
         end;
 
         ProgressBarAuxiliar.Position := 70;
@@ -303,12 +323,19 @@ begin
 
         if (CheckBoxApagarImagensAuxiliar.Checked) then
         begin
-            apagaArquivosOrigem;
+            if not (apagaArquivosOrigem) then
+            begin
+                ShowMessage('Ocorreu erro ao apagar arquivos temporários!');
+                Erro := true;
+            end;
+            Principal.Update;
         end;
 
         ProgressBarAuxiliar.Position := 100;
         Principal.Update;
-        ShowMessage('Concluido!');
+
+        if not (Erro) then
+            ShowMessage('Concluido!');
     end;
 
     BtnExecutarAuxiliar.Enabled := true;
@@ -416,8 +443,11 @@ begin
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
+
+    if (RunProgram.ExitCode = 0) then geraRAR:=true                             // Se ouve erro ao executar processo externo.
+    else geraRAR:=false;
+
     RunProgram.Free;
-    geraRar := true;
 end;
 
 // Gera PDF-A
@@ -472,6 +502,10 @@ begin
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
+
+    if (RunProgram.ExitCode = 0) then geraPDF:=true                             // Se ouve erro ao executar processo externo.
+    else geraPDF:=false;
+
     RunProgram.Free;
 
     sincronizaArquivo(Numero, Tipo);                                            // Sincroniza arquivo PDF-A com servidor
@@ -480,8 +514,6 @@ begin
     begin
         DeleteFile(Numero + '.pdf')                                             // Deleta PDF normal temporário.
     end;
-
-    geraPDF := true;
 end;
 
 // Sincroniza um arquivo para o servidor
@@ -489,7 +521,6 @@ function TPrincipal.sincronizaArquivo(Numero: string; Tipo: integer): boolean;
 var
     Respo: TStringStream;
     S, Arquivo: string;
-    //tfOut: TextFile;
 begin
     if (Tipo = 2) then
     begin
@@ -540,84 +571,84 @@ begin
 end;
 
 // Ressincroniza arquivos pendentes
-function TPrincipal.ressincronizaArquivos(): boolean;
-var
-    ArquivosPendentes: TStringList;
-    I: integer;
-begin
-    ArquivosPendentes := TStringList.Create;
-    try
-        if (ConfigStorage.StoredValue['Ressincroniza'] = 'true') then
-        begin
-            FindAllFiles(ArquivosPendentes, 'matriculas_pendentes', '*.pdf', true);
-            if (ArquivosPendentes.Count > 0) then
-            begin
-                ShowMessage(Format('Encontradas %d matricula(s) não sincronizada(s)', [ArquivosPendentes.Count]));
-                for I := 0 to ArquivosPendentes.Count - 1 do
-                begin
-                     sincronizaArquivo(ArquivosPendentes[I], 2);
-                end;
-            end;
-
-            FindAllFiles(ArquivosPendentes, 'auxiliares_pendentes', '*.pdf', true);
-            if (ArquivosPendentes.Count > 0) then
-            begin
-                ShowMessage(Format('Encontrados %d registros auxiliar(es) não sincronizado(s)', [ArquivosPendentes.Count]));
-                for I := 0 to ArquivosPendentes.Count - 1 do
-                begin
-                     sincronizaArquivo(ArquivosPendentes[I], 3);
-                end;
-            end;
-        end;
-    finally
-        ressincronizaArquivos := true;
-    end;
-end;
+//function TPrincipal.ressincronizaArquivos(): boolean;
+//var
+//    ArquivosPendentes: TStringList;
+//    I: integer;
+//begin
+//    ArquivosPendentes := TStringList.Create;
+//    try
+//        if (ConfigStorage.StoredValue['Ressincroniza'] = 'true') then
+//        begin
+//            FindAllFiles(ArquivosPendentes, 'matriculas_pendentes', '*.pdf', true);
+//            if (ArquivosPendentes.Count > 0) then
+//            begin
+//                ShowMessage(Format('Encontradas %d matricula(s) não sincronizada(s)', [ArquivosPendentes.Count]));
+//                for I := 0 to ArquivosPendentes.Count - 1 do
+//                begin
+//                     sincronizaArquivo(ArquivosPendentes[I], 2);
+//                end;
+//            end;
+//
+//            FindAllFiles(ArquivosPendentes, 'auxiliares_pendentes', '*.pdf', true);
+//            if (ArquivosPendentes.Count > 0) then
+//            begin
+//                ShowMessage(Format('Encontrados %d registros auxiliar(es) não sincronizado(s)', [ArquivosPendentes.Count]));
+//                for I := 0 to ArquivosPendentes.Count - 1 do
+//                begin
+//                     sincronizaArquivo(ArquivosPendentes[I], 3);
+//                end;
+//            end;
+//        end;
+//    finally
+//        ressincronizaArquivos := true;
+//    end;
+//end;
 
 // Gera TIF
 function TPrincipal.geraTIF(Matricula: string): boolean;
 var
     I: integer;
-    SubdiretorioTif, NomeTif: string;
+    SubdiretorioTIF, NomeTIF: string;
     RunProgram: TProcess;
 begin
     // Gera diretório
-    SubdiretorioTif := '00000000';                                              // Caso não entre no if abaixo
+    SubdiretorioTIF := '00000000';                                              // Caso não entre no if abaixo
     if (Matricula.Length > 3) then
     begin
-        SubdiretorioTif := '';
+        SubdiretorioTIF := '';
         for I := 1 to Matricula.Length - 3 do
         begin
-            SubdiretorioTif := SubdiretorioTif + Matricula[I];
+            SubdiretorioTIF := SubdiretorioTIF + Matricula[I];
         end;
 
         NomeTif := '';                                                          // Usa o nometif como temporário somente
-        for I := SubdiretorioTif.Length to 7 do
+        for I := SubdiretorioTIF.Length to 7 do
         begin
-            NomeTif := NomeTif + '0';
+            NomeTIF := NomeTIF + '0';
         end;
 
-        SubdiretorioTif := NomeTif + SubdiretorioTif;
+        SubdiretorioTIF := NomeTIF + SubdiretorioTIF;
     end;
 
-    if not DirectoryExists(FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTif) then
+    if not DirectoryExists(FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTIF) then
     begin
-        if not CreateDir(FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTif) then
+        if not CreateDir(FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTIF) then
         begin
-            MessageDlg('Falha ao criar subdiretório Tif, crie manualmente uma pasta de nome ' + SubdiretorioTif + ' dentro de ' + FormStorage.StoredValue['DiretorioTIF'], mtError, mbOKCancel, 0);
-            geraTif := false;
+            MessageDlg('Falha ao criar subdiretório Tif, crie manualmente uma pasta de nome ' + SubdiretorioTIF + ' dentro de ' + FormStorage.StoredValue['DiretorioTIF'], mtError, mbOKCancel, 0);
+            geraTIF := false;
         end;
     end;
 
     // Gera nome com 0MenuItemSair à esquerda
-    NomeTif := '';
+    NomeTIF := '';
 
     for I := Matricula.Length to 7 do
     begin
-         NomeTif := NomeTif + '0';
+         NomeTIF := NomeTIF + '0';
     end;
 
-    NomeTif := NomeTif + Matricula;
+    NomeTIF := NomeTIF + Matricula;
 
     // Converte para TIF
     RunProgram := TProcess.Create(nil);
@@ -628,18 +659,21 @@ begin
         RunProgram.Parameters.Add(Imagens[I]);
     end;
 
-    if (ConfigStorage.StoredValue['ComprimirTif'] = 'true') then                // Comprime o tif (preto e branco) se marcado para tal na configuração.
+    if (ConfigStorage.StoredValue['ComprimirTIF'] = 'true') then                // Comprime o tif (preto e branco) se marcado para tal na configuração.
     begin
         RunProgram.Parameters.Add('-compress');
         RunProgram.Parameters.Add('group4');
     end;
 
-    RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTif + '/' + NomeTif + '.tif');
+    RunProgram.Parameters.Add('"' + FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTIF + '/' + NomeTIF + '.tif');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
+
+    if (RunProgram.ExitCode = 0) then geraTIF:=true                             // Se ouve erro ao executar processo externo.
+    else geraTIF:=false;
+
     RunProgram.Free;
-    geraTif := true;
 end;
 
 // Apaga arquivos de origem

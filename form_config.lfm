@@ -83,6 +83,7 @@ object Config: TConfig
     BorderSpacing.Around = 8
     Caption = 'Ressincronizar PDFs pendentes ao abrir'
     TabOrder = 2
+    Visible = False
   end
   object CheckBoxComprimirTIF: TCheckBox
     AnchorSideLeft.Control = Owner
@@ -493,6 +494,7 @@ object Config: TConfig
     ClientHeight = 33
     ClientWidth = 481
     TabOrder = 4
+    Visible = False
     object Label1: TLabel
       AnchorSideLeft.Control = PanelSecreto
       AnchorSideTop.Control = PanelSecreto

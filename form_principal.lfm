@@ -1,12 +1,12 @@
 object Principal: TPrincipal
-  Left = 336
+  Left = 366
   Height = 655
-  Top = 156
+  Top = 113
   Width = 848
   AllowDropFiles = True
   Caption = 'Notaire_image'
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 655
+  ClientWidth = 848
   Color = 15134950
   Icon.Data = {
     1E980000000001000100685A0000010020000898000016000000280000006800
@@ -1631,10 +1631,10 @@ object Principal: TPrincipal
         Height = 554
         Top = 8
         Width = 392
-        ActivePage = TabSheet3
+        ActivePage = TabSheet2
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 1
         object TabSheet2: TTabSheet
           AnchorSideLeft.Control = PageControl2
@@ -2193,6 +2193,7 @@ object Principal: TPrincipal
             Top = 31
             Width = 128
             BorderSpacing.Around = 8
+            NumbersOnly = True
             TabOrder = 0
           end
           object ScrollBox2: TScrollBox
