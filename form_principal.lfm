@@ -1,7 +1,7 @@
 object Principal: TPrincipal
-  Left = 366
+  Left = 442
   Height = 655
-  Top = 113
+  Top = 139
   Width = 848
   AllowDropFiles = True
   Caption = 'Notaire_image'
@@ -1357,12 +1357,12 @@ object Principal: TPrincipal
     Height = 598
     Top = 30
     Width = 840
-    ActivePage = TabSheet1
+    ActivePage = TabSheet4
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 4
     ImagesWidth = 16
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Conversão e Backup'
@@ -1857,7 +1857,6 @@ object Principal: TPrincipal
                 0000000000000000000000000000000000000000000000000000000000000000
                 0000000000000000000000000000000000000000000000000000
               }
-              OnClick = BtnRARDirMatriculaClick
             end
             object BtnPDFDirMatricula: TSpeedButton
               AnchorSideLeft.Control = CheckBoxGerarPDFMatricula
@@ -1906,7 +1905,6 @@ object Principal: TPrincipal
                 0000000000000000000000000000000000000000000000000000000000000000
                 0000000000000000000000000000000000000000000000000000
               }
-              OnClick = BtnPDFDirMatriculaClick
             end
             object BtnTIFDirMatricula: TSpeedButton
               AnchorSideLeft.Control = CheckBoxGerarTIFMatricula
@@ -1954,7 +1952,6 @@ object Principal: TPrincipal
                 0000000000000000000000000000000000000000000000000000000000000000
                 0000000000000000000000000000000000000000000000000000
               }
-              OnClick = BtnTIFDirMatriculaClick
             end
           end
           object BtnExecutarMatricula: TSpeedButton
@@ -2146,7 +2143,6 @@ object Principal: TPrincipal
               2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF
             }
             Transparent = False
-            OnClick = BtnExecutarMatriculaClick
           end
           object ProgressBarMatricula: TProgressBar
             AnchorSideLeft.Control = BtnExecutarMatricula
@@ -2531,18 +2527,44 @@ object Principal: TPrincipal
         end
       end
     end
+    object TabSheet4: TTabSheet
+      Caption = 'Conferência do Backup'
+      ClientHeight = 570
+      ClientWidth = 832
+      object Panel1: TPanel
+        AnchorSideLeft.Control = TabSheet4
+        AnchorSideTop.Control = TabSheet4
+        AnchorSideRight.Control = TabSheet4
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = TabSheet4
+        AnchorSideBottom.Side = asrBottom
+        Left = 4
+        Height = 562
+        Top = 4
+        Width = 824
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        BorderSpacing.Around = 4
+        BevelOuter = bvNone
+        BevelWidth = 2
+        BorderWidth = 1
+        BorderStyle = bsSingle
+        Color = clWhite
+        ParentColor = False
+        TabOrder = 0
+      end
+    end
   end
   object DirectoryRARMatricula: TSelectDirectoryDialog
-    Left = 656
-    Top = 56
+    Left = 688
+    Top = 8
   end
   object DirectoryPDFMatricula: TSelectDirectoryDialog
-    Left = 624
-    Top = 56
+    Left = 656
+    Top = 8
   end
   object DirectoryTIFMatricula: TSelectDirectoryDialog
-    Left = 592
-    Top = 56
+    Left = 624
+    Top = 8
   end
   object FormStorage: TIniPropStorage
     StoredValues = <    
@@ -2587,15 +2609,15 @@ object Principal: TPrincipal
     Top = 8
   end
   object DirectoryPDFAuxiliar: TSelectDirectoryDialog
-    Left = 688
-    Top = 56
+    Left = 720
+    Top = 8
   end
   object DialogoImagens: TOpenDialog
     Title = 'Abrir arquivos'
     DefaultExt = '.png'
     Filter = 'Imagens|*.jpg; *.png; *.jpeg; *.bitmap; *.bmp'
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
-    Left = 112
-    Top = 64
+    Left = 592
+    Top = 8
   end
 end

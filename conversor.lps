@@ -4,11 +4,14 @@
     <PathDelim Value="\"/>
     <Version Value="11"/>
     <BuildModes Active="Debug"/>
-    <Units Count="3">
+    <Units Count="12">
       <Unit0>
         <Filename Value="conversor.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="20"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="45" Y="10"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="form_principal.pas"/>
@@ -16,10 +19,8 @@
         <ComponentName Value="Principal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="454"/>
-        <CursorPos Y="462"/>
-        <UsageCount Value="20"/>
+        <CursorPos X="109" Y="540"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -29,24 +30,143 @@
         <ComponentName Value="Config"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UsageCount Value="20"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="matricula.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Matricula"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="22" Y="28"/>
+        <UsageCount Value="22"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="biblio.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Biblio"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="13" Y="137"/>
+        <UsageCount Value="21"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="C:\lazarus\lcl\dialogs.pp"/>
+        <UnitName Value="Dialogs"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="218"/>
+        <CursorPos X="3" Y="261"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="C:\lazarus\lcl\forms.pp"/>
+        <UnitName Value="Forms"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1309"/>
+        <CursorPos X="3" Y="1328"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="C:\lazarus\lcl\comctrls.pp"/>
+        <UnitName Value="ComCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="101"/>
+        <CursorPos X="3" Y="120"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="C:\lazarus\lcl\extctrls.pp"/>
+        <UnitName Value="ExtCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1074"/>
+        <CursorPos X="3" Y="1093"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\lazarus\lcl\buttons.pp"/>
+        <UnitName Value="Buttons"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="394"/>
+        <CursorPos X="3" Y="413"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="biblio.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Biblio"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="2"/>
+        <CursorPos X="21" Y="14"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit11>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="13" HistoryIndex="12">
+      <Position1>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="48" TopLine="26"/>
+      </Position1>
+      <Position2>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="8" Column="47"/>
+      </Position2>
+      <Position3>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="9" Column="31"/>
+      </Position3>
+      <Position4>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="82" Column="5" TopLine="63"/>
+      </Position4>
+      <Position5>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="93" Column="13" TopLine="77"/>
+      </Position5>
+      <Position6>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="13" Column="10"/>
+      </Position6>
+      <Position7>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="8" Column="31"/>
+      </Position7>
+      <Position8>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="79" Column="45" TopLine="76"/>
+      </Position8>
+      <Position9>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="540" Column="109" TopLine="525"/>
+      </Position9>
+      <Position10>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="12" Column="41"/>
+      </Position10>
+      <Position11>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="10" Column="5"/>
+      </Position11>
+      <Position12>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="11" Column="5"/>
+      </Position12>
+      <Position13>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="10" Column="12"/>
+      </Position13>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes Count="0" ActiveMode=""/>
     </RunParams>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="form_principal.pas"/>
-        <Line Value="462"/>
-      </Item1>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>

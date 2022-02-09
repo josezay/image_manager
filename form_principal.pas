@@ -77,7 +77,6 @@ type
     function geraPDF(Numero: string; Tipo: integer): boolean;
     function sincronizaArquivo(Numero: string; Tipo: integer): boolean;
     function apagaArquivosOrigem(): boolean;
-    function sha256(S: String): String;
   private
 
   public
@@ -89,6 +88,8 @@ var
   Imagens: array of String;                                                     // Lista de arquivos, pode ser populada pelo diálogo de abertura de imagens, ou arrastando as imagens sobre o programa.
 
 implementation
+
+uses Biblio;
 
 {$R *.lfm}
 
@@ -536,7 +537,7 @@ begin
     try
         try
             Respo := TStringStream.Create('');
-            FileFormPost(ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(Numero + '.pdf' + ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo),
+            FileFormPost(ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + Biblio.sha256(Numero + '.pdf' + ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo),
                          'file',
                          Arquivo,
                          Respo);
@@ -692,30 +693,6 @@ begin
     ListaArquivos.Clear;
     SetLength(Imagens, 0);
     apagaArquivosOrigem := true;
-end;
-
-function TPrincipal.sha256(S: String): String;
-var
-    Hash: TDCP_sha256;
-    Digest: array[0..31] of byte;
-    Source: string;
-    i: integer;
-    str1: string;
-begin
-    Source := S;
-
-    if Source <> '' then
-    begin
-        Hash := TDCP_sha256.Create(nil);
-        Hash.Init;
-        Hash.UpdateStr(Source);
-        Hash.Final(Digest);
-        str1 := '';
-        for i:= 0 to 31 do
-            str1 := str1 + IntToHex(Digest[i],2);
-
-        sha256 :=LowerCase(str1);
-    end;
 end;
 
 end.

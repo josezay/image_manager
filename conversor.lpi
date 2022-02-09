@@ -130,7 +130,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="6">
       <Unit0>
         <Filename Value="conversor.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -149,6 +149,21 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="matricula.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Matricula"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="biblio.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Biblio"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="biblio.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Biblio"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
