@@ -16,12 +16,10 @@ type
     CheckBoxAdmin: TCheckBox;
     CheckBoxComprimirTIF: TCheckBox;
     CheckBoxRessincroniza: TCheckBox;
-    EditDiretorioLocal: TEdit;
     EditDiretorioRemoto: TEdit;
     EditSenha: TEdit;
     ConfigStorage: TIniPropStorage;
     Label1: TLabel;
-    Label2: TLabel;
     LabelDirPendencias: TLabel;
     LabelDiretorio: TLabel;
     LabelSenha: TLabel;

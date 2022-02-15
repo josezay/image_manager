@@ -29,7 +29,6 @@ type
     DialogoImagens: TOpenDialog;
     FormStorage: TIniPropStorage;
     GroupBox1: TGroupBox;
-    Label1: TLabel;
     LabelNumeroAuxiliar: TLabel;
     LabelPDFMatricula: TLabel;
     LabelRARMatricula: TLabel;
@@ -65,7 +64,6 @@ type
     BtnConsultarNuvemXLocal: TSpeedButton;
     SQLQuery: TSQLQuery;
     SQLTransaction: TSQLTransaction;
-    SynServidor: TSynEdit;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
