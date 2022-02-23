@@ -27,12 +27,13 @@ type
     ConfigStorage: TIniPropStorage;
     CampoNumeroAuxiliar: TEdit;
     DialogoImagens: TOpenDialog;
-    EditConferenciaUltAuxiliar: TEdit;
-    EditConferenciaUltMatricula: TEdit;
     FormStorage: TIniPropStorage;
     GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    GroupBox3: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
     LabelNumeroAuxiliar: TLabel;
     LabelPDFMatricula: TLabel;
     LabelRARMatricula: TLabel;
@@ -41,6 +42,7 @@ type
     LabelNumeroMatricula: TLabel;
     ListaArquivos: TListBox;
     Memo: TMemo;
+    MemoBackupManual: TMemo;
     MemoLocal: TMemo;
     MySQL: TMySQL55Connection;
     PageControl1: TPageControl;
@@ -68,6 +70,7 @@ type
     DirectoryPDFAuxiliar: TSelectDirectoryDialog;
     BtnConsultarNuvemXLocal: TSpeedButton;
     BtnConsultarLocal: TSpeedButton;
+    BtnBackupManual: TSpeedButton;
     SQLQuery: TSQLQuery;
     SQLTransaction: TSQLTransaction;
     TabSheet1: TTabSheet;
@@ -76,7 +79,9 @@ type
     TabConferencia: TTabSheet;
     TabSheet4: TTabSheet;
     TabSheet5: TTabSheet;
+    TabSheet6: TTabSheet;
     procedure BtnAbrirImagemClick(Sender: TObject);
+    procedure BtnBackupManualClick(Sender: TObject);
     procedure BtnConsultarLocalClick(Sender: TObject);
     procedure BtnExecutarAuxiliarClick(Sender: TObject);
     procedure BtnExecutarMatriculaClick(Sender: TObject);
@@ -89,6 +94,7 @@ type
     procedure BtnConfigClick(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure BtnConsultarNuvemXLocalClick(Sender: TObject);
+    procedure MemoLocalChange(Sender: TObject);
   private
 
   public
@@ -101,7 +107,7 @@ var
 
 implementation
 
-uses Matricula, Auxiliar, ConsultaNuvemLocal, ConsultaLocal;
+uses Matricula, Auxiliar, ConsultaNuvemLocal, ConsultaLocal, Biblio;
 
 {$R *.lfm}
 
@@ -179,9 +185,14 @@ begin
     end;
 end;
 
+procedure TPrincipal.BtnBackupManualClick(Sender: TObject);
+begin
+    Biblio.ressincronizaArquivos();
+end;
+
 procedure TPrincipal.BtnConsultarLocalClick(Sender: TObject);
 begin
-  ConsultaLocal.Conferir();
+    ConsultaLocal.Conferir();
 end;
 
 //********** Eventos Matricula **************************************************
@@ -222,6 +233,11 @@ end;
 procedure TPrincipal.BtnConsultarNuvemXLocalClick(Sender: TObject);
 begin
     ConsultaNuvemLocal.Conferir();
+end;
+
+procedure TPrincipal.MemoLocalChange(Sender: TObject);
+begin
+
 end;
 
 end.

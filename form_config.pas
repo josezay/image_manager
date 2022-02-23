@@ -13,7 +13,6 @@ type
   { TConfig }
 
   TConfig = class(TForm)
-    CheckBoxAdmin: TCheckBox;
     CheckBoxComprimirTIF: TCheckBox;
     CheckBoxRessincroniza: TCheckBox;
     EditDiretorioRemoto: TEdit;

@@ -5,13 +5,14 @@ unit Biblio;
 interface
 
 uses
-  Classes, SysUtils, DCPsha256, Dialogs, process, fphttpclient, FileUtil;
+  Classes, SysUtils, DCPsha256, Dialogs, process, fphttpclient, LazFileUtils, FileUtil;
 
   function sha256(S: String): String;
   function valida(Tipo: integer): boolean;
   function geraRAR(Matricula: string): boolean;
   function geraPDF(Numero: string; Tipo: integer): boolean;
-  function sincronizaArquivo(Numero: string; Tipo: integer): boolean;
+  function sincronizaArquivo(Numero: string; Tipo: integer; Excluir: boolean): boolean;
+  function ressincronizaArquivos(): boolean;
   function geraTIF(Matricula: string): boolean;
   function apagaArquivosOrigem(): boolean;
 
@@ -187,7 +188,7 @@ begin
 
     RunProgram.Free;
 
-    sincronizaArquivo(Numero, Tipo);                                            // Sincroniza arquivo PDF-A com servidor
+    sincronizaArquivo(Numero, Tipo, false);                                            // Sincroniza arquivo PDF-A com servidor
 
     if (FileExists(Numero + '.pdf')) then
     begin
@@ -196,7 +197,7 @@ begin
 end;
 
 // Sincroniza um arquivo para o servidor
-function sincronizaArquivo(Numero: string; Tipo: integer): boolean;
+function sincronizaArquivo(Numero: string; Tipo: integer; Excluir: boolean): boolean;
 var
     Respo: TStringStream;
     S, Arquivo: string;
@@ -215,20 +216,31 @@ begin
     try
         try
             Respo := TStringStream.Create('');
+            //S := Principal.ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(Numero + '.pdf' + Principal.ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo);
+            //Principal.MemoBackupManual.Append(S);
             FileFormPost(Principal.ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(Numero + '.pdf' + Principal.ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo),
                          'file',
                          Arquivo,
                          Respo);
             S := Respo.DataString;
+            if not (S = '') then
+            begin
+                Principal.MemoBackupManual.Append(S);
+            end;
             Respo.Destroy;
         except
-            Principal.BarraDeStatus.SimpleText := 'Sem conexão com a internet';
+            Principal.BarraDeStatus.SimpleText := S;
         end;
     finally
+        Free;
         if (S = '1') then                                                       // Se sucesso.
         begin
             Principal.BarraDeStatus.SimpleText := '';
             sincronizaArquivo := true;                                          // Sincroniza o arquivo PDF-A original.
+            if (Excluir) then
+            begin
+                DeleteFile(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/' + Numero + '.pdf');
+            end;
         end
         else
         begin
@@ -246,6 +258,46 @@ begin
 
             sincronizaArquivo := false;
         end;
+    end;
+end;
+
+// Ressincroniza arquivos pendentes
+function ressincronizaArquivos(): boolean;
+var
+    ArquivosPendentes: TStringList;
+    I: integer;
+begin
+    ArquivosPendentes := TStringList.Create;
+    try
+        //if (ConfigStorage.StoredValue['Ressincroniza'] = 'true') then
+        //begin
+            FindAllFiles(ArquivosPendentes, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/', '*.pdf', true);
+            if (ArquivosPendentes.Count > 0) then
+            begin
+                //ShowMessage('teste');
+                Principal.MemoBackupManual.Append(Format('Encontradas %d matricula(s) não sincronizada(s)', [ArquivosPendentes.Count]));
+                for I := 0 to ArquivosPendentes.Count - 1 do
+                begin
+                    Principal.MemoBackupManual.Append('Tentando matrícula ' + LazFileUtils.ExtractFileNameOnly(ArquivosPendentes[I]));
+                    if not (sincronizaArquivo(LazFileUtils.ExtractFileNameOnly(ArquivosPendentes[I]), 2, true)) then
+                    begin
+                        Principal.MemoBackupManual.Append('Sem sucesso');
+                    end;
+                end;
+            end;
+
+            //FindAllFiles(ArquivosPendentes, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/', '*.pdf', true);
+            //if (ArquivosPendentes.Count > 0) then
+            //begin
+            //    ShowMessage(Format('Encontrados %d registros auxiliar(es) não sincronizado(s)', [ArquivosPendentes.Count]));
+            //    for I := 0 to ArquivosPendentes.Count - 1 do
+            //    begin
+            //         sincronizaArquivo(ArquivosPendentes[I], 3, true);
+            //    end;
+            //end;
+        //end;
+    finally
+        ressincronizaArquivos := true;
     end;
 end;
 
@@ -355,8 +407,8 @@ begin
         Hash.UpdateStr(Source);
         Hash.Final(Digest);
         str1 := '';
-        for i:= 0 to 31 do
-            str1 := str1 + IntToHex(Digest[i],2);
+        for i:=0 to 31 do
+            str1 := str1 + IntToHex(Digest[i], 2);
 
         sha256 :=LowerCase(str1);
     end;
