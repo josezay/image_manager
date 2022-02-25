@@ -23,7 +23,7 @@ var
     RunProgram: TProcess;
 begin
     Sincronizado := true;
-    Principal.BtnConsultarNuvemXLocal.Enabled:= false;                          // Desabilita o botão de consultar.
+    Principal.BtnConsultarNuvemXLocal.Enabled := false;                         // Desabilita o botão de consultar.
     Principal.Update;                                                           // Atualiza a tela para que o botão se apresente desabilitado.
     Principal.MySQL.Open;                                                       // Se conecta com o banco de dados local.
     Principal.SQLTransaction.StartTransaction;                                  // Inicia uma transação de banco de dados para inserir os registros dos arquivos.

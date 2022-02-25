@@ -33,13 +33,13 @@ begin
     if (Length(Imagens) = 0) then                                               // Se não ouverem imagens carregadas.
     begin
         MessageDlg('É necessário escolher ao menos uma imagem!', mtError, mbOKCancel, 0);
-        if Principal.DialogoImagens.Execute then                                          // Se arquivos foram escolhidos.
+        if Principal.DialogoImagens.Execute then                                // Se arquivos foram escolhidos.
         begin
-            Principal.ListaArquivos.Items.Clear;                                          // Limpa na tela a lista.
-            SetLength(Imagens, Principal.DialogoImagens.Files.Count);                     // Define o tamanho da array de imagens para que comporte as imagens escolhidas.
-            for I := 0 to Principal.DialogoImagens.Files.Count - 1 do                     // Para cada arquivo escolhido.
+            Principal.ListaArquivos.Items.Clear;                                // Limpa na tela a lista.
+            SetLength(Imagens, Principal.DialogoImagens.Files.Count);           // Define o tamanho da array de imagens para que comporte as imagens escolhidas.
+            for I := 0 to Principal.DialogoImagens.Files.Count - 1 do           // Para cada arquivo escolhido.
             begin
-                Imagens[I] := Principal.DialogoImagens.Files[I];                          // Adicina o arquivo na lista para ser processado.
+                Imagens[I] := Principal.DialogoImagens.Files[I];                // Adicina o arquivo na lista para ser processado.
                 Principal.ListaArquivos.items.add(ExtractFileName(Principal.DialogoImagens.Files[I])); // Mostra o nome simples na tela.
             end;
             valida := false;
@@ -151,7 +151,6 @@ begin
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
     RunProgram.Free;
-    //ShowMessage(RunProgram.Output.Read());
 
     // Gera PDFA
     RunProgram := TProcess.Create(nil);
@@ -188,7 +187,7 @@ begin
 
     RunProgram.Free;
 
-    sincronizaArquivo(Numero, Tipo, false);                                            // Sincroniza arquivo PDF-A com servidor
+    sincronizaArquivo(Numero, Tipo, false);                                     // Sincroniza arquivo PDF-A com servidor
 
     if (FileExists(Numero + '.pdf')) then
     begin
@@ -216,8 +215,6 @@ begin
     try
         try
             Respo := TStringStream.Create('');
-            //S := Principal.ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(Numero + '.pdf' + Principal.ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo);
-            //Principal.MemoBackupManual.Append(S);
             FileFormPost(Principal.ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(Numero + '.pdf' + Principal.ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo),
                          'file',
                          Arquivo,
@@ -286,15 +283,21 @@ begin
                 end;
             end;
 
-            //FindAllFiles(ArquivosPendentes, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/', '*.pdf', true);
-            //if (ArquivosPendentes.Count > 0) then
-            //begin
-            //    ShowMessage(Format('Encontrados %d registros auxiliar(es) não sincronizado(s)', [ArquivosPendentes.Count]));
-            //    for I := 0 to ArquivosPendentes.Count - 1 do
-            //    begin
-            //         sincronizaArquivo(ArquivosPendentes[I], 3, true);
-            //    end;
-            //end;
+            FindAllFiles(ArquivosPendentes, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/', '*.pdf', true);
+            if (ArquivosPendentes.Count > 0) then
+            begin
+                //ShowMessage('teste');
+                Principal.MemoBackupManual.Append(Format('Encontradas %d auxiliares(s) não sincronizada(s)', [ArquivosPendentes.Count]));
+                for I := 0 to ArquivosPendentes.Count - 1 do
+                begin
+                    Principal.MemoBackupManual.Append('Tentando auxiliares ' + LazFileUtils.ExtractFileNameOnly(ArquivosPendentes[I]));
+                    if not (sincronizaArquivo(LazFileUtils.ExtractFileNameOnly(ArquivosPendentes[I]), 3, true)) then
+                    begin
+                        Principal.MemoBackupManual.Append('Sem sucesso');
+                    end;
+                end;
+            end;
+
         //end;
     finally
         ressincronizaArquivos := true;
@@ -413,6 +416,7 @@ begin
         sha256 :=LowerCase(str1);
     end;
 end;
+
 
 end.
 

@@ -94,7 +94,6 @@ type
     procedure BtnConfigClick(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure BtnConsultarNuvemXLocalClick(Sender: TObject);
-    procedure MemoLocalChange(Sender: TObject);
   private
 
   public
@@ -233,11 +232,6 @@ end;
 procedure TPrincipal.BtnConsultarNuvemXLocalClick(Sender: TObject);
 begin
     ConsultaNuvemLocal.Conferir();
-end;
-
-procedure TPrincipal.MemoLocalChange(Sender: TObject);
-begin
-
 end;
 
 end.

@@ -1,7 +1,7 @@
 object Principal: TPrincipal
-  Left = -1107
+  Left = -1045
   Height = 655
-  Top = 119
+  Top = 108
   Width = 809
   AllowDropFiles = True
   Caption = 'Notaire_image 1.2.0'
@@ -1357,17 +1357,17 @@ object Principal: TPrincipal
     Height = 598
     Top = 30
     Width = 801
-    ActivePage = TabConferencia
+    ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 4
     ImagesWidth = 16
     ParentFont = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Conversão e Backup'
       ClientHeight = 570
-      ClientWidth = 832
+      ClientWidth = 793
       ParentBiDiMode = False
       ParentFont = False
       ParentShowHint = False
@@ -1630,7 +1630,7 @@ object Principal: TPrincipal
         Left = 432
         Height = 554
         Top = 8
-        Width = 392
+        Width = 353
         ActivePage = TabSheet2
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
@@ -1641,7 +1641,7 @@ object Principal: TPrincipal
           AnchorSideRight.Control = PageControl2
           Caption = 'Matrícula'
           ClientHeight = 526
-          ClientWidth = 384
+          ClientWidth = 345
           object CampoNumeroMatricula: TEdit
             AnchorSideLeft.Control = TabSheet2
             AnchorSideTop.Control = LabelNumeroMatricula
@@ -1681,14 +1681,14 @@ object Principal: TPrincipal
             Left = 8
             Height = 436
             Top = 54
-            Width = 368
+            Width = 329
             HorzScrollBar.Page = 137
             VertScrollBar.Page = 143
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Bottom = 28
             BorderSpacing.Around = 8
             ClientHeight = 432
-            ClientWidth = 364
+            ClientWidth = 325
             Color = 26112
             ParentColor = False
             TabOrder = 1
@@ -2159,7 +2159,7 @@ object Principal: TPrincipal
             Left = 87
             Height = 18
             Top = 502
-            Width = 289
+            Width = 250
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Right = 8
             Color = 26112
@@ -2171,7 +2171,7 @@ object Principal: TPrincipal
         object TabSheet3: TTabSheet
           Caption = 'Auxiliar'
           ClientHeight = 526
-          ClientWidth = 384
+          ClientWidth = 345
           object LabelNumeroAuxiliar: TLabel
             AnchorSideLeft.Control = TabSheet3
             AnchorSideTop.Control = TabSheet3
@@ -2207,14 +2207,14 @@ object Principal: TPrincipal
             Left = 8
             Height = 436
             Top = 54
-            Width = 368
+            Width = 329
             HorzScrollBar.Page = 181
             VertScrollBar.Page = 89
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Bottom = 28
             BorderSpacing.Around = 8
             ClientHeight = 432
-            ClientWidth = 364
+            ClientWidth = 325
             TabOrder = 1
             object CheckBoxGerarPDFAuxiliar: TCheckBox
               AnchorSideLeft.Control = ScrollBox2
@@ -2521,7 +2521,7 @@ object Principal: TPrincipal
             Left = 87
             Height = 18
             Top = 502
-            Width = 289
+            Width = 250
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Right = 8
             ParentColor = False
@@ -2546,10 +2546,10 @@ object Principal: TPrincipal
         Height = 554
         Top = 8
         Width = 777
-        ActivePage = TabSheet6
+        ActivePage = TabSheet5
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Nuvem x Local'
@@ -3021,7 +3021,6 @@ object Principal: TPrincipal
               Top = 0
               Width = 749
               Anchors = [akTop, akLeft, akRight, akBottom]
-              OnChange = MemoLocalChange
               TabOrder = 0
             end
           end

@@ -18,23 +18,6 @@ var
     i, Contador: longint;
     S, Faltantes: string;
 begin
- //   for i := 1 to StrToInt(Principal.EditConferenciaUltMatricula.Text) do
-	//begin
- //       If not FileExists(Principal.FormStorage.StoredValue['DiretorioPDFMatricula'] + '/' + IntToStr(i) + '.pdf') Then
- //       begin
- //           Principal.MemoLocal.Append('A matrícula ' + IntToStr(i) + '.pdf está faltando.');
- //       end;
- //   end;
- //
- //   for i := 1 to StrToInt(Principal.EditConferenciaUltAuxiliar.Text) do
-	//begin
- //       If not FileExists(Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'] + '/' + IntToStr(i) + '.pdf') Then
- //       begin
- //           Principal.MemoLocal.Append('O auxiliar ' + IntToStr(i) + '.pdf está faltando.');
- //       end;
- //   end;
- //   Principal.MemoLocal.Append('Conferência concluída.');
-
     Faltantes:='';
     Principal.MemoLocal.Append('Iniciando conferência.');
 
