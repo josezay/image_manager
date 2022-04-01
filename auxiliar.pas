@@ -9,6 +9,7 @@ uses
 
 procedure Inicializar();
 procedure PDFDir();
+procedure RARDir();
 procedure Executar();
 
 implementation
@@ -19,20 +20,34 @@ procedure Inicializar();
 begin
     // Define os labels dos diretórios com os dados das configurações
     Principal.LabelPDFAuxiliar.Caption  := Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'];
+    Principal.LabelRARAuxiliar.Caption  := Principal.FormStorage.StoredValue['DiretorioRARAuxiliar'];
 
     // Define a pasta inicial para os diálogos de diretório
-    Principal.DirectoryPDFAuxiliar.InitialDir  := Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'];
+    Principal.DiretorioPDFAuxiliar.InitialDir  := Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'];
+    Principal.DiretorioRARAuxiliar.InitialDir  := Principal.FormStorage.StoredValue['DiretorioRARAuxiliar'];
 end;
 
 //********** Eventos Auxiliar **************************************************
 // Ao clicar para escolha do destino do PDF do Auxiliar
 procedure PDFDir();
 begin
-    if Principal.DirectoryPDFAuxiliar.Execute then
+    if Principal.DiretorioPDFAuxiliar.Execute then
     begin
-        Principal.LabelPDFAuxiliar.Caption := Principal.DirectoryPDFAuxiliar.Filename;
-        Principal.DirectoryPDFAuxiliar.InitialDir := Principal.DirectoryPDFAuxiliar.Filename;
-        Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'] := Principal.DirectoryPDFAuxiliar.Filename;
+        Principal.LabelPDFAuxiliar.Caption := Principal.DiretorioPDFAuxiliar.Filename;
+        Principal.DiretorioPDFAuxiliar.InitialDir := Principal.DiretorioPDFAuxiliar.Filename;
+        Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'] := Principal.DiretorioPDFAuxiliar.Filename;
+        Principal.FormStorage.Save;
+    end
+end;
+
+// Ao clicar para escolha do destino do RAR do Auxiliar
+procedure RARDir();
+begin
+    if Principal.DiretorioRARAuxiliar.Execute then
+    begin
+        Principal.LabelRARAuxiliar.Caption := Principal.DiretorioRARAuxiliar.Filename;
+        Principal.DiretorioRARAuxiliar.InitialDir := Principal.DiretorioRARAuxiliar.Filename;
+        Principal.FormStorage.StoredValue['DiretorioRARAuxiliar'] := Principal.DiretorioRARAuxiliar.Filename;
         Principal.FormStorage.Save;
     end
 end;
@@ -52,6 +67,16 @@ begin
 
     if valida(3) then
     begin
+        Principal.ProgressBarAuxiliar.Position := 10;
+        if (Principal.CheckBoxGerarRARAuxiliar.Checked) then
+        begin
+            if not (geraRAR(Auxiliar, 3)) then
+            begin
+                ShowMessage('Ocorreu erro ao formar RAR!');
+                Erro := true;
+            end;
+        end;
+
         Principal.ProgressBarAuxiliar.Position := 20;
         if (Principal.CheckBoxGerarPDFAuxiliar.Checked) then
         begin

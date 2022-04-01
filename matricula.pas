@@ -25,9 +25,9 @@ begin
     Principal.LabelTIFMatricula.Caption := Principal.FormStorage.StoredValue['DiretorioTIFMatricula'];
 
     // Define a pasta inicial para os diálogos de diretório
-    Principal.DirectoryRARMatricula.InitialDir := Principal.FormStorage.StoredValue['DiretorioRARMatricula'];
-    Principal.DirectoryPDFMatricula.InitialDir := Principal.FormStorage.StoredValue['DiretorioPDFMatricula'];
-    Principal.DirectoryTIFMatricula.InitialDir := Principal.FormStorage.StoredValue['DiretorioTIFMatricula'];
+    Principal.DiretorioRARMatricula.InitialDir := Principal.FormStorage.StoredValue['DiretorioRARMatricula'];
+    Principal.DiretorioPDFMatricula.InitialDir := Principal.FormStorage.StoredValue['DiretorioPDFMatricula'];
+    Principal.DiretorioTIFMatricula.InitialDir := Principal.FormStorage.StoredValue['DiretorioTIFMatricula'];
 end;
 
 //********** Eventos Matricula *************************************************
@@ -35,11 +35,11 @@ end;
 // Ao clicar para escolha do destino do RAR da Matrícula
 procedure RARDir();
 begin
-    if Principal.DirectoryRARMatricula.Execute then
+    if Principal.DiretorioRARMatricula.Execute then
     begin
-        Principal.LabelRARMatricula.Caption := Principal.DirectoryRARMatricula.Filename;
-        Principal.DirectoryRARMatricula.InitialDir := Principal.DirectoryRARMatricula.Filename;
-        Principal.FormStorage.StoredValue['DiretorioRARMatricula'] := Principal.DirectoryRARMatricula.Filename;
+        Principal.LabelRARMatricula.Caption := Principal.DiretorioRARMatricula.Filename;
+        Principal.DiretorioRARMatricula.InitialDir := Principal.DiretorioRARMatricula.Filename;
+        Principal.FormStorage.StoredValue['DiretorioRARMatricula'] := Principal.DiretorioRARMatricula.Filename;
         Principal.FormStorage.Save;
     end
 end;
@@ -47,11 +47,11 @@ end;
 // Ao clicar para escolha do destino do PDF da Matrícula
 procedure PDFDir();
 begin
-    if Principal.DirectoryPDFMatricula.Execute then
+    if Principal.DiretorioPDFMatricula.Execute then
     begin
-        Principal.LabelPDFMatricula.Caption := Principal.DirectoryPDFMatricula.Filename;
-        Principal.DirectoryPDFMatricula.InitialDir := Principal.DirectoryPDFMatricula.Filename;
-        Principal.FormStorage.StoredValue['DiretorioPDFMatricula'] := Principal.DirectoryPDFMatricula.Filename;
+        Principal.LabelPDFMatricula.Caption := Principal.DiretorioPDFMatricula.Filename;
+        Principal.DiretorioPDFMatricula.InitialDir := Principal.DiretorioPDFMatricula.Filename;
+        Principal.FormStorage.StoredValue['DiretorioPDFMatricula'] := Principal.DiretorioPDFMatricula.Filename;
         Principal.FormStorage.Save;
     end
 end;
@@ -59,11 +59,11 @@ end;
 // Ao clicar para escolha do destino do TIF da Matrícula
 procedure TIFDir();
 begin
-    if Principal.DirectoryTIFMatricula.Execute then
+    if Principal.DiretorioTIFMatricula.Execute then
     begin
-        Principal.LabelTIFMatricula.Caption := Principal.DirectoryTIFMatricula.Filename;
-        Principal.DirectoryTIFMatricula.InitialDir := Principal.DirectoryTIFMatricula.Filename;
-        Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] := Principal.DirectoryTIFMatricula.Filename;
+        Principal.LabelTIFMatricula.Caption := Principal.DiretorioTIFMatricula.Filename;
+        Principal.DiretorioTIFMatricula.InitialDir := Principal.DiretorioTIFMatricula.Filename;
+        Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] := Principal.DiretorioTIFMatricula.Filename;
         Principal.FormStorage.Save;
     end
 end;
@@ -86,7 +86,7 @@ begin
         Principal.ProgressBarMatricula.Position := 10;
         if (Principal.CheckBoxGerarRARMatricula.Checked) then
         begin
-            if not (geraRAR(Matricula)) then
+            if not (geraRAR(Matricula, 2)) then
             begin
                 ShowMessage('Ocorreu erro ao formar RAR!');
                 Erro := true;

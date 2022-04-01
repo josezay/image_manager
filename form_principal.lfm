@@ -1,12 +1,12 @@
 object Principal: TPrincipal
-  Left = -1045
-  Height = 655
-  Top = 108
-  Width = 809
+  Left = 53
+  Height = 619
+  Top = 87
+  Width = 766
   AllowDropFiles = True
-  Caption = 'Notaire_image 1.2.0'
-  ClientHeight = 655
-  ClientWidth = 809
+  Caption = 'Notaire_image 1.3.0'
+  ClientHeight = 619
+  ClientWidth = 766
   Color = 15134950
   Icon.Data = {
     1E980000000001000100685A0000010020000898000016000000280000006800
@@ -1237,8 +1237,8 @@ object Principal: TPrincipal
     AnchorSideBottom.Control = Owner
     Left = 0
     Height = 23
-    Top = 632
-    Width = 809
+    Top = 596
+    Width = 766
     Panels = <>
   end
   object MenuToolBar: TToolBar
@@ -1249,7 +1249,7 @@ object Principal: TPrincipal
     Left = 0
     Height = 26
     Top = 0
-    Width = 809
+    Width = 766
     Caption = 'Menu'
     Color = 15134950
     ParentColor = False
@@ -1354,9 +1354,9 @@ object Principal: TPrincipal
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = BarraDeStatus
     Left = 4
-    Height = 598
+    Height = 562
     Top = 30
-    Width = 801
+    Width = 758
     ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 4
@@ -1366,8 +1366,8 @@ object Principal: TPrincipal
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Conversão e Backup'
-      ClientHeight = 570
-      ClientWidth = 793
+      ClientHeight = 534
+      ClientWidth = 750
       ParentBiDiMode = False
       ParentFont = False
       ParentShowHint = False
@@ -1377,7 +1377,7 @@ object Principal: TPrincipal
         AnchorSideBottom.Control = TabSheet1
         AnchorSideBottom.Side = asrBottom
         Left = 8
-        Height = 554
+        Height = 518
         Top = 8
         Width = 416
         Anchors = [akTop, akLeft, akBottom]
@@ -1388,7 +1388,7 @@ object Principal: TPrincipal
         BevelOuter = bvNone
         BorderWidth = 1
         BorderStyle = bsSingle
-        ClientHeight = 550
+        ClientHeight = 514
         ClientWidth = 412
         Color = clHighlightText
         ParentColor = False
@@ -1418,7 +1418,7 @@ object Principal: TPrincipal
           AnchorSideBottom.Control = PainelImagens
           AnchorSideBottom.Side = asrBottom
           Left = 9
-          Height = 483
+          Height = 447
           Top = 58
           Width = 394
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -1628,9 +1628,9 @@ object Principal: TPrincipal
         AnchorSideBottom.Control = TabSheet1
         AnchorSideBottom.Side = asrBottom
         Left = 432
-        Height = 554
+        Height = 518
         Top = 8
-        Width = 353
+        Width = 310
         ActivePage = TabSheet2
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
@@ -1640,8 +1640,8 @@ object Principal: TPrincipal
           AnchorSideLeft.Control = PageControl2
           AnchorSideRight.Control = PageControl2
           Caption = 'Matrícula'
-          ClientHeight = 526
-          ClientWidth = 345
+          ClientHeight = 490
+          ClientWidth = 302
           object CampoNumeroMatricula: TEdit
             AnchorSideLeft.Control = TabSheet2
             AnchorSideTop.Control = LabelNumeroMatricula
@@ -1670,299 +1670,13 @@ object Principal: TPrincipal
             Caption = 'N° da matrícula*:'
             ParentColor = False
           end
-          object ScrollBox1: TScrollBox
-            AnchorSideLeft.Control = TabSheet2
-            AnchorSideTop.Control = CampoNumeroMatricula
-            AnchorSideTop.Side = asrBottom
-            AnchorSideRight.Control = TabSheet2
-            AnchorSideRight.Side = asrBottom
-            AnchorSideBottom.Control = TabSheet2
-            AnchorSideBottom.Side = asrBottom
-            Left = 8
-            Height = 436
-            Top = 54
-            Width = 329
-            HorzScrollBar.Page = 137
-            VertScrollBar.Page = 143
-            Anchors = [akTop, akLeft, akRight, akBottom]
-            BorderSpacing.Bottom = 28
-            BorderSpacing.Around = 8
-            ClientHeight = 432
-            ClientWidth = 325
-            Color = 26112
-            ParentColor = False
-            TabOrder = 1
-            object CheckBoxGerarRARMatricula: TCheckBox
-              AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = ScrollBox1
-              AnchorSideBottom.Control = ScrollBox1
-              AnchorSideBottom.Side = asrBottom
-              Left = 8
-              Height = 19
-              Top = 8
-              Width = 73
-              BorderSpacing.Around = 8
-              Caption = 'Gerar RAR'
-              Checked = True
-              Color = clNone
-              DoubleBuffered = True
-              Font.Color = clMenuHighlight
-              ParentColor = False
-              ParentDoubleBuffered = False
-              ParentFont = False
-              ParentShowHint = False
-              ParentBidiMode = False
-              State = cbChecked
-              TabOrder = 0
-            end
-            object CheckBoxGerarPDFMatricula: TCheckBox
-              AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = CheckBoxGerarRARMatricula
-              AnchorSideTop.Side = asrBottom
-              Left = 8
-              Height = 19
-              Top = 35
-              Width = 72
-              BorderSpacing.Around = 8
-              Caption = 'Gerar PDF'
-              Checked = True
-              State = cbChecked
-              TabOrder = 1
-            end
-            object CheckBoxGerarTIFMatricula: TCheckBox
-              AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = CheckBoxGerarPDFMatricula
-              AnchorSideTop.Side = asrBottom
-              Left = 8
-              Height = 19
-              Top = 62
-              Width = 66
-              BorderSpacing.Around = 8
-              Caption = 'Gerar TIF'
-              Checked = True
-              State = cbChecked
-              TabOrder = 2
-            end
-            object CheckBoxApagarImagensMatricula: TCheckBox
-              AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = CheckBoxGerarTIFMatricula
-              AnchorSideTop.Side = asrBottom
-              Left = 8
-              Height = 19
-              Top = 89
-              Width = 106
-              BorderSpacing.Around = 8
-              Caption = 'Apagar Imagens'
-              Checked = True
-              State = cbChecked
-              TabOrder = 3
-            end
-            object CheckBoxEnviarNuvem: TCheckBox
-              AnchorSideLeft.Control = ScrollBox1
-              AnchorSideTop.Control = CheckBoxApagarImagensMatricula
-              AnchorSideTop.Side = asrBottom
-              Left = 8
-              Height = 19
-              Top = 116
-              Width = 121
-              BorderSpacing.Around = 8
-              Caption = 'Backup em Nuvem'
-              Checked = True
-              Enabled = False
-              State = cbChecked
-              TabOrder = 4
-            end
-            object LabelRARMatricula: TLabel
-              AnchorSideLeft.Control = BtnRARDirMatricula
-              AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = BtnRARDirMatricula
-              AnchorSideTop.Side = asrCenter
-              Left = 117
-              Height = 1
-              Top = 18
-              Width = 1
-              BorderSpacing.Left = 8
-              ParentColor = False
-            end
-            object LabelPDFMatricula: TLabel
-              AnchorSideLeft.Control = BtnPDFDirMatricula
-              AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = BtnPDFDirMatricula
-              AnchorSideTop.Side = asrCenter
-              Left = 116
-              Height = 1
-              Top = 44
-              Width = 1
-              BorderSpacing.Around = 8
-              ParentColor = False
-            end
-            object LabelTIFMatricula: TLabel
-              AnchorSideLeft.Control = BtnTIFDirMatricula
-              AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = BtnTIFDirMatricula
-              AnchorSideTop.Side = asrCenter
-              Left = 110
-              Height = 1
-              Top = 72
-              Width = 1
-              BorderSpacing.Around = 8
-              ParentColor = False
-            end
-            object BtnRARDirMatricula: TSpeedButton
-              AnchorSideLeft.Control = CheckBoxGerarRARMatricula
-              AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = CheckBoxGerarRARMatricula
-              AnchorSideBottom.Control = CheckBoxGerarRARMatricula
-              AnchorSideBottom.Side = asrBottom
-              Left = 89
-              Height = 20
-              Top = 8
-              Width = 20
-              AutoSize = True
-              Flat = True
-              Glyph.Data = {
-                36040000424D3604000000000000360000002800000010000000100000000100
-                2000000000000004000064000000640000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000055
-                55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
-                2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
-                2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
-                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
-                2AA92A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
-                2AA92A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
-                2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
-                2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
-                2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
-                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
-                2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
-                0000000000000000000000000000000000000000000000000000000000000055
-                55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000
-              }
-              OnClick = BtnRARDirMatriculaClick
-            end
-            object BtnPDFDirMatricula: TSpeedButton
-              AnchorSideLeft.Control = CheckBoxGerarPDFMatricula
-              AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = CheckBoxGerarPDFMatricula
-              AnchorSideTop.Side = asrCenter
-              Left = 88
-              Height = 20
-              Top = 34
-              Width = 20
-              AutoSize = True
-              Flat = True
-              Glyph.Data = {
-                36040000424D3604000000000000360000002800000010000000100000000100
-                2000000000000004000064000000640000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000055
-                55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
-                2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
-                2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
-                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
-                2AA92A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
-                2AA92A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
-                2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
-                2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
-                2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
-                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
-                2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
-                0000000000000000000000000000000000000000000000000000000000000055
-                55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000
-              }
-              OnClick = BtnPDFDirMatriculaClick
-            end
-            object BtnTIFDirMatricula: TSpeedButton
-              AnchorSideLeft.Control = CheckBoxGerarTIFMatricula
-              AnchorSideLeft.Side = asrBottom
-              AnchorSideTop.Control = CheckBoxGerarTIFMatricula
-              Left = 82
-              Height = 20
-              Top = 62
-              Width = 20
-              AutoSize = True
-              Flat = True
-              Glyph.Data = {
-                36040000424D3604000000000000360000002800000010000000100000000100
-                2000000000000004000064000000640000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000055
-                55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
-                2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
-                2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
-                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
-                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
-                2AA92A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
-                2AA92A802CAA0000000000000000000000000000000000000000000000000000
-                00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
-                2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
-                2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
-                2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
-                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
-                2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
-                0000000000000000000000000000000000000000000000000000000000000055
-                55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000000000000000
-                0000000000000000000000000000000000000000000000000000
-              }
-              OnClick = BtnTIFDirMatriculaClick
-            end
-          end
           object BtnExecutarMatricula: TSpeedButton
             AnchorSideLeft.Control = TabSheet2
             AnchorSideBottom.Control = TabSheet2
             AnchorSideBottom.Side = asrBottom
             Left = 8
             Height = 22
-            Top = 500
+            Top = 464
             Width = 79
             Anchors = [akLeft, akBottom]
             AutoSize = True
@@ -2158,20 +1872,432 @@ object Principal: TPrincipal
             AnchorSideBottom.Side = asrBottom
             Left = 87
             Height = 18
-            Top = 502
-            Width = 250
+            Top = 466
+            Width = 207
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Right = 8
             Color = 26112
             ParentColor = False
-            TabOrder = 2
+            TabOrder = 1
             Visible = False
+          end
+          object Panel3: TPanel
+            AnchorSideLeft.Control = TabSheet2
+            AnchorSideTop.Control = CampoNumeroMatricula
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = TabSheet2
+            AnchorSideRight.Side = asrBottom
+            AnchorSideBottom.Control = BtnExecutarMatricula
+            Left = 8
+            Height = 402
+            Top = 54
+            Width = 286
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            BorderSpacing.Around = 8
+            BevelOuter = bvNone
+            BorderWidth = 1
+            BorderStyle = bsSingle
+            ClientHeight = 398
+            ClientWidth = 282
+            Color = clNone
+            ParentColor = False
+            TabOrder = 2
+            object CheckBoxEnviarNuvem: TCheckBox
+              AnchorSideTop.Control = CheckBoxApagarImagensMatricula
+              AnchorSideTop.Side = asrBottom
+              Left = 8
+              Height = 19
+              Top = 287
+              Width = 121
+              BorderSpacing.Around = 8
+              Caption = 'Backup em Nuvem'
+              Checked = True
+              Enabled = False
+              State = cbChecked
+              TabOrder = 0
+            end
+            object CheckBoxApagarImagensMatricula: TCheckBox
+              AnchorSideTop.Control = CheckBoxGerarTIFMatricula
+              AnchorSideTop.Side = asrBottom
+              Left = 8
+              Height = 19
+              Top = 260
+              Width = 106
+              BorderSpacing.Around = 8
+              Caption = 'Apagar Imagens'
+              Checked = True
+              State = cbChecked
+              TabOrder = 1
+            end
+            object CheckBoxGerarTIFMatricula: TCheckBox
+              AnchorSideTop.Control = CheckBoxGerarPDFMatricula
+              AnchorSideTop.Side = asrBottom
+              Left = 8
+              Height = 19
+              Top = 233
+              Width = 66
+              BorderSpacing.Around = 8
+              Caption = 'Gerar TIF'
+              Checked = True
+              State = cbChecked
+              TabOrder = 2
+            end
+            object BtnTIFDirMatricula: TSpeedButton
+              AnchorSideLeft.Control = CheckBoxGerarTIFMatricula
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = CheckBoxGerarTIFMatricula
+              Left = 82
+              Height = 20
+              Top = 233
+              Width = 20
+              AutoSize = True
+              Flat = True
+              Glyph.Data = {
+                36040000424D3604000000000000360000002800000010000000100000000100
+                2000000000000004000064000000640000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
+                2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
+                2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
+                2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
+                2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000
+              }
+              OnClick = BtnTIFDirMatriculaClick
+            end
+            object CheckBoxGerarPDFMatricula: TCheckBox
+              AnchorSideTop.Control = CheckBoxGerarRARMatricula
+              AnchorSideTop.Side = asrBottom
+              Left = 8
+              Height = 19
+              Top = 206
+              Width = 72
+              BorderSpacing.Around = 8
+              Caption = 'Gerar PDF'
+              Checked = True
+              State = cbChecked
+              TabOrder = 3
+            end
+            object BtnPDFDirMatricula: TSpeedButton
+              AnchorSideLeft.Control = CheckBoxGerarPDFMatricula
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = CheckBoxGerarPDFMatricula
+              AnchorSideTop.Side = asrCenter
+              Left = 88
+              Height = 20
+              Top = 205
+              Width = 20
+              AutoSize = True
+              Flat = True
+              Glyph.Data = {
+                36040000424D3604000000000000360000002800000010000000100000000100
+                2000000000000004000064000000640000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
+                2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
+                2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
+                2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
+                2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000
+              }
+              OnClick = BtnPDFDirMatriculaClick
+            end
+            object BtnRARDirMatricula: TSpeedButton
+              AnchorSideLeft.Control = CheckBoxGerarRARMatricula
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = CheckBoxGerarRARMatricula
+              AnchorSideBottom.Control = CheckBoxGerarRARMatricula
+              AnchorSideBottom.Side = asrBottom
+              Left = 90
+              Height = 20
+              Top = 179
+              Width = 20
+              AutoSize = True
+              Flat = True
+              Glyph.Data = {
+                36040000424D3604000000000000360000002800000010000000100000000100
+                2000000000000004000064000000640000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
+                2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
+                2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
+                2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
+                2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000
+              }
+              OnClick = BtnRARDirMatriculaClick
+            end
+            object CheckBoxGerarRARMatricula: TCheckBox
+              AnchorSideLeft.Control = Panel3
+              AnchorSideTop.Control = PanelCortarImagem
+              AnchorSideTop.Side = asrBottom
+              AnchorSideBottom.Side = asrBottom
+              Left = 9
+              Height = 19
+              Top = 179
+              Width = 73
+              BorderSpacing.Around = 8
+              Caption = 'Gerar RAR'
+              Checked = True
+              Color = clNone
+              DoubleBuffered = True
+              Font.Color = clMenuHighlight
+              ParentColor = False
+              ParentDoubleBuffered = False
+              ParentFont = False
+              ParentShowHint = False
+              ParentBidiMode = False
+              State = cbChecked
+              TabOrder = 4
+            end
+            object LabelRarMatricula: TLabel
+              AnchorSideLeft.Control = BtnRARDirMatricula
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = BtnRARDirMatricula
+              AnchorSideTop.Side = asrCenter
+              Left = 118
+              Height = 1
+              Top = 189
+              Width = 1
+              BorderSpacing.Around = 8
+              ParentColor = False
+            end
+            object LabelPDFMatricula: TLabel
+              AnchorSideLeft.Control = BtnPDFDirMatricula
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = BtnPDFDirMatricula
+              AnchorSideTop.Side = asrCenter
+              Left = 116
+              Height = 1
+              Top = 215
+              Width = 1
+              BorderSpacing.Around = 8
+              ParentColor = False
+            end
+            object LabelTIFMatricula: TLabel
+              AnchorSideLeft.Control = BtnTIFDirMatricula
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = BtnTIFDirMatricula
+              AnchorSideTop.Side = asrCenter
+              Left = 110
+              Height = 1
+              Top = 243
+              Width = 1
+              BorderSpacing.Around = 8
+              ParentColor = False
+            end
+            object PanelCortarImagem: TPanel
+              AnchorSideLeft.Control = Panel3
+              AnchorSideTop.Control = Panel3
+              AnchorSideRight.Control = Panel3
+              AnchorSideRight.Side = asrBottom
+              Left = 9
+              Height = 162
+              Top = 9
+              Width = 264
+              Anchors = [akTop, akLeft, akRight]
+              BorderSpacing.Around = 8
+              BevelOuter = bvNone
+              BorderWidth = 1
+              BorderStyle = bsSingle
+              ClientHeight = 158
+              ClientWidth = 260
+              TabOrder = 5
+              object LabelXFinal: TLabel
+                AnchorSideLeft.Control = EditTamanhoXMatricula
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = EditDeslocamentoXMatricula
+                AnchorSideTop.Side = asrBottom
+                Left = 97
+                Height = 15
+                Top = 90
+                Width = 86
+                BorderSpacing.Around = 8
+                Caption = 'Deslocamento Y'
+                ParentColor = False
+              end
+              object EditDeslocamentoYMatricula: TEdit
+                AnchorSideLeft.Control = LabelXFinal
+                AnchorSideTop.Control = LabelXFinal
+                AnchorSideTop.Side = asrBottom
+                Left = 97
+                Height = 23
+                Top = 113
+                Width = 80
+                BorderSpacing.Top = 8
+                NumbersOnly = True
+                TabOrder = 0
+                Text = '50'
+              end
+              object LabelXInicial: TLabel
+                AnchorSideLeft.Control = PanelCortarImagem
+                AnchorSideTop.Control = CheckBoxCortarImagenMatricula
+                AnchorSideTop.Side = asrBottom
+                Left = 9
+                Height = 15
+                Top = 36
+                Width = 59
+                BorderSpacing.Around = 8
+                Caption = 'Tamanho X'
+                ParentColor = False
+              end
+              object EditTamanhoXMatricula: TEdit
+                AnchorSideLeft.Control = PanelCortarImagem
+                AnchorSideTop.Control = LabelXInicial
+                AnchorSideTop.Side = asrBottom
+                Left = 9
+                Height = 23
+                Top = 59
+                Width = 80
+                BorderSpacing.Around = 8
+                NumbersOnly = True
+                TabOrder = 1
+                Text = '0'
+              end
+              object LabelYInicial: TLabel
+                AnchorSideLeft.Control = EditTamanhoXMatricula
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = CheckBoxCortarImagenMatricula
+                AnchorSideTop.Side = asrBottom
+                Left = 97
+                Height = 15
+                Top = 36
+                Width = 86
+                BorderSpacing.Around = 8
+                Caption = 'Deslocamento X'
+                ParentColor = False
+              end
+              object LabelYFinal: TLabel
+                AnchorSideLeft.Control = PanelCortarImagem
+                AnchorSideTop.Control = EditTamanhoXMatricula
+                AnchorSideTop.Side = asrBottom
+                Left = 9
+                Height = 15
+                Top = 90
+                Width = 59
+                BorderSpacing.Around = 8
+                Caption = 'Tamanho Y'
+                ParentColor = False
+              end
+              object EditDeslocamentoXMatricula: TEdit
+                AnchorSideLeft.Control = EditTamanhoXMatricula
+                AnchorSideLeft.Side = asrBottom
+                AnchorSideTop.Control = LabelYInicial
+                AnchorSideTop.Side = asrBottom
+                Left = 97
+                Height = 23
+                Top = 59
+                Width = 80
+                BorderSpacing.Around = 8
+                TabOrder = 2
+                Text = '0'
+              end
+              object EditTamanhoYMatricula: TEdit
+                AnchorSideLeft.Control = LabelYFinal
+                AnchorSideTop.Control = LabelYFinal
+                AnchorSideTop.Side = asrBottom
+                Left = 9
+                Height = 23
+                Top = 113
+                Width = 80
+                TabOrder = 3
+                Text = '2500'
+              end
+              object CheckBoxCortarImagenMatricula: TCheckBox
+                AnchorSideLeft.Control = PanelCortarImagem
+                AnchorSideTop.Control = PanelCortarImagem
+                Left = 9
+                Height = 19
+                Top = 9
+                Width = 100
+                BorderSpacing.Around = 8
+                Caption = 'Cortar Imagem'
+                Checked = True
+                State = cbChecked
+                TabOrder = 4
+              end
+            end
           end
         end
         object TabSheet3: TTabSheet
           Caption = 'Auxiliar'
-          ClientHeight = 526
-          ClientWidth = 345
+          ClientHeight = 490
+          ClientWidth = 305
           object LabelNumeroAuxiliar: TLabel
             AnchorSideLeft.Control = TabSheet3
             AnchorSideTop.Control = TabSheet3
@@ -2205,23 +2331,24 @@ object Principal: TPrincipal
             AnchorSideBottom.Control = TabSheet3
             AnchorSideBottom.Side = asrBottom
             Left = 8
-            Height = 436
+            Height = 400
             Top = 54
-            Width = 329
+            Width = 289
             HorzScrollBar.Page = 181
-            VertScrollBar.Page = 89
+            VertScrollBar.Page = 116
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Bottom = 28
             BorderSpacing.Around = 8
-            ClientHeight = 432
-            ClientWidth = 325
+            ClientHeight = 396
+            ClientWidth = 285
             TabOrder = 1
             object CheckBoxGerarPDFAuxiliar: TCheckBox
               AnchorSideLeft.Control = ScrollBox2
-              AnchorSideTop.Control = ScrollBox2
+              AnchorSideTop.Control = CheckBoxGerarRARAuxiliar
+              AnchorSideTop.Side = asrBottom
               Left = 8
               Height = 19
-              Top = 8
+              Top = 35
               Width = 72
               BorderSpacing.Around = 8
               Caption = 'Gerar PDF'
@@ -2235,7 +2362,7 @@ object Principal: TPrincipal
               AnchorSideTop.Side = asrBottom
               Left = 8
               Height = 19
-              Top = 35
+              Top = 62
               Width = 106
               BorderSpacing.Around = 8
               Caption = 'Apagar Imagens'
@@ -2249,7 +2376,7 @@ object Principal: TPrincipal
               AnchorSideTop.Side = asrBottom
               Left = 8
               Height = 19
-              Top = 62
+              Top = 89
               Width = 121
               BorderSpacing.Around = 8
               Caption = 'Backup em Nuvem'
@@ -2265,7 +2392,7 @@ object Principal: TPrincipal
               AnchorSideTop.Side = asrCenter
               Left = 88
               Height = 20
-              Top = 7
+              Top = 34
               Width = 20
               AutoSize = True
               Flat = True
@@ -2314,11 +2441,87 @@ object Principal: TPrincipal
               AnchorSideTop.Side = asrCenter
               Left = 116
               Height = 1
-              Top = 17
+              Top = 44
               Width = 65
               AutoSize = True
               BorderSpacing.Left = 8
               TabOrder = 3
+            end
+            object CheckBoxGerarRARAuxiliar: TCheckBox
+              AnchorSideLeft.Control = ScrollBox2
+              AnchorSideTop.Control = ScrollBox2
+              Left = 8
+              Height = 19
+              Top = 8
+              Width = 73
+              BorderSpacing.Around = 8
+              Caption = 'Gerar RAR'
+              Checked = True
+              State = cbChecked
+              TabOrder = 4
+            end
+            object BtnRARDirAuxiliar: TSpeedButton
+              AnchorSideLeft.Control = CheckBoxGerarRARAuxiliar
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = CheckBoxGerarRARAuxiliar
+              AnchorSideTop.Side = asrCenter
+              Left = 89
+              Height = 20
+              Top = 7
+              Width = 20
+              AutoSize = True
+              Color = clNone
+              Flat = True
+              Glyph.Data = {
+                36040000424D3604000000000000360000002800000010000000100000000100
+                2000000000000004000064000000640000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
+                2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
+                2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
+                2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
+                2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000
+              }
+              Transparent = False
+              OnClick = BtnRARDirAuxiliarClick
+            end
+            object LabelRARAuxiliar: TLabel
+              AnchorSideLeft.Control = BtnRARDirAuxiliar
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = CheckBoxGerarRARAuxiliar
+              AnchorSideTop.Side = asrCenter
+              Left = 117
+              Height = 1
+              Top = 17
+              Width = 1
+              BorderSpacing.Around = 8
+              ParentColor = False
             end
           end
           object BtnExecutarAuxiliar: TSpeedButton
@@ -2327,7 +2530,7 @@ object Principal: TPrincipal
             AnchorSideBottom.Side = asrBottom
             Left = 8
             Height = 22
-            Top = 500
+            Top = 464
             Width = 79
             Anchors = [akLeft, akBottom]
             AutoSize = True
@@ -2520,8 +2723,8 @@ object Principal: TPrincipal
             AnchorSideRight.Side = asrBottom
             Left = 87
             Height = 18
-            Top = 502
-            Width = 250
+            Top = 466
+            Width = 210
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Right = 8
             ParentColor = False
@@ -2529,12 +2732,556 @@ object Principal: TPrincipal
             Visible = False
           end
         end
+        object TabSheet7: TTabSheet
+          Caption = 'Livro'
+          ClientHeight = 490
+          ClientWidth = 305
+          object Label7: TLabel
+            AnchorSideLeft.Control = EditLivroFolha
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = ComboTipoLivro
+            AnchorSideTop.Side = asrBottom
+            Left = 136
+            Height = 15
+            Top = 100
+            Width = 37
+            BorderSpacing.Left = 8
+            BorderSpacing.Top = 8
+            Caption = 'Anexo:'
+            ParentColor = False
+          end
+          object ComboLivroAnexo: TComboBox
+            AnchorSideLeft.Control = Label7
+            AnchorSideTop.Control = Label7
+            AnchorSideTop.Side = asrBottom
+            Left = 136
+            Height = 23
+            Top = 115
+            Width = 100
+            ItemHeight = 15
+            Items.Strings = (
+              'A'
+              'B'
+              'C'
+              'D'
+              'E'
+              'F'
+              'G'
+              'H'
+              'I'
+              'J'
+              'K'
+              'L'
+              'M'
+              'N'
+              'O'
+              'P'
+              'Q'
+              'R'
+              'S'
+              'T'
+              'U'
+              'V'
+              'W'
+              'X'
+              'Y'
+              'Z'
+            )
+            TabOrder = 0
+          end
+          object Label6: TLabel
+            AnchorSideLeft.Control = TabSheet7
+            AnchorSideTop.Control = ComboLivro
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 15
+            Top = 54
+            Width = 116
+            BorderSpacing.Left = 8
+            BorderSpacing.Top = 8
+            Caption = 'Tipo da digitalização*:'
+            ParentColor = False
+          end
+          object ComboTipoLivro: TComboBox
+            AnchorSideLeft.Control = TabSheet7
+            AnchorSideTop.Control = Label6
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 23
+            Top = 69
+            Width = 120
+            BorderSpacing.Left = 8
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              'Folha'
+              'Abertura'
+              'Fechamento'
+            )
+            OnChange = ComboTipoLivroChange
+            TabOrder = 1
+            Text = 'Folha'
+          end
+          object Label5: TLabel
+            AnchorSideLeft.Control = TabSheet7
+            AnchorSideTop.Control = ComboTipoLivro
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 15
+            Top = 100
+            Width = 68
+            BorderSpacing.Left = 8
+            BorderSpacing.Top = 8
+            Caption = 'N° da folha*:'
+            ParentColor = False
+          end
+          object EditLivroFolha: TEdit
+            AnchorSideLeft.Control = TabSheet7
+            AnchorSideTop.Control = Label5
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 23
+            Top = 115
+            Width = 120
+            BorderSpacing.Left = 8
+            TabOrder = 2
+          end
+          object Label4: TLabel
+            AnchorSideLeft.Control = TabSheet7
+            AnchorSideTop.Control = TabSheet7
+            Left = 8
+            Height = 15
+            Top = 8
+            Width = 34
+            BorderSpacing.Left = 8
+            BorderSpacing.Top = 8
+            BorderSpacing.Right = 8
+            Caption = 'Livro*:'
+            ParentColor = False
+          end
+          object ComboLivro: TComboBox
+            AnchorSideLeft.Control = TabSheet7
+            AnchorSideTop.Control = Label4
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Side = asrBottom
+            Left = 8
+            Height = 23
+            Top = 23
+            Width = 289
+            Anchors = [akTop, akLeft, akRight]
+            AutoSize = False
+            BorderSpacing.Left = 8
+            BorderSpacing.Right = 8
+            ItemHeight = 15
+            Items.Strings = (
+              '2A'
+              '2B'
+              '2C'
+              '2D'
+              '3A'
+              '3B'
+              '3C'
+              '3D'
+              '3E'
+              '3F'
+              '3G'
+              '3H'
+              '3I'
+              '3J'
+              '3K'
+              '3L'
+              '3M'
+              '3N'
+              '3O'
+              '3P'
+              '3Q'
+              '3R'
+              '3S'
+              '3T'
+              '3U'
+              '3X'
+              '3Y'
+              '3Z'
+              '3AA'
+              '3AB'
+              '3AC'
+              '3AD'
+              '3AE'
+              '3AF'
+              '3AG'
+              '3AH'
+              '3AI'
+              '3AJ'
+              '3AK'
+              '3AL'
+              '3AM'
+              '3AN'
+              '3AO'
+              '3AP'
+              '3AQ'
+              'I - DE RCCR - 1-48-1969-1970'
+              'I - DE RCCR - 1-170-1967-1970'
+              'Livro 4 Div - 1'
+              'Livro 4 Div - 2'
+              'Livro 4 Div - 3'
+              'Livro 4 Div - 4'
+              'Livro 4 Div - 5'
+              'Livro 4 Div - 6'
+              'Livro 9 RCCR - PIG'
+              'Livro 10 RCCR - PIG'
+              'Livro Aux. n 01-01-02 1975-1975'
+              'Livro de Averbacoes n 01'
+              'Livro de Estrangeiro'
+              'Livro de Inscricao Especial N01'
+              'Livro de Inscricao Especial N02'
+              'Livro de Loteamento 8'
+              'Livro RCCR - PIG'
+            )
+            TabOrder = 3
+          end
+          object Panel1: TPanel
+            AnchorSideLeft.Control = TabSheet7
+            AnchorSideTop.Control = ComboLivroAnexo
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = TabSheet7
+            AnchorSideRight.Side = asrBottom
+            AnchorSideBottom.Control = TabSheet7
+            AnchorSideBottom.Side = asrBottom
+            Left = 8
+            Height = 308
+            Top = 146
+            Width = 289
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            BorderSpacing.Bottom = 28
+            BorderSpacing.Around = 8
+            BevelOuter = bvNone
+            BorderStyle = bsSingle
+            ClientHeight = 304
+            ClientWidth = 285
+            Color = clNone
+            ParentColor = False
+            TabOrder = 4
+            object CheckBoxGerarPDFLivro: TCheckBox
+              AnchorSideLeft.Control = Panel1
+              AnchorSideTop.Control = Panel1
+              Left = 8
+              Height = 19
+              Top = 8
+              Width = 72
+              BorderSpacing.Around = 8
+              Caption = 'Gerar PDF'
+              Checked = True
+              State = cbChecked
+              TabOrder = 0
+            end
+            object BtnPDFDirLivro: TSpeedButton
+              AnchorSideLeft.Control = CheckBoxGerarPDFLivro
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = CheckBoxGerarPDFLivro
+              AnchorSideTop.Side = asrCenter
+              Left = 88
+              Height = 20
+              Top = 7
+              Width = 20
+              AutoSize = True
+              BorderSpacing.Around = 8
+              Color = clNone
+              Flat = True
+              Glyph.Data = {
+                36040000424D3604000000000000360000002800000010000000100000000100
+                2000000000000004000064000000640000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032B802B482A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552B802B480055550300000000000000002980
+                2B822A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2B8100000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A80
+                2CAA2A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002A7F
+                2AA92A802CAA0000000000000000000000000000000000000000000000000000
+                00000000000000000000000000002A802CAA2A802CAA00000000000000002B80
+                2BA82A7F2CC72A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E2A552A7E
+                2A552A7E2A552A7E2A552A7E2A552A7F2CC72B7F2BA700000000000000002B80
+                2BA82A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+                2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BF32A7E2A4F00000000000000002A7F
+                2B812A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A802C80000000000000
+                0000000000000000000000000000000000000000000000000000000000000055
+                55032A7E2A492A7E2A552A7E2A552A7E2A552B7E2B4700000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000000000000000
+                0000000000000000000000000000000000000000000000000000
+              }
+              Transparent = False
+              OnClick = BtnPDFDirLivroClick
+            end
+            object LabelPDFLivro: TLabel
+              AnchorSideLeft.Control = BtnPDFDirLivro
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = BtnPDFDirLivro
+              AnchorSideTop.Side = asrCenter
+              Left = 116
+              Height = 1
+              Top = 17
+              Width = 1
+              ParentColor = False
+            end
+            object CheckBox1: TCheckBox
+              AnchorSideLeft.Control = Panel1
+              AnchorSideTop.Control = CheckBoxApagarImagensLivro
+              AnchorSideTop.Side = asrBottom
+              Left = 8
+              Height = 19
+              Top = 62
+              Width = 121
+              BorderSpacing.Around = 8
+              Caption = 'Backup em Nuvem'
+              Checked = True
+              Enabled = False
+              State = cbChecked
+              TabOrder = 1
+            end
+            object CheckBoxApagarImagensLivro: TCheckBox
+              AnchorSideLeft.Control = Panel1
+              AnchorSideTop.Control = CheckBoxGerarPDFLivro
+              AnchorSideTop.Side = asrBottom
+              Left = 8
+              Height = 19
+              Top = 35
+              Width = 106
+              BorderSpacing.Left = 8
+              BorderSpacing.Top = 8
+              Caption = 'Apagar Imagens'
+              Checked = True
+              State = cbChecked
+              TabOrder = 2
+            end
+          end
+          object BtnExecutarLivro: TSpeedButton
+            AnchorSideLeft.Control = TabSheet7
+            AnchorSideBottom.Control = TabSheet7
+            AnchorSideBottom.Side = asrBottom
+            Left = 8
+            Height = 22
+            Top = 464
+            Width = 79
+            Anchors = [akLeft, akBottom]
+            AutoSize = True
+            BorderSpacing.Left = 8
+            BorderSpacing.Top = 8
+            BorderSpacing.Bottom = 4
+            Color = clNone
+            Flat = True
+            Glyph.Data = {
+              4E150000424D4E1500000000000036000000280000004B000000120000000100
+              20000000000018150000640000006400000000000000000000002A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F
+              2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EF
+              EAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F
+              2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F
+              2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F
+              2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F
+              2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EF
+              EAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EF
+              EAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFFE4EF
+              EAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EF
+              EAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F
+              2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F
+              2BFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EF
+              EAFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EF
+              EAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F
+              2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F
+              2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFF2A7F2BFF2A7F2BFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EFEAFFE4EF
+              EAFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F
+              2BFF2A7F2BFF2A7F2BFF2A7F2BFF2A7F2BFF
+            }
+            Transparent = False
+            OnClick = BtnExecutarLivroClick
+          end
+          object ProgressBarLivro: TProgressBar
+            AnchorSideLeft.Control = BtnExecutarLivro
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = BtnExecutarLivro
+            AnchorSideTop.Side = asrCenter
+            AnchorSideRight.Control = TabSheet7
+            AnchorSideRight.Side = asrBottom
+            Left = 87
+            Height = 20
+            Top = 465
+            Width = 210
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Right = 8
+            TabOrder = 5
+            Visible = False
+          end
+        end
       end
     end
     object TabConferencia: TTabSheet
       Caption = 'Conferência do Backup'
-      ClientHeight = 570
-      ClientWidth = 793
+      ClientHeight = 630
+      ClientWidth = 1008
       object Local: TPageControl
         AnchorSideLeft.Control = TabConferencia
         AnchorSideTop.Control = TabConferencia
@@ -2543,9 +3290,9 @@ object Principal: TPrincipal
         AnchorSideBottom.Control = TabConferencia
         AnchorSideBottom.Side = asrBottom
         Left = 8
-        Height = 554
+        Height = 614
         Top = 8
-        Width = 777
+        Width = 992
         ActivePage = TabSheet5
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
@@ -2553,8 +3300,8 @@ object Principal: TPrincipal
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Nuvem x Local'
-          ClientHeight = 526
-          ClientWidth = 769
+          ClientHeight = 586
+          ClientWidth = 984
           object BtnConsultarNuvemXLocal: TSpeedButton
             AnchorSideLeft.Control = TabSheet5
             AnchorSideTop.Control = Label1
@@ -2752,14 +3499,14 @@ object Principal: TPrincipal
             AnchorSideBottom.Control = TabSheet5
             AnchorSideBottom.Side = asrBottom
             Left = 8
-            Height = 457
+            Height = 517
             Top = 61
-            Width = 753
+            Width = 968
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Around = 8
             Caption = 'Resultado'
-            ClientHeight = 437
-            ClientWidth = 749
+            ClientHeight = 497
+            ClientWidth = 964
             TabOrder = 0
             object Memo: TMemo
               AnchorSideLeft.Control = GroupBox1
@@ -2769,9 +3516,9 @@ object Principal: TPrincipal
               AnchorSideBottom.Control = GroupBox1
               AnchorSideBottom.Side = asrBottom
               Left = 0
-              Height = 437
+              Height = 497
               Top = 0
-              Width = 749
+              Width = 964
               Anchors = [akTop, akLeft, akRight, akBottom]
               TabOrder = 0
             end
@@ -2790,8 +3537,8 @@ object Principal: TPrincipal
         end
         object TabSheet4: TTabSheet
           Caption = 'Local'
-          ClientHeight = 526
-          ClientWidth = 769
+          ClientHeight = 586
+          ClientWidth = 984
           object BtnConsultarLocal: TSpeedButton
             AnchorSideLeft.Control = TabSheet4
             AnchorSideTop.Control = Label2
@@ -3000,14 +3747,14 @@ object Principal: TPrincipal
             AnchorSideBottom.Control = TabSheet4
             AnchorSideBottom.Side = asrBottom
             Left = 8
-            Height = 457
+            Height = 517
             Top = 61
-            Width = 753
+            Width = 968
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Around = 8
             Caption = 'Resultado'
-            ClientHeight = 437
-            ClientWidth = 749
+            ClientHeight = 497
+            ClientWidth = 964
             TabOrder = 0
             object MemoLocal: TMemo
               AnchorSideLeft.Control = GroupBox2
@@ -3017,9 +3764,9 @@ object Principal: TPrincipal
               AnchorSideBottom.Control = GroupBox2
               AnchorSideBottom.Side = asrBottom
               Left = 0
-              Height = 437
+              Height = 497
               Top = 0
-              Width = 749
+              Width = 964
               Anchors = [akTop, akLeft, akRight, akBottom]
               TabOrder = 0
             end
@@ -3027,8 +3774,8 @@ object Principal: TPrincipal
         end
         object TabSheet6: TTabSheet
           Caption = 'Backup Manual'
-          ClientHeight = 526
-          ClientWidth = 769
+          ClientHeight = 586
+          ClientWidth = 984
           object BtnBackupManual: TSpeedButton
             AnchorSideLeft.Control = TabSheet6
             AnchorSideTop.Control = Label3
@@ -3237,14 +3984,14 @@ object Principal: TPrincipal
             AnchorSideBottom.Control = TabSheet6
             AnchorSideBottom.Side = asrBottom
             Left = 8
-            Height = 457
+            Height = 517
             Top = 61
-            Width = 753
+            Width = 968
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Around = 8
             Caption = 'Resultado'
-            ClientHeight = 437
-            ClientWidth = 749
+            ClientHeight = 497
+            ClientWidth = 964
             TabOrder = 0
             object MemoBackupManual: TMemo
               AnchorSideLeft.Control = GroupBox3
@@ -3254,9 +4001,9 @@ object Principal: TPrincipal
               AnchorSideBottom.Control = GroupBox3
               AnchorSideBottom.Side = asrBottom
               Left = 0
-              Height = 437
+              Height = 497
               Top = 0
-              Width = 749
+              Width = 964
               Anchors = [akTop, akLeft, akRight, akBottom]
               TabOrder = 0
             end
@@ -3265,16 +4012,16 @@ object Principal: TPrincipal
       end
     end
   end
-  object DirectoryRARMatricula: TSelectDirectoryDialog
-    Left = 688
+  object DiretorioRARMatricula: TSelectDirectoryDialog
+    Left = 552
     Top = 8
   end
-  object DirectoryPDFMatricula: TSelectDirectoryDialog
-    Left = 656
+  object DiretorioPDFMatricula: TSelectDirectoryDialog
+    Left = 520
     Top = 8
   end
-  object DirectoryTIFMatricula: TSelectDirectoryDialog
-    Left = 624
+  object DiretorioTIFMatricula: TSelectDirectoryDialog
+    Left = 488
     Top = 8
   end
   object FormStorage: TIniPropStorage
@@ -3290,10 +4037,16 @@ object Principal: TPrincipal
       end    
       item
         Name = 'DiretorioPDFAuxiliar'
+      end    
+      item
+        Name = 'DiretorioRARAuxiliar'
+      end    
+      item
+        Name = 'DiretorioPDFLivro'
       end>
     IniFileName = 'config.ini'
     IniSection = 'diretorios'
-    Left = 752
+    Left = 680
     Top = 8
   end
   object ConfigStorage: TIniPropStorage
@@ -3319,19 +4072,19 @@ object Principal: TPrincipal
       end>
     IniFileName = 'config.ini'
     IniSection = 'config'
-    Left = 784
+    Left = 712
     Top = 8
   end
-  object DirectoryPDFAuxiliar: TSelectDirectoryDialog
-    Left = 720
+  object DiretorioPDFAuxiliar: TSelectDirectoryDialog
+    Left = 584
     Top = 8
   end
   object DialogoImagens: TOpenDialog
     Title = 'Abrir arquivos'
     DefaultExt = '.png'
-    Filter = 'Imagens|*.jpg; *.png; *.jpeg; *.bitmap; *.bmp'
-    Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
-    Left = 592
+    Filter = 'Imagens|*.jpg; *.png; *.bmp'
+    Options = [ofAllowMultiSelect, ofEnableSizing]
+    Left = 456
     Top = 8
   end
   object MySQL: TMySQL55Connection
@@ -3347,19 +4100,27 @@ object Principal: TPrincipal
     UserName = 'root'
     HostName = '127.0.0.1'
     SkipLibraryVersionCheck = False
-    Left = 560
+    Left = 424
     Top = 8
   end
   object SQLTransaction: TSQLTransaction
     Active = False
     Database = MySQL
-    Left = 528
+    Left = 360
     Top = 8
   end
   object SQLQuery: TSQLQuery
     FieldDefs = <>
     Params = <>
-    Left = 496
+    Left = 392
+    Top = 8
+  end
+  object DiretorioRARAuxiliar: TSelectDirectoryDialog
+    Left = 616
+    Top = 8
+  end
+  object DiretorioPDFLivro: TSelectDirectoryDialog
+    Left = 648
     Top = 8
   end
 end

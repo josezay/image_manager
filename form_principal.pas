@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   Buttons, StdCtrls, IniPropStorage, Menus, FileUtil, SynEdit, RTTICtrls,
-  form_config, mysql55conn, SQLDB;
+  form_config, mysql55conn, SQLDB, Types;
 
 type
 
@@ -15,18 +15,34 @@ type
 
   TPrincipal = class(TForm)
     BarraDeStatus: TStatusBar;
+    BtnPDFDirMatricula: TSpeedButton;
+    BtnRARDirMatricula: TSpeedButton;
+    BtnTIFDirMatricula: TSpeedButton;
     CampoNumeroMatricula: TEdit;
+    CheckBox1: TCheckBox;
+    CheckBoxApagarImagensLivro: TCheckBox;
+    CheckBoxApagarImagensMatricula: TCheckBox;
+    CheckBoxCortarImagenMatricula: TCheckBox;
+    CheckBoxEnviarNuvem: TCheckBox;
+    CheckBoxGerarPDFLivro: TCheckBox;
+    CheckBoxGerarPDFMatricula: TCheckBox;
+    CheckBoxGerarRARAuxiliar: TCheckBox;
     CheckBoxApagarImagensAuxiliar: TCheckBox;
     CheckBoxBackupAuxiliar: TCheckBox;
     CheckBoxGerarPDFAuxiliar: TCheckBox;
-    CheckBoxApagarImagensMatricula: TCheckBox;
     CheckBoxGerarRARMatricula: TCheckBox;
-    CheckBoxEnviarNuvem: TCheckBox;
-    CheckBoxGerarPDFMatricula: TCheckBox;
     CheckBoxGerarTIFMatricula: TCheckBox;
+    ComboLivroAnexo: TComboBox;
+    ComboTipoLivro: TComboBox;
+    ComboLivro: TComboBox;
     ConfigStorage: TIniPropStorage;
     CampoNumeroAuxiliar: TEdit;
     DialogoImagens: TOpenDialog;
+    EditTamanhoYMatricula: TEdit;
+    EditDeslocamentoXMatricula: TEdit;
+    EditLivroFolha: TEdit;
+    EditDeslocamentoYMatricula: TEdit;
+    EditTamanhoXMatricula: TEdit;
     FormStorage: TIniPropStorage;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
@@ -34,12 +50,22 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    LabelNumeroAuxiliar: TLabel;
-    LabelPDFMatricula: TLabel;
-    LabelRARMatricula: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    LabelYFinal: TLabel;
+    LabelYInicial: TLabel;
+    LabelXFinal: TLabel;
     LabelTIFMatricula: TLabel;
+    LabelPDFMatricula: TLabel;
+    LabelRarMatricula: TLabel;
+    LabelPDFLivro: TLabel;
+    LabelRARAuxiliar: TLabel;
+    LabelNumeroAuxiliar: TLabel;
     LabelListaArquivos: TLabel;
     LabelNumeroMatricula: TLabel;
+    LabelXInicial: TLabel;
     ListaArquivos: TListBox;
     Memo: TMemo;
     MemoBackupManual: TMemo;
@@ -49,28 +75,33 @@ type
     PageControl2: TPageControl;
     Local: TPageControl;
     PainelImagens: TPanel;
+    Panel1: TPanel;
+    PanelCortarImagem: TPanel;
+    Panel3: TPanel;
+    ProgressBarLivro: TProgressBar;
     ProgressBarAuxiliar: TProgressBar;
     ProgressBarMatricula: TProgressBar;
-    ScrollBox1: TScrollBox;
     MenuToolBar: TToolBar;
     ScrollBox2: TScrollBox;
-    DirectoryPDFMatricula: TSelectDirectoryDialog;
-    DirectoryRARMatricula: TSelectDirectoryDialog;
-    DirectoryTIFMatricula: TSelectDirectoryDialog;
+    DiretorioPDFMatricula: TSelectDirectoryDialog;
+    DiretorioRARMatricula: TSelectDirectoryDialog;
+    DiretorioTIFMatricula: TSelectDirectoryDialog;
     BtnSair: TSpeedButton;
-    BtnRARDirMatricula: TSpeedButton;
     BtnAbrirImagem: TSpeedButton;
-    BtnPDFDirMatricula: TSpeedButton;
-    BtnTIFDirMatricula: TSpeedButton;
     BtnExecutarMatricula: TSpeedButton;
     BtnConfig: TSpeedButton;
     BtnExecutarAuxiliar: TSpeedButton;
     BtnPDFDirAuxiliar: TSpeedButton;
     LabelPDFAuxiliar: TStaticText;
-    DirectoryPDFAuxiliar: TSelectDirectoryDialog;
+    DiretorioPDFAuxiliar: TSelectDirectoryDialog;
     BtnConsultarNuvemXLocal: TSpeedButton;
     BtnConsultarLocal: TSpeedButton;
     BtnBackupManual: TSpeedButton;
+    DiretorioRARAuxiliar: TSelectDirectoryDialog;
+    BtnRARDirAuxiliar: TSpeedButton;
+    BtnPDFDirLivro: TSpeedButton;
+    DiretorioPDFLivro: TSelectDirectoryDialog;
+    BtnExecutarLivro: TSpeedButton;
     SQLQuery: TSQLQuery;
     SQLTransaction: TSQLTransaction;
     TabSheet1: TTabSheet;
@@ -80,20 +111,25 @@ type
     TabSheet4: TTabSheet;
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
+    TabSheet7: TTabSheet;
     procedure BtnAbrirImagemClick(Sender: TObject);
     procedure BtnBackupManualClick(Sender: TObject);
     procedure BtnConsultarLocalClick(Sender: TObject);
     procedure BtnExecutarAuxiliarClick(Sender: TObject);
+    procedure BtnExecutarLivroClick(Sender: TObject);
     procedure BtnExecutarMatriculaClick(Sender: TObject);
     procedure BtnPDFDirAuxiliarClick(Sender: TObject);
+    procedure BtnPDFDirLivroClick(Sender: TObject);
     procedure BtnPDFDirMatriculaClick(Sender: TObject);
     procedure BtnRARDirMatriculaClick(Sender: TObject);
     procedure BtnTIFDirMatriculaClick(Sender: TObject);
+    procedure ComboTipoLivroChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BtnSairClick(Sender: TObject);
     procedure BtnConfigClick(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure BtnConsultarNuvemXLocalClick(Sender: TObject);
+    procedure BtnRARDirAuxiliarClick(Sender: TObject);
   private
 
   public
@@ -106,7 +142,7 @@ var
 
 implementation
 
-uses Matricula, Auxiliar, ConsultaNuvemLocal, ConsultaLocal, Biblio;
+uses Matricula, Auxiliar, Livro, ConsultaNuvemLocal, ConsultaLocal, Biblio;
 
 {$R *.lfm}
 
@@ -129,6 +165,7 @@ begin
 
     Matricula.Inicializar();
     Auxiliar.Inicializar();
+    Livro.Inicializar();
 end;
 
 // Ao clicar para sair
@@ -222,12 +259,32 @@ begin
     Auxiliar.PDFDir();
 end;
 
+procedure TPrincipal.BtnRARDirAuxiliarClick(Sender: TObject);
+begin
+    Auxiliar.RARDir();
+end;
+
 // Ao clicar para executar a conversão e backup do Auxiliar
 procedure TPrincipal.BtnExecutarAuxiliarClick(Sender: TObject);
 begin
     Auxiliar.Executar();
 end;
 
+//********** Eventos Livro *****************************************************
+procedure TPrincipal.BtnPDFDirLivroClick(Sender: TObject);
+begin
+    Livro.PDFDir();
+end;
+
+procedure TPrincipal.BtnExecutarLivroClick(Sender: TObject);
+begin
+    Livro.Executar();
+end;
+
+procedure TPrincipal.ComboTipoLivroChange(Sender: TObject);
+begin
+  Livro.TipoOnChange();
+end;
 //********* Eventos Conferência Backup *****************************************
 procedure TPrincipal.BtnConsultarNuvemXLocalClick(Sender: TObject);
 begin

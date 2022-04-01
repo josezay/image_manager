@@ -9,8 +9,8 @@ uses
 
   function sha256(S: String): String;
   function valida(Tipo: integer): boolean;
-  function geraRAR(Matricula: string): boolean;
-  function geraPDF(Numero: string; Tipo: integer): boolean;
+  function geraRAR(Numero: string; Tipo: integer): boolean;
+  function geraPDF(Nome: string; Tipo: integer): boolean;
   function sincronizaArquivo(Numero: string; Tipo: integer; Excluir: boolean): boolean;
   function ressincronizaArquivos(): boolean;
   function geraTIF(Matricula: string): boolean;
@@ -103,7 +103,7 @@ end;
 
 // Compacta arquivos
 // Somente tipo 2 gera RAR
-function geraRAR(Matricula: string): boolean;
+function geraRAR(Numero: string; Tipo: integer): boolean;
 var
     RunProgram: TProcess;
     I: integer;
@@ -112,7 +112,14 @@ begin
     RunProgram.Executable := 'bin/rar.exe';
     RunProgram.Parameters.Add('a');                                             // Compactar
     RunProgram.Parameters.Add('-ep1');                                          // Sem manter estrutura de arquivos
-    RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioRARMatricula'] + '/' + Matricula + '.rar"');
+    if (Tipo = 2) then
+    begin
+        RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioRARMatricula'] + '/' + Numero + '.rar"');
+    end
+    else
+    begin
+        RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioRARAuxiliar'] + '/' + Numero + '.rar"');
+    end;
 
     for I := Low(Imagens) to High(Imagens) do
     begin
@@ -130,9 +137,9 @@ begin
 end;
 
 // Gera PDF-A
-// Numero: Nome do PDF
+// Nome: Nome do PDF
 // Tipo: 2 se matrícula, 3 se auxiliar
-function geraPDF(Numero: string; Tipo: integer): boolean;
+function geraPDF(Nome: string; Tipo: integer): boolean;
 var
     RunProgram: TProcess;
     I: integer;
@@ -146,7 +153,17 @@ begin
         RunProgram.Parameters.Add(Imagens[I]);
     end;
 
-    RunProgram.Parameters.Add(Numero + '.pdf');
+    if (Tipo = 2) then
+    begin
+        if (Principal.CheckBoxCortarImagenMatricula.Checked) then
+        begin
+            RunProgram.Parameters.Add('-crop');
+            RunProgram.Parameters.Add(Principal.EditTamanhoXMatricula.Text + 'X' + Principal.EditTamanhoYMatricula.Text + '+' + Principal.EditDeslocamentoXMatricula.Text + '+' + Principal.EditDeslocamentoYMatricula.Text);
+            RunProgram.Parameters.Add('+repage');
+        end;
+    end;
+
+    RunProgram.Parameters.Add(Nome + '.pdf');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
@@ -166,32 +183,47 @@ begin
     RunProgram.Parameters.Add('-dCompatibilityLevel=1.7');
     RunProgram.Parameters.Add('-dPDFACompatibilityPolicy=2');
 
-    if (Tipo = 2) then
+    if (Tipo = 0) then                                                          // Se for livro.
     begin
-        RunProgram.Parameters.Add('-sOutputFile=' + '"' + Principal.FormStorage.StoredValue['DiretorioPDFMatricula'] + '\' + Numero + '.pdf"');
+        if not DirectoryExists(Principal.FormStorage.StoredValue['DiretorioPDFLivro'] + '\' + Principal.ComboLivro.Text + '\') then
+        begin
+            if not CreateDir(Principal.FormStorage.StoredValue['DiretorioPDFLivro'] + '\' + Principal.ComboLivro.Text + '\') then
+            begin
+                geraPDF := false;
+            end;
+        end;
+
+        RunProgram.Parameters.Add('-sOutputFile=' + '"' + Principal.FormStorage.StoredValue['DiretorioPDFLivro'] + '\' + Principal.ComboLivro.Text + '\' + Nome + '.pdf"');
     end;
 
-    if (Tipo = 3) then
+    if (Tipo = 2) then                                                          // Se for matrícula.
     begin
-        RunProgram.Parameters.Add('-sOutputFile=' + '"' + Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'] + '\' + Numero + '.pdf"');
+        RunProgram.Parameters.Add('-sOutputFile=' + '"' + Principal.FormStorage.StoredValue['DiretorioPDFMatricula'] + '\' + Nome + '.pdf"');
+    end;
+
+    if (Tipo = 3) then                                                          // Se for auxiliar.
+    begin
+        RunProgram.Parameters.Add('-sOutputFile=' + '"' + Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'] + '\' + Nome + '.pdf"');
     end;
 
     RunProgram.Parameters.Add('bin\PDFA_def.ps');
-    RunProgram.Parameters.Add(Numero + '.pdf');
+    RunProgram.Parameters.Add(Nome + '.pdf');
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
 
-    if (RunProgram.ExitCode = 0) then geraPDF:=true                             // Se ouve erro ao executar processo externo.
-    else geraPDF:=false;
+    if (RunProgram.ExitCode = 0) then
+        geraPDF := true                                                         // Se ouve erro ao executar processo externo.
+    else
+        geraPDF := false;
 
     RunProgram.Free;
 
-    sincronizaArquivo(Numero, Tipo, false);                                     // Sincroniza arquivo PDF-A com servidor
+    sincronizaArquivo(Nome, Tipo, false);                                       // Sincroniza arquivo PDF-A com servidor
 
-    if (FileExists(Numero + '.pdf')) then
+    if (FileExists(Nome + '.pdf')) then
     begin
-        DeleteFile(Numero + '.pdf')                                             // Deleta PDF normal temporário.
+        DeleteFile(Nome + '.pdf')                                               // Deleta PDF normal temporário.
     end;
 end;
 
@@ -201,6 +233,11 @@ var
     Respo: TStringStream;
     S, Arquivo: string;
 begin
+    if (Tipo = 0) then
+    begin
+        Arquivo := StringReplace(Principal.FormStorage.StoredValue['DiretorioPDFLivro'], '\', '/', [rfReplaceAll]) + '/' + Principal.ComboLivro.Text + '/' + Numero + '.pdf';
+    end;
+
     if (Tipo = 2) then
     begin
         Arquivo := StringReplace(Principal.FormStorage.StoredValue['DiretorioPDFMatricula'], '\', '/', [rfReplaceAll]) + '/' + Numero + '.pdf';
@@ -215,7 +252,7 @@ begin
     try
         try
             Respo := TStringStream.Create('');
-            FileFormPost(Principal.ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(Numero + '.pdf' + Principal.ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo),
+            FileFormPost(Principal.ConfigStorage.StoredValue['DiretorioRemoto'] + 'notaire_image.php?token=' + sha256(Numero + '.pdf' + Principal.ConfigStorage.StoredValue['Senha']) + '&tipo=' + IntToStr(Tipo) + '&livro=' + EncodeURLElement(Principal.ComboLivro.Text) + '&endpoint=notaire_image',
                          'file',
                          Arquivo,
                          Respo);
@@ -236,11 +273,29 @@ begin
             sincronizaArquivo := true;                                          // Sincroniza o arquivo PDF-A original.
             if (Excluir) then
             begin
-                DeleteFile(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/' + Numero + '.pdf');
+
+                //Ressincronizar livro.
+
+                if (Tipo = 2) then
+                begin
+                    DeleteFile(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/' + Numero + '.pdf');
+                end;
+
+                if (Tipo = 3) then
+                begin
+                    DeleteFile(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/' + Numero + '.pdf');
+                end;
             end;
         end
         else
         begin
+            if (Tipo = 0) then
+            begin
+                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/livros/');
+                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/livros/' + Principal.ComboLivro.Text + '/');
+                CopyFile(Arquivo, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/livros/' + Principal.ComboLivro.Text + '/' + Numero + '.pdf');   // Copia o arquivo original na pasta pendentes.
+            end;
+
             if (Tipo = 2) then
             begin
                 CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/');
@@ -334,7 +389,6 @@ begin
     begin
         if not CreateDir(Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTIF) then
         begin
-            MessageDlg('Falha ao criar subdiretório Tif, crie manualmente uma pasta de nome ' + SubdiretorioTIF + ' dentro de ' + Principal.FormStorage.StoredValue['DiretorioTIF'], mtError, mbOKCancel, 0);
             geraTIF := false;
         end;
     end;
@@ -358,7 +412,15 @@ begin
         RunProgram.Parameters.Add(Imagens[I]);
     end;
 
-    if (Principal.ConfigStorage.StoredValue['ComprimirTIF'] = 'true') then                // Comprime o tif (preto e branco) se marcado para tal na configuração.
+    if (Principal.CheckBoxCortarImagenMatricula.Checked) then
+    begin
+      RunProgram.Parameters.Add('-crop');
+      RunProgram.Parameters.Add(Principal.EditTamanhoXMatricula.Text + 'X' + Principal.EditTamanhoYMatricula.Text + '+' + Principal.EditDeslocamentoXMatricula.Text + '+' + Principal.EditDeslocamentoYMatricula.Text);
+      RunProgram.Parameters.Add('+repage');
+    end;
+
+
+    if (Principal.ConfigStorage.StoredValue['ComprimirTIF'] = 'true') then      // Comprime o tif (preto e branco) se marcado para tal na configuração.
     begin
         RunProgram.Parameters.Add('-compress');
         RunProgram.Parameters.Add('group4');
@@ -393,6 +455,20 @@ begin
     apagaArquivosOrigem := true;
 end;
 
+// Corta arquivos de origem
+function cortarArquivosOrigem(): boolean;
+var
+    I: integer;
+begin
+    for I := Low(Imagens) to High(Imagens) do
+    begin
+
+    end;
+
+
+    cortarArquivosOrigem := true;
+end;
+
 function sha256(S: String): String;
 var
     Hash: TDCP_sha256;
@@ -419,4 +495,3 @@ end;
 
 
 end.
-
