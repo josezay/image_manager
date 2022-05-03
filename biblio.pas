@@ -107,31 +107,39 @@ function geraRAR(Numero: string; Tipo: integer): boolean;
 var
     RunProgram: TProcess;
     I: integer;
+    Comando: string;
 begin
     RunProgram := TProcess.Create(nil);
-    RunProgram.Executable := 'bin/rar.exe';
+    RunProgram.Executable := 'bin\rar.exe';
+    Comando := 'bin\rar.exe ';
     RunProgram.Parameters.Add('a');                                             // Compactar
+    Comando := Comando + 'a ';
     RunProgram.Parameters.Add('-ep1');                                          // Sem manter estrutura de arquivos
+    Comando := Comando + '-ep1 ';
     if (Tipo = 2) then
     begin
-        RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioRARMatricula'] + '/' + Numero + '.rar"');
+        RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioRARMatricula'] + '\' + Numero + '.rar"');
+        Comando := Comando + '"' + Principal.FormStorage.StoredValue['DiretorioRARMatricula'] + '\' + Numero + '.rar" ';
     end
     else
     begin
-        RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioRARAuxiliar'] + '/' + Numero + '.rar"');
+        RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioRARAuxiliar'] + '\' + Numero + '.rar"');
     end;
 
     for I := Low(Imagens) to High(Imagens) do
     begin
         RunProgram.Parameters.Add(Imagens[I]);
+        Comando := Comando + Imagens[i] + ' ';
     end;
 
+    //showmessage(Comando);
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
 
-    if (RunProgram.ExitCode = 0) then geraRAR:=true                             // Se ouve erro ao executar processo externo.
-    else geraRAR:=false;
+    //showmessage(RunProgram.ExitCode.ToString);
+    if (RunProgram.ExitCode = 0) then geraRAR := true                           // Se ouve erro ao executar processo externo.
+    else geraRAR := false;
 
     RunProgram.Free;
 end;
@@ -143,14 +151,17 @@ function geraPDF(Nome: string; Tipo: integer): boolean;
 var
     RunProgram: TProcess;
     I: integer;
+    Comando: string;
 begin
     // Gera PDF normal temporário
     RunProgram := TProcess.Create(nil);
     RunProgram.Executable := 'magick';
+    Comando := 'magick ';
 
     for I := Low(Imagens) to High(Imagens) do
     begin
         RunProgram.Parameters.Add(Imagens[I]);
+        Comando := Comando + Imagens[I] + ' ';
     end;
 
     if (Tipo = 2) then
@@ -164,14 +175,17 @@ begin
     end;
 
     RunProgram.Parameters.Add(Nome + '.pdf');
+    Comando := Comando + Nome + '.pdf';
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
     RunProgram.Free;
 
+    //showmessage(Comando);
+
     // Gera PDFA
     RunProgram := TProcess.Create(nil);
-    RunProgram.Executable := 'bin\gswin32c.exe';
+    RunProgram.Executable := 'bin\gswin64c.exe';
     RunProgram.Parameters.Add('-dPDFA=1');
     RunProgram.Parameters.Add('-dNOSAFER');
     RunProgram.Parameters.Add('-dBATCH');
@@ -227,6 +241,91 @@ begin
     end;
 end;
 
+// Gera TIF
+function geraTIF(Matricula: string): boolean;
+var
+    I: integer;
+    SubdiretorioTIF, NomeTIF: string;
+    RunProgram: TProcess;
+    Comando: string;
+begin
+    // Gera diretório
+    SubdiretorioTIF := '00000000';                                              // Caso não entre no if abaixo
+    if (Matricula.Length > 3) then
+    begin
+        SubdiretorioTIF := '';
+        for I := 1 to Matricula.Length - 3 do
+        begin
+            SubdiretorioTIF := SubdiretorioTIF + Matricula[I];
+        end;
+
+        NomeTif := '';                                                          // Usa o nometif como temporário somente
+        for I := SubdiretorioTIF.Length to 7 do
+        begin
+            NomeTIF := NomeTIF + '0';
+        end;
+
+        SubdiretorioTIF := NomeTIF + SubdiretorioTIF;
+    end;
+
+    if not DirectoryExists(Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF) then
+    begin
+        if not CreateDir(Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF) then
+        begin
+            geraTIF := false;
+        end;
+    end;
+
+    // Gera nome com 0MenuItemSair à esquerda
+    NomeTIF := '';
+
+    for I := Matricula.Length to 7 do
+    begin
+         NomeTIF := NomeTIF + '0';
+    end;
+
+    NomeTIF := NomeTIF + Matricula;
+
+    // Converte para TIF
+    RunProgram := TProcess.Create(nil);
+    RunProgram.Executable := 'magick';
+    Comando := 'magick ';
+
+    for I := Low(Imagens) to High(Imagens) do
+    begin
+        RunProgram.Parameters.Add(Imagens[I]);
+        Comando := Comando + Imagens[I] + ' ';
+    end;
+
+    if (Principal.CheckBoxCortarImagenMatricula.Checked) then
+    begin
+      RunProgram.Parameters.Add('-crop');
+      RunProgram.Parameters.Add(Principal.EditTamanhoXMatricula.Text + 'X' + Principal.EditTamanhoYMatricula.Text + '+' + Principal.EditDeslocamentoXMatricula.Text + '+' + Principal.EditDeslocamentoYMatricula.Text);
+      RunProgram.Parameters.Add('+repage');
+
+      Comando := Comando + ' -crop ' + Principal.EditTamanhoXMatricula.Text + 'X' + Principal.EditTamanhoYMatricula.Text + '+' + Principal.EditDeslocamentoXMatricula.Text + '+' + Principal.EditDeslocamentoYMatricula.Text + ' +repage ';
+    end;
+
+    if (Principal.ConfigStorage.StoredValue['ComprimirTIF'] = 'true') then      // Comprime o tif (preto e branco) se marcado para tal na configuração.
+    begin
+        RunProgram.Parameters.Add('-compress');
+        RunProgram.Parameters.Add('group4');
+        Comando := Comando + ' -compress group4 ';
+    end;
+
+    RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF + '\' + NomeTIF + '.tif');
+    Comando := Comando + '"' + Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF + '\' + NomeTIF + '.tif';
+    //ShowMessage(Comando);
+    RunProgram.Options := RunProgram.Options + [poWaitOnExit];
+    RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
+    RunProgram.Execute;
+
+    if (RunProgram.ExitCode = 0) then geraTIF := true                           // Se ouve erro ao executar processo externo.
+    else geraTIF := false;
+
+    RunProgram.Free;
+end;
+
 // Sincroniza um arquivo para o servidor
 function sincronizaArquivo(Numero: string; Tipo: integer; Excluir: boolean): boolean;
 var
@@ -278,12 +377,12 @@ begin
 
                 if (Tipo = 2) then
                 begin
-                    DeleteFile(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/' + Numero + '.pdf');
+                    DeleteFile(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\matriculas\' + Numero + '.pdf');
                 end;
 
                 if (Tipo = 3) then
                 begin
-                    DeleteFile(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/' + Numero + '.pdf');
+                    DeleteFile(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\auxiliares\' + Numero + '.pdf');
                 end;
             end;
         end
@@ -292,21 +391,21 @@ begin
             Principal.MemoBackupManual.Append(S);
             if (Tipo = 0) then
             begin
-                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/livros/');
-                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/livros/' + Principal.ComboLivro.Text + '/');
-                CopyFile(Arquivo, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/livros/' + Principal.ComboLivro.Text + '/' + Numero + '.pdf');   // Copia o arquivo original na pasta pendentes.
+                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\livros\');
+                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\livros\' + Principal.ComboLivro.Text + '\');
+                CopyFile(Arquivo, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\livros\' + Principal.ComboLivro.Text + '\' + Numero + '.pdf');   // Copia o arquivo original na pasta pendentes.
             end;
 
             if (Tipo = 2) then
             begin
-                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/');
-                CopyFile(Arquivo, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/' + Numero + '.pdf');   // Copia o arquivo original na pasta pendentes.
+                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\matriculas\');
+                CopyFile(Arquivo, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\matriculas\' + Numero + '.pdf');   // Copia o arquivo original na pasta pendentes.
             end;
 
             if (Tipo = 3) then
             begin
-                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/');
-                CopyFile(Arquivo, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/' + Numero + '.pdf');
+                CreateDir(Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\auxiliares\');
+                CopyFile(Arquivo, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\auxiliares\' + Numero + '.pdf');
             end;
 
             sincronizaArquivo := false;
@@ -326,7 +425,7 @@ begin
     try
         //if (ConfigStorage.StoredValue['Ressincroniza'] = 'true') then
         //begin
-            FindAllFiles(MatriculasPendentes, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/matriculas/', '*.pdf', true);
+            FindAllFiles(MatriculasPendentes, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '\matriculas\', '*.pdf', true);
             if (MatriculasPendentes.Count > 0) then
             begin
                 //ShowMessage('teste');
@@ -341,103 +440,25 @@ begin
                 end;
             end;
 
-            FindAllFiles(AuxiliaresPendentes, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/', '*.pdf', true);
-            if (AuxiliaresPendentes.Count > 0) then
-            begin
-                //ShowMessage('teste');
-                Principal.MemoBackupManual.Append(Format('Encontradas %d auxiliares(s) não sincronizada(s)', [AuxiliaresPendentes.Count]));
-                for I := 0 to AuxiliaresPendentes.Count - 1 do
-                begin
-                    Principal.MemoBackupManual.Append('Tentando auxiliares ' + LazFileUtils.ExtractFileNameOnly(AuxiliaresPendentes[I]));
-                    if not (sincronizaArquivo(LazFileUtils.ExtractFileNameOnly(AuxiliaresPendentes[I]), 3, true)) then
-                    begin
-                        Principal.MemoBackupManual.Append('Sem sucesso');
-                    end;
-                end;
-            end;
+            //FindAllFiles(AuxiliaresPendentes, Principal.ConfigStorage.StoredValue['DiretorioPendencias'] + '/auxiliares/', '*.pdf', true);
+            //if (AuxiliaresPendentes.Count > 0) then
+            //begin
+            //    //ShowMessage('teste');
+            //    Principal.MemoBackupManual.Append(Format('Encontradas %d auxiliares(s) não sincronizada(s)', [AuxiliaresPendentes.Count]));
+            //    for I := 0 to AuxiliaresPendentes.Count - 1 do
+            //    begin
+            //        Principal.MemoBackupManual.Append('Tentando auxiliares ' + LazFileUtils.ExtractFileNameOnly(AuxiliaresPendentes[I]));
+            //        if not (sincronizaArquivo(LazFileUtils.ExtractFileNameOnly(AuxiliaresPendentes[I]), 3, true)) then
+            //        begin
+            //            Principal.MemoBackupManual.Append('Sem sucesso');
+            //        end;
+            //    end;
+            //end;
 
         //end;
     finally
         ressincronizaArquivos := true;
     end;
-end;
-
-// Gera TIF
-function geraTIF(Matricula: string): boolean;
-var
-    I: integer;
-    SubdiretorioTIF, NomeTIF: string;
-    RunProgram: TProcess;
-begin
-    // Gera diretório
-    SubdiretorioTIF := '00000000';                                              // Caso não entre no if abaixo
-    if (Matricula.Length > 3) then
-    begin
-        SubdiretorioTIF := '';
-        for I := 1 to Matricula.Length - 3 do
-        begin
-            SubdiretorioTIF := SubdiretorioTIF + Matricula[I];
-        end;
-
-        NomeTif := '';                                                          // Usa o nometif como temporário somente
-        for I := SubdiretorioTIF.Length to 7 do
-        begin
-            NomeTIF := NomeTIF + '0';
-        end;
-
-        SubdiretorioTIF := NomeTIF + SubdiretorioTIF;
-    end;
-
-    if not DirectoryExists(Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTIF) then
-    begin
-        if not CreateDir(Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTIF) then
-        begin
-            geraTIF := false;
-        end;
-    end;
-
-    // Gera nome com 0MenuItemSair à esquerda
-    NomeTIF := '';
-
-    for I := Matricula.Length to 7 do
-    begin
-         NomeTIF := NomeTIF + '0';
-    end;
-
-    NomeTIF := NomeTIF + Matricula;
-
-    // Converte para TIF
-    RunProgram := TProcess.Create(nil);
-    RunProgram.Executable := 'magick';
-
-    for I := Low(Imagens) to High(Imagens) do
-    begin
-        RunProgram.Parameters.Add(Imagens[I]);
-    end;
-
-    if (Principal.CheckBoxCortarImagenMatricula.Checked) then
-    begin
-      RunProgram.Parameters.Add('-crop');
-      RunProgram.Parameters.Add(Principal.EditTamanhoXMatricula.Text + 'X' + Principal.EditTamanhoYMatricula.Text + '+' + Principal.EditDeslocamentoXMatricula.Text + '+' + Principal.EditDeslocamentoYMatricula.Text);
-      RunProgram.Parameters.Add('+repage');
-    end;
-
-
-    if (Principal.ConfigStorage.StoredValue['ComprimirTIF'] = 'true') then      // Comprime o tif (preto e branco) se marcado para tal na configuração.
-    begin
-        RunProgram.Parameters.Add('-compress');
-        RunProgram.Parameters.Add('group4');
-    end;
-
-    RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '/' + SubdiretorioTIF + '/' + NomeTIF + '.tif');
-    RunProgram.Options := RunProgram.Options + [poWaitOnExit];
-    RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
-    RunProgram.Execute;
-
-    if (RunProgram.ExitCode = 0) then geraTIF:=true                             // Se ouve erro ao executar processo externo.
-    else geraTIF:=false;
-
-    RunProgram.Free;
 end;
 
 // Apaga arquivos de origem

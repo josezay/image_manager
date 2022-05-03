@@ -1,7 +1,7 @@
 object Config: TConfig
-  Left = 116
+  Left = 83
   Height = 576
-  Top = 130
+  Top = 112
   Width = 554
   AllowDropFiles = True
   AutoSize = True
@@ -12,7 +12,7 @@ object Config: TConfig
   Color = clNone
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
-  LCLVersion = '2.0.12.0'
+  LCLVersion = '2.2.0.4'
   object LabelDiretorio: TLabel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -23,7 +23,6 @@ object Config: TConfig
     BorderSpacing.Left = 8
     BorderSpacing.Top = 8
     Caption = 'Diretório Notaire remoto:'
-    ParentColor = False
   end
   object EditDiretorioRemoto: TEdit
     AnchorSideLeft.Control = Owner
@@ -56,7 +55,6 @@ object Config: TConfig
     BorderSpacing.Left = 8
     BorderSpacing.Top = 8
     Caption = 'Senha'
-    ParentColor = False
   end
   object EditSenha: TEdit
     AnchorSideLeft.Control = Owner
@@ -508,7 +506,6 @@ object Config: TConfig
       Width = 128
       BorderSpacing.Around = 8
       Caption = 'Diretório de Pendências:'
-      ParentColor = False
     end
     object BtnDirPendencias: TSpeedButton
       AnchorSideLeft.Control = Label1
@@ -569,7 +566,6 @@ object Config: TConfig
       Top = 16
       Width = 1
       BorderSpacing.Left = 8
-      ParentColor = False
     end
   end
   object ConfigStorage: TIniPropStorage

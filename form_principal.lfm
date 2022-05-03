@@ -1,10 +1,10 @@
 object Principal: TPrincipal
-  Left = 53
+  Left = 39
   Height = 619
-  Top = 87
+  Top = 75
   Width = 766
   AllowDropFiles = True
-  Caption = 'Notaire_image 1.3.0'
+  Caption = 'Notaire_image 1.3.1'
   ClientHeight = 619
   ClientWidth = 766
   Color = 15134950
@@ -1229,8 +1229,7 @@ object Principal: TPrincipal
     0000
   }
   OnCreate = FormCreate
-  OnDropFiles = FormDropFiles
-  LCLVersion = '2.0.12.0'
+  LCLVersion = '2.2.0.4'
   object BarraDeStatus: TStatusBar
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
@@ -1407,7 +1406,6 @@ object Principal: TPrincipal
           BorderSpacing.Left = 8
           BorderSpacing.Top = 8
           Caption = 'Imagens abertas:'
-          ParentColor = False
         end
         object ListaArquivos: TListBox
           AnchorSideLeft.Control = PainelImagens
@@ -1668,7 +1666,6 @@ object Principal: TPrincipal
             BorderSpacing.Left = 8
             BorderSpacing.Top = 8
             Caption = 'N° da matrícula*:'
-            ParentColor = False
           end
           object BtnExecutarMatricula: TSpeedButton
             AnchorSideLeft.Control = TabSheet2
@@ -1903,9 +1900,10 @@ object Principal: TPrincipal
             ParentColor = False
             TabOrder = 2
             object CheckBoxEnviarNuvem: TCheckBox
+              AnchorSideLeft.Control = Panel3
               AnchorSideTop.Control = CheckBoxApagarImagensMatricula
               AnchorSideTop.Side = asrBottom
-              Left = 8
+              Left = 9
               Height = 19
               Top = 287
               Width = 121
@@ -1917,9 +1915,10 @@ object Principal: TPrincipal
               TabOrder = 0
             end
             object CheckBoxApagarImagensMatricula: TCheckBox
+              AnchorSideLeft.Control = Panel3
               AnchorSideTop.Control = CheckBoxGerarTIFMatricula
               AnchorSideTop.Side = asrBottom
-              Left = 8
+              Left = 9
               Height = 19
               Top = 260
               Width = 106
@@ -1930,9 +1929,10 @@ object Principal: TPrincipal
               TabOrder = 1
             end
             object CheckBoxGerarTIFMatricula: TCheckBox
+              AnchorSideLeft.Control = Panel3
               AnchorSideTop.Control = CheckBoxGerarPDFMatricula
               AnchorSideTop.Side = asrBottom
-              Left = 8
+              Left = 9
               Height = 19
               Top = 233
               Width = 66
@@ -1946,7 +1946,7 @@ object Principal: TPrincipal
               AnchorSideLeft.Control = CheckBoxGerarTIFMatricula
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = CheckBoxGerarTIFMatricula
-              Left = 82
+              Left = 83
               Height = 20
               Top = 233
               Width = 20
@@ -1991,9 +1991,10 @@ object Principal: TPrincipal
               OnClick = BtnTIFDirMatriculaClick
             end
             object CheckBoxGerarPDFMatricula: TCheckBox
+              AnchorSideLeft.Control = Panel3
               AnchorSideTop.Control = CheckBoxGerarRARMatricula
               AnchorSideTop.Side = asrBottom
-              Left = 8
+              Left = 9
               Height = 19
               Top = 206
               Width = 72
@@ -2008,7 +2009,7 @@ object Principal: TPrincipal
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = CheckBoxGerarPDFMatricula
               AnchorSideTop.Side = asrCenter
-              Left = 88
+              Left = 89
               Height = 20
               Top = 205
               Width = 20
@@ -2135,31 +2136,28 @@ object Principal: TPrincipal
               Top = 189
               Width = 1
               BorderSpacing.Around = 8
-              ParentColor = False
             end
             object LabelPDFMatricula: TLabel
               AnchorSideLeft.Control = BtnPDFDirMatricula
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = BtnPDFDirMatricula
               AnchorSideTop.Side = asrCenter
-              Left = 116
+              Left = 117
               Height = 1
               Top = 215
               Width = 1
               BorderSpacing.Around = 8
-              ParentColor = False
             end
             object LabelTIFMatricula: TLabel
               AnchorSideLeft.Control = BtnTIFDirMatricula
               AnchorSideLeft.Side = asrBottom
               AnchorSideTop.Control = BtnTIFDirMatricula
               AnchorSideTop.Side = asrCenter
-              Left = 110
+              Left = 111
               Height = 1
               Top = 243
               Width = 1
               BorderSpacing.Around = 8
-              ParentColor = False
             end
             object PanelCortarImagem: TPanel
               AnchorSideLeft.Control = Panel3
@@ -2189,7 +2187,6 @@ object Principal: TPrincipal
                 Width = 86
                 BorderSpacing.Around = 8
                 Caption = 'Deslocamento Y'
-                ParentColor = False
               end
               object EditDeslocamentoYMatricula: TEdit
                 AnchorSideLeft.Control = LabelXFinal
@@ -2214,7 +2211,6 @@ object Principal: TPrincipal
                 Width = 59
                 BorderSpacing.Around = 8
                 Caption = 'Tamanho X'
-                ParentColor = False
               end
               object EditTamanhoXMatricula: TEdit
                 AnchorSideLeft.Control = PanelCortarImagem
@@ -2240,7 +2236,6 @@ object Principal: TPrincipal
                 Width = 86
                 BorderSpacing.Around = 8
                 Caption = 'Deslocamento X'
-                ParentColor = False
               end
               object LabelYFinal: TLabel
                 AnchorSideLeft.Control = PanelCortarImagem
@@ -2252,7 +2247,6 @@ object Principal: TPrincipal
                 Width = 59
                 BorderSpacing.Around = 8
                 Caption = 'Tamanho Y'
-                ParentColor = False
               end
               object EditDeslocamentoXMatricula: TEdit
                 AnchorSideLeft.Control = EditTamanhoXMatricula
@@ -2287,8 +2281,6 @@ object Principal: TPrincipal
                 Width = 100
                 BorderSpacing.Around = 8
                 Caption = 'Cortar Imagem'
-                Checked = True
-                State = cbChecked
                 TabOrder = 4
               end
             end
@@ -2297,7 +2289,7 @@ object Principal: TPrincipal
         object TabSheet3: TTabSheet
           Caption = 'Auxiliar'
           ClientHeight = 490
-          ClientWidth = 305
+          ClientWidth = 302
           object LabelNumeroAuxiliar: TLabel
             AnchorSideLeft.Control = TabSheet3
             AnchorSideTop.Control = TabSheet3
@@ -2308,7 +2300,6 @@ object Principal: TPrincipal
             BorderSpacing.Left = 8
             BorderSpacing.Top = 8
             Caption = 'N° do registro auxiliar*:'
-            ParentColor = False
           end
           object CampoNumeroAuxiliar: TEdit
             AnchorSideLeft.Control = TabSheet3
@@ -2333,14 +2324,14 @@ object Principal: TPrincipal
             Left = 8
             Height = 400
             Top = 54
-            Width = 289
+            Width = 286
             HorzScrollBar.Page = 181
             VertScrollBar.Page = 116
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Bottom = 28
             BorderSpacing.Around = 8
             ClientHeight = 396
-            ClientWidth = 285
+            ClientWidth = 282
             TabOrder = 1
             object CheckBoxGerarPDFAuxiliar: TCheckBox
               AnchorSideLeft.Control = ScrollBox2
@@ -2521,7 +2512,6 @@ object Principal: TPrincipal
               Top = 17
               Width = 1
               BorderSpacing.Around = 8
-              ParentColor = False
             end
           end
           object BtnExecutarAuxiliar: TSpeedButton
@@ -2724,7 +2714,7 @@ object Principal: TPrincipal
             Left = 87
             Height = 18
             Top = 466
-            Width = 210
+            Width = 207
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Right = 8
             ParentColor = False
@@ -2735,7 +2725,7 @@ object Principal: TPrincipal
         object TabSheet7: TTabSheet
           Caption = 'Livro'
           ClientHeight = 490
-          ClientWidth = 305
+          ClientWidth = 302
           object Label7: TLabel
             AnchorSideLeft.Control = EditLivroFolha
             AnchorSideLeft.Side = asrBottom
@@ -2748,7 +2738,6 @@ object Principal: TPrincipal
             BorderSpacing.Left = 8
             BorderSpacing.Top = 8
             Caption = 'Anexo:'
-            ParentColor = False
           end
           object ComboLivroAnexo: TComboBox
             AnchorSideLeft.Control = Label7
@@ -2800,7 +2789,6 @@ object Principal: TPrincipal
             BorderSpacing.Left = 8
             BorderSpacing.Top = 8
             Caption = 'Tipo da digitalização*:'
-            ParentColor = False
           end
           object ComboTipoLivro: TComboBox
             AnchorSideLeft.Control = TabSheet7
@@ -2833,7 +2821,6 @@ object Principal: TPrincipal
             BorderSpacing.Left = 8
             BorderSpacing.Top = 8
             Caption = 'N° da folha*:'
-            ParentColor = False
           end
           object EditLivroFolha: TEdit
             AnchorSideLeft.Control = TabSheet7
@@ -2857,7 +2844,6 @@ object Principal: TPrincipal
             BorderSpacing.Top = 8
             BorderSpacing.Right = 8
             Caption = 'Livro*:'
-            ParentColor = False
           end
           object ComboLivro: TComboBox
             AnchorSideLeft.Control = TabSheet7
@@ -2867,7 +2853,7 @@ object Principal: TPrincipal
             Left = 8
             Height = 23
             Top = 23
-            Width = 289
+            Width = 286
             Anchors = [akTop, akLeft, akRight]
             AutoSize = False
             BorderSpacing.Left = 8
@@ -2950,14 +2936,14 @@ object Principal: TPrincipal
             Left = 8
             Height = 308
             Top = 146
-            Width = 289
+            Width = 286
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Bottom = 28
             BorderSpacing.Around = 8
             BevelOuter = bvNone
             BorderStyle = bsSingle
             ClientHeight = 304
-            ClientWidth = 285
+            ClientWidth = 282
             Color = clNone
             ParentColor = False
             TabOrder = 4
@@ -3035,7 +3021,6 @@ object Principal: TPrincipal
               Height = 1
               Top = 17
               Width = 1
-              ParentColor = False
             end
             object CheckBox1: TCheckBox
               AnchorSideLeft.Control = Panel1
@@ -3269,7 +3254,7 @@ object Principal: TPrincipal
             Left = 87
             Height = 20
             Top = 465
-            Width = 210
+            Width = 207
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Right = 8
             TabOrder = 5
@@ -3280,8 +3265,8 @@ object Principal: TPrincipal
     end
     object TabConferencia: TTabSheet
       Caption = 'Conferência do Backup'
-      ClientHeight = 630
-      ClientWidth = 1008
+      ClientHeight = 534
+      ClientWidth = 750
       object Local: TPageControl
         AnchorSideLeft.Control = TabConferencia
         AnchorSideTop.Control = TabConferencia
@@ -3290,9 +3275,9 @@ object Principal: TPrincipal
         AnchorSideBottom.Control = TabConferencia
         AnchorSideBottom.Side = asrBottom
         Left = 8
-        Height = 614
+        Height = 518
         Top = 8
-        Width = 992
+        Width = 734
         ActivePage = TabSheet5
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
@@ -3300,8 +3285,8 @@ object Principal: TPrincipal
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Nuvem x Local'
-          ClientHeight = 586
-          ClientWidth = 984
+          ClientHeight = 490
+          ClientWidth = 726
           object BtnConsultarNuvemXLocal: TSpeedButton
             AnchorSideLeft.Control = TabSheet5
             AnchorSideTop.Control = Label1
@@ -3499,14 +3484,14 @@ object Principal: TPrincipal
             AnchorSideBottom.Control = TabSheet5
             AnchorSideBottom.Side = asrBottom
             Left = 8
-            Height = 517
+            Height = 421
             Top = 61
-            Width = 968
+            Width = 710
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Around = 8
             Caption = 'Resultado'
-            ClientHeight = 497
-            ClientWidth = 964
+            ClientHeight = 401
+            ClientWidth = 706
             TabOrder = 0
             object Memo: TMemo
               AnchorSideLeft.Control = GroupBox1
@@ -3516,9 +3501,9 @@ object Principal: TPrincipal
               AnchorSideBottom.Control = GroupBox1
               AnchorSideBottom.Side = asrBottom
               Left = 0
-              Height = 497
+              Height = 401
               Top = 0
-              Width = 964
+              Width = 706
               Anchors = [akTop, akLeft, akRight, akBottom]
               TabOrder = 0
             end
@@ -3532,13 +3517,12 @@ object Principal: TPrincipal
             Width = 692
             BorderSpacing.Around = 8
             Caption = 'Compara os arquivos do servidor Compunião com os do servidor do cartório. (Necessita de um banco de dados local configurado).'
-            ParentColor = False
           end
         end
         object TabSheet4: TTabSheet
           Caption = 'Local'
-          ClientHeight = 586
-          ClientWidth = 984
+          ClientHeight = 490
+          ClientWidth = 726
           object BtnConsultarLocal: TSpeedButton
             AnchorSideLeft.Control = TabSheet4
             AnchorSideTop.Control = Label2
@@ -3736,7 +3720,6 @@ object Principal: TPrincipal
             Width = 317
             BorderSpacing.Around = 8
             Caption = 'Verifica no servidor do cartório se há algum arquivo faltante.'
-            ParentColor = False
           end
           object GroupBox2: TGroupBox
             AnchorSideLeft.Control = TabSheet4
@@ -3747,14 +3730,14 @@ object Principal: TPrincipal
             AnchorSideBottom.Control = TabSheet4
             AnchorSideBottom.Side = asrBottom
             Left = 8
-            Height = 517
+            Height = 421
             Top = 61
-            Width = 968
+            Width = 710
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Around = 8
             Caption = 'Resultado'
-            ClientHeight = 497
-            ClientWidth = 964
+            ClientHeight = 401
+            ClientWidth = 706
             TabOrder = 0
             object MemoLocal: TMemo
               AnchorSideLeft.Control = GroupBox2
@@ -3764,9 +3747,9 @@ object Principal: TPrincipal
               AnchorSideBottom.Control = GroupBox2
               AnchorSideBottom.Side = asrBottom
               Left = 0
-              Height = 497
+              Height = 401
               Top = 0
-              Width = 964
+              Width = 706
               Anchors = [akTop, akLeft, akRight, akBottom]
               TabOrder = 0
             end
@@ -3774,8 +3757,8 @@ object Principal: TPrincipal
         end
         object TabSheet6: TTabSheet
           Caption = 'Backup Manual'
-          ClientHeight = 586
-          ClientWidth = 984
+          ClientHeight = 490
+          ClientWidth = 726
           object BtnBackupManual: TSpeedButton
             AnchorSideLeft.Control = TabSheet6
             AnchorSideTop.Control = Label3
@@ -3973,7 +3956,6 @@ object Principal: TPrincipal
             Width = 455
             BorderSpacing.Around = 8
             Caption = 'Reenvia os arquivos que deram erro ao fazer o backup automático, de todos terminais.'
-            ParentColor = False
           end
           object GroupBox3: TGroupBox
             AnchorSideLeft.Control = TabSheet6
@@ -3984,14 +3966,14 @@ object Principal: TPrincipal
             AnchorSideBottom.Control = TabSheet6
             AnchorSideBottom.Side = asrBottom
             Left = 8
-            Height = 517
+            Height = 421
             Top = 61
-            Width = 968
+            Width = 710
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Around = 8
             Caption = 'Resultado'
-            ClientHeight = 497
-            ClientWidth = 964
+            ClientHeight = 401
+            ClientWidth = 706
             TabOrder = 0
             object MemoBackupManual: TMemo
               AnchorSideLeft.Control = GroupBox3
@@ -4001,9 +3983,9 @@ object Principal: TPrincipal
               AnchorSideBottom.Control = GroupBox3
               AnchorSideBottom.Side = asrBottom
               Left = 0
-              Height = 497
+              Height = 401
               Top = 0
-              Width = 964
+              Width = 706
               Anchors = [akTop, akLeft, akRight, akBottom]
               TabOrder = 0
             end
@@ -4082,7 +4064,7 @@ object Principal: TPrincipal
   object DialogoImagens: TOpenDialog
     Title = 'Abrir arquivos'
     DefaultExt = '.png'
-    Filter = 'Imagens|*.jpg; *.png; *.bmp'
+    Filter = 'Imagens|*.jpg; *.png;'
     Options = [ofAllowMultiSelect, ofEnableSizing]
     Left = 456
     Top = 8
@@ -4112,6 +4094,7 @@ object Principal: TPrincipal
   object SQLQuery: TSQLQuery
     FieldDefs = <>
     Params = <>
+    Macros = <>
     Left = 392
     Top = 8
   end

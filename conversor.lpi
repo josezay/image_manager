@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="Notaire_image"/>
       <Scaled Value="True"/>
       <UseAppBundle Value="False"/>
@@ -51,7 +53,8 @@
               <StackChecks Value="True"/>
             </Checks>
             <VerifyObjMethodCallValidity Value="True"/>
-            <TargetOS Value="win32"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -84,7 +87,8 @@
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
-            <TargetOS Value="win32"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
             <Optimizations>
               <OptimizationLevel Value="3"/>
             </Optimizations>
@@ -113,7 +117,6 @@
     </PublishOptions>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="0"/>
     </RunParams>
     <RequiredPackages Count="9">
       <Item1>

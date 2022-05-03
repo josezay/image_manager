@@ -127,7 +127,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure BtnSairClick(Sender: TObject);
     procedure BtnConfigClick(Sender: TObject);
-    procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure BtnConsultarNuvemXLocalClick(Sender: TObject);
     procedure BtnRARDirAuxiliarClick(Sender: TObject);
   private
@@ -179,26 +178,6 @@ end;
 procedure TPrincipal.BtnConfigClick(Sender: TObject);
 begin
     Config.ShowModal;                                                           // Chama a tela de configuração.
-end;
-
-procedure TPrincipal.FormDropFiles(Sender: TObject;
-  const FileNames: array of String);
-var
-  I: Integer;
-begin
-    ListaArquivos.Items.Clear;                                                  // A lista é somente para exibir quais arquivos estão abertos, no formato simples, para melhor visualização.
-    SetLength(Imagens, Length(FileNames));                                      // Define o tamanho da array que irá comportar os nomes completos dos arquivos e de onde as conversões irão consultar.
-    for I := Low(FileNames) to High(FileNames) do                               // Do primeiro ao último arquivo no drag and drop.
-    begin
-        if ((ExtractFileExt(FileNames[I]) = '.jpg') Or (ExtractFileExt(FileNames[I]) = '.png') Or (ExtractFileExt(FileNames[I]) = '.bmp')) then
-        begin
-            Imagens[I] := FileNames[I];                                         // Popula a array de imagens.
-            ListaArquivos.items.add(ExtractFileName(FileNames[I]));             // Mostra o nome do arquivo simples, sem o diretório, para fins de visualização somente.
-        end;
-    end;
-
-    ProgressBarMatricula.Visible := false;                                      // Ao escolher novas imagens esconde as barras de progresso.
-    ProgressBarAuxiliar.Visible  := false;
 end;
 
 // Ao clicar para abrir imagem
