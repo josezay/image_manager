@@ -58,7 +58,7 @@ begin
     begin
         Livro := Principal.EditLivroFolha.Text;
 
-        S := '';                                                                // Usa o nometif como temporário somente
+        S := '';
         for I := Livro.Length to 2 do
         begin
             S := S + '0';                                                       // completa com 3 zeros
