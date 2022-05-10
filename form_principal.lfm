@@ -1,7 +1,7 @@
 object Principal: TPrincipal
-  Left = 39
+  Left = 157
   Height = 619
-  Top = 75
+  Top = 90
   Width = 766
   AllowDropFiles = True
   Caption = 'Notaire_image 1.3.1'
@@ -1356,12 +1356,12 @@ object Principal: TPrincipal
     Height = 562
     Top = 30
     Width = 758
-    ActivePage = TabSheet1
+    ActivePage = TabConferencia
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 4
     ImagesWidth = 16
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Conversão e Backup'
@@ -2733,7 +2733,7 @@ object Principal: TPrincipal
             AnchorSideTop.Side = asrBottom
             Left = 136
             Height = 15
-            Top = 100
+            Top = 98
             Width = 37
             BorderSpacing.Left = 8
             BorderSpacing.Top = 8
@@ -2745,7 +2745,7 @@ object Principal: TPrincipal
             AnchorSideTop.Side = asrBottom
             Left = 136
             Height = 23
-            Top = 115
+            Top = 113
             Width = 100
             ItemHeight = 15
             Items.Strings = (
@@ -2795,7 +2795,7 @@ object Principal: TPrincipal
             AnchorSideTop.Control = Label6
             AnchorSideTop.Side = asrBottom
             Left = 8
-            Height = 23
+            Height = 21
             Top = 69
             Width = 120
             BorderSpacing.Left = 8
@@ -2807,6 +2807,7 @@ object Principal: TPrincipal
               'Fechamento'
             )
             OnChange = ComboTipoLivroChange
+            Style = csOwnerDrawFixed
             TabOrder = 1
             Text = 'Folha'
           end
@@ -2816,7 +2817,7 @@ object Principal: TPrincipal
             AnchorSideTop.Side = asrBottom
             Left = 8
             Height = 15
-            Top = 100
+            Top = 98
             Width = 68
             BorderSpacing.Left = 8
             BorderSpacing.Top = 8
@@ -2828,9 +2829,11 @@ object Principal: TPrincipal
             AnchorSideTop.Side = asrBottom
             Left = 8
             Height = 23
-            Top = 115
+            Top = 113
             Width = 120
             BorderSpacing.Left = 8
+            MaxLength = 3
+            NumbersOnly = True
             TabOrder = 2
           end
           object Label4: TLabel
@@ -2934,15 +2937,15 @@ object Principal: TPrincipal
             AnchorSideBottom.Control = TabSheet7
             AnchorSideBottom.Side = asrBottom
             Left = 8
-            Height = 308
-            Top = 146
+            Height = 310
+            Top = 144
             Width = 286
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Bottom = 28
             BorderSpacing.Around = 8
             BevelOuter = bvNone
             BorderStyle = bsSingle
-            ClientHeight = 304
+            ClientHeight = 306
             ClientWidth = 282
             Color = clNone
             ParentColor = False
@@ -3517,6 +3520,20 @@ object Principal: TPrincipal
             Width = 692
             BorderSpacing.Around = 8
             Caption = 'Compara os arquivos do servidor Compunião com os do servidor do cartório. (Necessita de um banco de dados local configurado).'
+          end
+          object VerificarLivro: TCheckBox
+            AnchorSideLeft.Control = BtnConsultarNuvemXLocal
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = BtnConsultarNuvemXLocal
+            AnchorSideBottom.Control = BtnConsultarNuvemXLocal
+            AnchorSideBottom.Side = asrBottom
+            Left = 95
+            Height = 22
+            Top = 31
+            Width = 89
+            Anchors = [akTop, akLeft, akBottom]
+            Caption = 'VerificarLivro'
+            TabOrder = 1
           end
         end
         object TabSheet4: TTabSheet

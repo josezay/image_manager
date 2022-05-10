@@ -34,6 +34,21 @@ begin
     S := TFPCustomHTTPClient.SimpleGet('http://www.compuniao.com.br/seleme/varredura_arquivos.php');   // Busca a lista de arquivos do servidor da compunião.
     //S := Principal.SynServidor.Text;
     ArrTipo := S.Split('&');                                                    // Separa a lista em uma array com os valores das matrículas em 0 e dos auxiliares em 1.
+
+    if (Principal.VerificarLivro.Checked) then
+    begin
+      ArrArquivos := ArrTipo[0].Split('|');                                       // Separa os arquivos de livros em numa array.
+      Principal.Memo.Append('Processando livros do servidor.');
+      for I := Low(ArrArquivos) to High(ArrArquivos) do
+      begin
+          ArrRegistro := ArrArquivos[I].Split('#');                               // Separa cada registro em nome, data e tipo.
+          if (Length(ArrRegistro) > 1) then
+          begin
+              MySQL.ExecuteDirect('insert into backup (pdf_nome, data, tamanho, origem, tipo, diretorio) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''2'', ''0'',  ''' + ArrRegistro[3] + ''')', SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo livro.
+          end;
+      end;
+    end;
+
     Principal.Memo.Append('Processando dados do servidor.');
     ArrArquivos := ArrTipo[1].Split('|');                                       // Cria uma array com os arquivos das matrículas do servidor.
     for I := Low(ArrArquivos) to High(ArrArquivos) do                           // Do menor para o maior faça.
@@ -59,6 +74,22 @@ begin
     S := TFPCustomHTTPClient.SimpleGet('http://192.168.1.102/varredura_arquivos.php');  // Busca a lista de arquivos do servidor do cartório.
     ArrTipo := S.Split('&');                                                    // Separa a lista entre matrícula e auxiliares através do caractere &.
     Principal.Memo.Append('Processando dados do cartório.');
+
+    // Livros do cartório
+    if (Principal.VerificarLivro.Checked) then
+    begin
+        ArrArquivos := ArrTipo[0].Split('|');                                   // Separa os arquivos de livros em numa array.
+        Principal.Memo.Append('Processando livros do cartorio.');
+        for I := Low(ArrArquivos) to High(ArrArquivos) do
+        begin
+            ArrRegistro := ArrArquivos[I].Split('#');                           // Separa cada registro em nome, data e tipo.
+            if (Length(ArrRegistro) > 1) then
+            begin
+                MySQL.ExecuteDirect('insert into backup (pdf_nome, data, tamanho, origem, tipo, diretorio) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''1'', ''0'',  ''' + ArrRegistro[3] + ''')', SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo livro.
+            end;
+        end;
+    end;
+
     // Matriculas do cartorio.
     ArrArquivos := ArrTipo[1].Split('|');                                       // Separa a lista de matrículas em uma array de matrículas.
     for I := Low(ArrArquivos) to High(ArrArquivos) do                           // Do menor para o maior faça.
@@ -94,7 +125,7 @@ begin
     end;
 
     Principal.Memo.Append('Procurando diferenças.');
-    Principal.SQLQuery.SQL.Text := 'SELECT bk1.pdf_nome, bk1.tipo, bk1.origem FROM backup bk1 INNER JOIN backup bk2 ON bk1.pdf_nome = bk2.pdf_nome WHERE bk1.tamanho <> bk2.tamanho AND bk1.tipo = bk2.tipo AND bk1.origem <> bk2.origem GROUP BY bk1.pdf_nome UNION SELECT bkp.pdf_nome, bkp.tipo, bkp.origem FROM backup bkp WHERE bkp.tipo IN (2, 3) GROUP BY bkp.pdf_nome HAVING (COUNT(bkp.pdf_nome) = 1 AND bkp.origem = 1)';  // Consulta o arquivo de mesmo tipo e de origem, e tamanho diferente UNION Consulta matrículas que só estão na origem 1
+    Principal.SQLQuery.SQL.Text := 'SELECT bk1.pdf_nome, bk1.tipo, bk1.origem FROM backup bk1 INNER JOIN backup bk2 ON bk1.pdf_nome = bk2.pdf_nome WHERE bk1.tamanho <> bk2.tamanho AND bk1.tipo = bk2.tipo AND bk1.origem <> bk2.origem GROUP BY bk1.pdf_nome UNION SELECT bkp.pdf_nome, bkp.tipo, bkp.origem FROM backup bkp GROUP BY bkp.pdf_nome HAVING (COUNT(bkp.pdf_nome) = 1 AND bkp.origem = 1)';  // Consulta o arquivo de mesmo tipo e de origem, e tamanho diferente UNION Consulta matrículas que só estão na origem 1
     Principal.SQLQuery.Database := Principal.MySQL;                             // Abre a conexão.
     Principal.SQLQuery.Open;
 

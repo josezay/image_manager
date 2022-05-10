@@ -20,6 +20,7 @@ type
     BtnTIFDirMatricula: TSpeedButton;
     CampoNumeroMatricula: TEdit;
     CheckBox1: TCheckBox;
+    VerificarLivro: TCheckBox;
     CheckBoxApagarImagensLivro: TCheckBox;
     CheckBoxApagarImagensMatricula: TCheckBox;
     CheckBoxCortarImagenMatricula: TCheckBox;

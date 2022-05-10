@@ -66,7 +66,7 @@ begin
 
         Livro := S + Livro;
 
-        if not (Principal.ComboLivroAnexo.Text = '') then
+        if not (Principal.ComboLivroAnexo.Text = '') then                       // Se for anexo
         begin
             Livro := Livro + '-' + Principal.ComboLivroAnexo.Text;
         end;
