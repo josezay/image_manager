@@ -17,7 +17,7 @@ uses form_principal;
 procedure Conferir();
 var
     ArrArquivos, ArrRegistro, ArrTipo: TStringArray;
-    S, Arquivo, FileName, SubPasta: string;
+    S, Arquivo, FileName, SubPasta, SQL: string;
     I: integer;
     Sincronizado, Result: Boolean;
     RunProgram: TProcess;
@@ -28,87 +28,97 @@ begin
     Principal.MySQL.Open;                                                       // Se conecta com o banco de dados local.
     Principal.SQLTransaction.StartTransaction;                                  // Inicia uma transação de banco de dados para inserir os registros dos arquivos.
     Principal.Memo.Append('Apagando dados anteriores.');
-    Principal.MySQL.ExecuteDirect('DELETE FROM backup', Principal.SQLTransaction);  // Limpa os registros velhos do banco de dados.
+    //WriteLn('Apagando dados anteriores.');
+    Principal.MySQL.ExecuteDirect('DELETE FROM livros_servidor', Principal.SQLTransaction);      // Limpa os registros velhos do banco de dados.
+    Principal.MySQL.ExecuteDirect('DELETE FROM livros_cartorio', Principal.SQLTransaction);
+    Principal.MySQL.ExecuteDirect('DELETE FROM matriculas_servidor', Principal.SQLTransaction);
+    Principal.MySQL.ExecuteDirect('DELETE FROM matriculas_cartorio', Principal.SQLTransaction);
+    Principal.MySQL.ExecuteDirect('DELETE FROM auxiliares_servidor', Principal.SQLTransaction);
+    Principal.MySQL.ExecuteDirect('DELETE FROM auxiliares_cartorio', Principal.SQLTransaction);
+    Principal.SQLTransaction.Commit;
 
-    ////Servidor
+    //Compuniao
     S := TFPCustomHTTPClient.SimpleGet('http://www.compuniao.com.br/seleme/varredura_arquivos.php');   // Busca a lista de arquivos do servidor da compunião.
-    //S := Principal.SynServidor.Text;
-    ArrTipo := S.Split('&');                                                    // Separa a lista em uma array com os valores das matrículas em 0 e dos auxiliares em 1.
+    //S := TFPCustomHTTPClient.SimpleGet('http://localhost/seleme.04/varredura_arquivos.php');
+    if (S.Length < 1000) then exit;
+    ArrTipo := S.Split('&');                                        // Separa a lista em uma array com os valores das matrículas em 0 e dos auxiliares em 1.
 
-    if (Principal.VerificarLivro.Checked) then
+    //Livros Compunião
+    ArrArquivos := ArrTipo[0].Split('|');                           // Separa os arquivos de livros em numa array.
+    Principal.Memo.Append('Processando livros do servidor.');
+    for I := Low(ArrArquivos) to High(ArrArquivos) do
     begin
-      ArrArquivos := ArrTipo[0].Split('|');                                       // Separa os arquivos de livros em numa array.
-      Principal.Memo.Append('Processando livros do servidor.');
-      for I := Low(ArrArquivos) to High(ArrArquivos) do
-      begin
-          ArrRegistro := ArrArquivos[I].Split('#');                               // Separa cada registro em nome, data e tipo.
-          if (Length(ArrRegistro) > 1) then
-          begin
-              MySQL.ExecuteDirect('insert into backup (pdf_nome, data, tamanho, origem, tipo, diretorio) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''2'', ''0'',  ''' + ArrRegistro[3] + ''')', SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo livro.
-          end;
-      end;
-    end;
-
-    Principal.Memo.Append('Processando dados do servidor.');
-    ArrArquivos := ArrTipo[1].Split('|');                                       // Cria uma array com os arquivos das matrículas do servidor.
-    for I := Low(ArrArquivos) to High(ArrArquivos) do                           // Do menor para o maior faça.
-    begin
-        ArrRegistro := ArrArquivos[I].Split('#');                               // Separa o bloco de dados referente ao arquivo em nome, data e tamanho.
-        if (Length(ArrRegistro) > 1) then                                       // Se o array tem dados, não é o último.
+        ArrRegistro := ArrArquivos[I].Split('#');                   // Separa cada registro em nome, data e tipo.
+        if (Length(ArrRegistro) > 1) then
         begin
-            Principal.MySQL.ExecuteDirect('insert into backup (pdf_nome, data, tamanho, origem, tipo) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''2'', ''2'')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo matrícula.
+            Principal.MySQL.ExecuteDirect('insert into livros_servidor (pdf_nome, tamanho, diretorio) values (''' + ArrRegistro[0] + ''', ''' + ArrRegistro[2] + ''', ''' + ArrRegistro[3] + ''')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo livro.
         end;
     end;
 
-    ArrArquivos := ArrTipo[2].Split('|');                                       // Separa os arquivos auxiliares numa array.
+    //Matriculas compuniao
+    Principal.Memo.Append('Processando matriculas do servidor.');
+    ArrArquivos := ArrTipo[1].Split('|');                           // Cria uma array com os arquivos das matrículas do servidor.
+    for I := Low(ArrArquivos) to High(ArrArquivos) do               // Do menor para o maior faça.
+    begin
+        ArrRegistro := ArrArquivos[I].Split('#');                   // Separa o bloco de dados referente ao arquivo em nome, data e tamanho.
+        if (Length(ArrRegistro) > 1) then                           // Se o array tem dados, não é o último.
+        begin
+            Principal.MySQL.ExecuteDirect('insert into matriculas_servidor (pdf_nome, tamanho, diretorio) values (''' + ArrRegistro[0] + ''', ''' + ArrRegistro[2] + ''', ''' + ArrRegistro[3] + ''')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo matrícula.
+        end;
+    end;
+
+    //Auxiliares compuniao
+    ArrArquivos := ArrTipo[2].Split('|');                           // Separa os arquivos auxiliares numa array.
+    Principal.Memo.Append('Processando auxiliares do servidor.');
     for I := Low(ArrArquivos) to High(ArrArquivos) do
     begin
-        ArrRegistro := ArrArquivos[I].Split('#');                               // Separa cada registro em nome, data e tipo.
+        ArrRegistro := ArrArquivos[I].Split('#');                   // Separa cada registro em nome, data e tipo.
         if (Length(ArrRegistro) > 1) then
         begin
-            Principal.MySQL.ExecuteDirect('insert into backup (pdf_nome, data, tamanho, origem, tipo) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''2'', ''3'')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo auxiliar.
+            Principal.MySQL.ExecuteDirect('insert into auxiliares_servidor (pdf_nome, tamanho, diretorio) values (''' + ArrRegistro[0] + ''', ''' + ArrRegistro[2] + ''', ''' + ArrRegistro[3] + ''')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo auxiliar.
         end;
     end;
 
     // Cartorio.
     S := TFPCustomHTTPClient.SimpleGet('http://192.168.1.102/varredura_arquivos.php');  // Busca a lista de arquivos do servidor do cartório.
-    ArrTipo := S.Split('&');                                                    // Separa a lista entre matrícula e auxiliares através do caractere &.
-    Principal.Memo.Append('Processando dados do cartório.');
+    if (S.Length < 1000) then exit;
+    ArrTipo := S.Split('&');                                        // Separa a lista entre matrícula e auxiliares através do caractere &.
 
-    // Livros do cartório
-    if (Principal.VerificarLivro.Checked) then
-    begin
-        ArrArquivos := ArrTipo[0].Split('|');                                   // Separa os arquivos de livros em numa array.
-        Principal.Memo.Append('Processando livros do cartorio.');
-        for I := Low(ArrArquivos) to High(ArrArquivos) do
-        begin
-            ArrRegistro := ArrArquivos[I].Split('#');                           // Separa cada registro em nome, data e tipo.
-            if (Length(ArrRegistro) > 1) then
-            begin
-                MySQL.ExecuteDirect('insert into backup (pdf_nome, data, tamanho, origem, tipo, diretorio) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''1'', ''0'',  ''' + ArrRegistro[3] + ''')', SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem compunião e tipo livro.
-            end;
-        end;
-    end;
-
-    // Matriculas do cartorio.
-    ArrArquivos := ArrTipo[1].Split('|');                                       // Separa a lista de matrículas em uma array de matrículas.
-    for I := Low(ArrArquivos) to High(ArrArquivos) do                           // Do menor para o maior faça.
-    begin
-        ArrRegistro := ArrArquivos[I].Split('#');                               // Separa o registro de arquivo em nome, tamanho e tipo.
-        if (Length(ArrRegistro) > 1) then
-        begin
-            Principal.MySQL.ExecuteDirect('insert into backup (pdf_nome, data, tamanho, origem, tipo) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''1'', ''2'')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem cartório e tipo matrícula.
-        end;
-    end;
-
-    // Auxiliares do cartorio.
-    ArrArquivos := ArrTipo[2].Split('|');
+    // Livros cartorio.
+    ArrArquivos := ArrTipo[0].Split('|');
+    Principal.Memo.Append('Processando livros do cartorio.');
     for I := Low(ArrArquivos) to High(ArrArquivos) do
     begin
         ArrRegistro := ArrArquivos[I].Split('#');
         if (Length(ArrRegistro) > 1) then
         begin
-            Principal.MySQL.ExecuteDirect('insert into backup (pdf_nome, data, tamanho, origem, tipo) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''1'', ''3'')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem cartório e tipo auxiliar.
+            //writeln('insert into backup (pdf_nome, data, tamanho, origem, tipo, diretorio) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''1'',''0'',''' + ArrRegistro[3] + ''')');
+            Principal.MySQL.ExecuteDirect('insert into livros_cartorio (pdf_nome, tamanho, diretorio) values (''' + ArrRegistro[0] + ''', ''' + ArrRegistro[2] + ''', ''' + ArrRegistro[3] + ''')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem cartório e tipo auxiliar.
+        end;
+    end;
+
+    Principal.Memo.Append('Processando matriculas do cartorio.');
+    // Matriculas do cartorio.
+    ArrArquivos := ArrTipo[1].Split('|');                           // Separa a lista de matrículas em uma array de matrículas.
+    for I := Low(ArrArquivos) to High(ArrArquivos) do               // Do menor para o maior faça.
+    begin
+        ArrRegistro := ArrArquivos[I].Split('#');                   // Separa o registro de arquivo em nome, tamanho e tipo.
+        if (Length(ArrRegistro) > 1) then
+        begin
+            //writeln('insert into backup (pdf_nome, data, tamanho, origem, tipo, diretorio) values (''' + ArrRegistro[0] + ''',''' + ArrRegistro[1] + ''',''' + ArrRegistro[2] + ''',''1'', ''2'',  ''' + ArrRegistro[3] + ''')');
+            Principal.MySQL.ExecuteDirect('insert into matriculas_cartorio (pdf_nome, tamanho, diretorio) values (''' + ArrRegistro[0] + ''', ''' + ArrRegistro[2] + ''', ''' + ArrRegistro[3] + ''')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem cartório e tipo matrícula.
+        end;
+    end;
+
+    // Auxiliares do cartorio.
+    ArrArquivos := ArrTipo[2].Split('|');
+    Principal.Memo.Append('Processando auxiliares do cartorio.');
+    for I := Low(ArrArquivos) to High(ArrArquivos) do
+    begin
+        ArrRegistro := ArrArquivos[I].Split('#');
+        if (Length(ArrRegistro) > 1) then
+        begin
+            Principal.MySQL.ExecuteDirect('insert into auxiliares_cartorio (pdf_nome, tamanho, diretorio) values (''' + ArrRegistro[0] + ''', ''' + ArrRegistro[2] + ''', ''' + ArrRegistro[3] + ''')', Principal.SQLTransaction);   // Insere na base de dados um (registro de) arquivo de origem cartório e tipo auxiliar.
         end;
     end;
 
@@ -124,8 +134,16 @@ begin
         CreateDir('auxiliares');
     end;
 
+    SQL :=              'SELECT lc.pdf_nome, lc.diretorio, ''0'' as tipo FROM livros_cartorio lc INNER JOIN livros_servidor ls ON lc.pdf_nome = ls.pdf_nome WHERE lc.tamanho <> ls.tamanho AND lc.diretorio = ls.diretorio GROUP BY pdf_nome ';
+    SQL := SQL + ' UNION SELECT mc.pdf_nome, mc.diretorio, ''2'' as tipo FROM matriculas_cartorio mc INNER JOIN matriculas_servidor ms ON mc.pdf_nome = ms.pdf_nome WHERE ms.tamanho <> mc.tamanho GROUP BY pdf_nome ';
+    SQL := SQL + ' UNION SELECT auxc.pdf_nome, auxc.diretorio, ''3'' as tipo FROM auxiliares_cartorio auxc INNER JOIN auxiliares_servidor auxs ON auxc.pdf_nome = auxs.pdf_nome WHERE auxs.tamanho <> auxc.tamanho GROUP BY pdf_nome ';
+    SQL := SQL + ' UNION SELECT pdf_nome, diretorio, ''0'' as tipo FROM livros_cartorio lc WHERE NOT EXISTS (SELECT * FROM livros_servidor ls WHERE ls.pdf_nome = lc.pdf_nome AND ls.diretorio = lc.diretorio) ';
+    SQL := SQL + ' UNION SELECT pdf_nome, diretorio, ''2'' as tipo FROM matriculas_cartorio WHERE NOT EXISTS (SELECT * FROM matriculas_servidor WHERE matriculas_servidor.pdf_nome = matriculas_cartorio.pdf_nome) ';
+    SQL := SQL + ' UNION SELECT pdf_nome, diretorio, ''3'' as tipo FROM auxiliares_cartorio WHERE NOT EXISTS (SELECT * FROM auxiliares_servidor WHERE auxiliares_servidor.pdf_nome = auxiliares_cartorio.pdf_nome) ';
+
+
     Principal.Memo.Append('Procurando diferenças.');
-    Principal.SQLQuery.SQL.Text := 'SELECT bk1.pdf_nome, bk1.tipo, bk1.origem FROM backup bk1 INNER JOIN backup bk2 ON bk1.pdf_nome = bk2.pdf_nome WHERE bk1.tamanho <> bk2.tamanho AND bk1.tipo = bk2.tipo AND bk1.origem <> bk2.origem GROUP BY bk1.pdf_nome UNION SELECT bkp.pdf_nome, bkp.tipo, bkp.origem FROM backup bkp GROUP BY bkp.pdf_nome HAVING (COUNT(bkp.pdf_nome) = 1 AND bkp.origem = 1)';  // Consulta o arquivo de mesmo tipo e de origem, e tamanho diferente UNION Consulta matrículas que só estão na origem 1
+    Principal.SQLQuery.SQL.Text := SQL;
     Principal.SQLQuery.Database := Principal.MySQL;                             // Abre a conexão.
     Principal.SQLQuery.Open;
 
@@ -133,38 +151,45 @@ begin
     begin
         Sincronizado := false;                                                  // Indica que deverá ser feito o RAR, já que existe arquivo fora de sincronia.
 
-        FileName := ExtractFileNameWithoutExt(Principal.SQLQuery.FieldByName('pdf_nome').AsString); // Extrai o número da matrícula ou auxiliar sem o .pdf.
-        if (StrToInt(FileName) < 1000) then                                     // Se o número é menor de 1000.
+        if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 0) then
         begin
-            SubPasta := '1-999';
+
         end
         else
         begin
-            SubPasta := Copy(FileName, 1, FileName.Length - 3) + '000-' + Copy(FileName, 1, FileName.Length - 3) + '999'; // Se não define o diretório dentro da faixa de 1000. Ex: 3456 então subdiretório 3000-3999.
-        end;
-
-        if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 2) then          // Se for matrícula.
-        begin
-            if not DirectoryExists('matriculas/' + SubPasta) then               // Se não existe o subdiretório então cria.
+            FileName := ExtractFileNameWithoutExt(Principal.SQLQuery.FieldByName('pdf_nome').AsString); // Extrai o número da matrícula ou auxiliar sem o .pdf.
+            if (StrToInt(FileName) < 1000) then                                     // Se o número é menor de 1000.
             begin
-                CreateDir('matriculas/' + SubPasta);
+                SubPasta := '1-999';
+            end
+            else
+            begin
+                SubPasta := Copy(FileName, 1, FileName.Length - 3) + '000-' + Copy(FileName, 1, FileName.Length - 3) + '999'; // Se não define o diretório dentro da faixa de 1000. Ex: 3456 então subdiretório 3000-3999.
             end;
 
-            Arquivo := StringReplace(Principal.FormStorage.StoredValue['DiretorioPDFMatricula'], '\', '/', [rfReplaceAll]) + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString; // Arquivo de origem será o que está contido na pasta compartilhada do servidor do cartório.
-            Principal.Memo.Append('Há diferenças na Matrícula ' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);
-            CopyFile(Arquivo, 'matriculas/' + SubPasta + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);    // Copia o arquivo de backup do cartório para a pasta matrícula e subpasta correspondente na raiz do programa.
-        end;
-
-        if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 3) then          // Se for auxiliar.
-        begin
-            if not DirectoryExists('auxiliares/' + SubPasta) then
+            if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 2) then          // Se for matrícula.
             begin
-                CreateDir('auxiliares/' + SubPasta);
+                if not DirectoryExists('matriculas/' + SubPasta) then               // Se não existe o subdiretório então cria.
+                begin
+                    CreateDir('matriculas/' + SubPasta);
+                end;
+
+                Arquivo := StringReplace(Principal.FormStorage.StoredValue['DiretorioPDFMatricula'], '\', '/', [rfReplaceAll]) + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString; // Arquivo de origem será o que está contido na pasta compartilhada do servidor do cartório.
+                Principal.Memo.Append('Há diferenças na Matrícula ' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);
+                CopyFile(Arquivo, 'matriculas/' + SubPasta + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);    // Copia o arquivo de backup do cartório para a pasta matrícula e subpasta correspondente na raiz do programa.
             end;
 
-            Arquivo := StringReplace(Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'], '\', '/', [rfReplaceAll]) + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString;
-            Principal.Memo.Append('Há diferenças no Auxiliar ' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);
-            CopyFile(Arquivo, 'auxiliares/' + SubPasta + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);
+            if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 3) then          // Se for auxiliar.
+            begin
+                if not DirectoryExists('auxiliares/' + SubPasta) then
+                begin
+                    CreateDir('auxiliares/' + SubPasta);
+                end;
+
+                Arquivo := StringReplace(Principal.FormStorage.StoredValue['DiretorioPDFAuxiliar'], '\', '/', [rfReplaceAll]) + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString;
+                Principal.Memo.Append('Há diferenças no Auxiliar ' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);
+                CopyFile(Arquivo, 'auxiliares/' + SubPasta + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);
+            end;
         end;
 
         Principal.SQLQuery.Next;                                                // Próximo registro.
