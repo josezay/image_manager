@@ -28,7 +28,6 @@ begin
     Principal.MySQL.Open;                                                       // Se conecta com o banco de dados local.
     Principal.SQLTransaction.StartTransaction;                                  // Inicia uma transação de banco de dados para inserir os registros dos arquivos.
     Principal.Memo.Append('Apagando dados anteriores.');
-    //WriteLn('Apagando dados anteriores.');
     Principal.MySQL.ExecuteDirect('DELETE FROM livros_servidor', Principal.SQLTransaction);      // Limpa os registros velhos do banco de dados.
     Principal.MySQL.ExecuteDirect('DELETE FROM livros_cartorio', Principal.SQLTransaction);
     Principal.MySQL.ExecuteDirect('DELETE FROM matriculas_servidor', Principal.SQLTransaction);
@@ -124,6 +123,11 @@ begin
 
     Principal.SQLTransaction.Commit;                                            // Grava as inserções dos registros
 
+    if not DirectoryExists('livros') then                                       // Se o diretório livros não existe, então o cria.
+    begin
+        CreateDir('livros');
+    end;
+
     if not DirectoryExists('matriculas') then                                   // Se o diretório matrículas não existe, então o cria.
     begin
         CreateDir('matriculas');
@@ -141,7 +145,6 @@ begin
     SQL := SQL + ' UNION SELECT pdf_nome, diretorio, ''2'' as tipo FROM matriculas_cartorio WHERE NOT EXISTS (SELECT * FROM matriculas_servidor WHERE matriculas_servidor.pdf_nome = matriculas_cartorio.pdf_nome) ';
     SQL := SQL + ' UNION SELECT pdf_nome, diretorio, ''3'' as tipo FROM auxiliares_cartorio WHERE NOT EXISTS (SELECT * FROM auxiliares_servidor WHERE auxiliares_servidor.pdf_nome = auxiliares_cartorio.pdf_nome) ';
 
-
     Principal.Memo.Append('Procurando diferenças.');
     Principal.SQLQuery.SQL.Text := SQL;
     Principal.SQLQuery.Database := Principal.MySQL;                             // Abre a conexão.
@@ -153,12 +156,22 @@ begin
 
         if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 0) then
         begin
+            if (Principal.VerificarLivro.Checked) then
+            begin
+              if not DirectoryExists('livros/' + Principal.SQLQuery.FieldByName('diretorio').AsString) then                   // Se não existe o subdiretório então cria.
+              begin
+                  CreateDir('livros/' + Principal.SQLQuery.FieldByName('diretorio').AsString);
+              end;
 
+              Arquivo := StringReplace(Principal.FormStorage.StoredValue['DiretorioPDFLivro'], '\', '/', [rfReplaceAll]) + '/' + Principal.SQLQuery.FieldByName('diretorio').AsString + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString; // Arquivo de origem será o que está contido na pasta compartilhada do servidor do cartório.
+              Principal.Memo.Append('Há diferenças no Livro ' + Principal.SQLQuery.FieldByName('diretorio').AsString + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);
+              CopyFile(Arquivo, 'livros/' + Principal.SQLQuery.FieldByName('diretorio').AsString + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);
+            end;
         end
         else
         begin
             FileName := ExtractFileNameWithoutExt(Principal.SQLQuery.FieldByName('pdf_nome').AsString); // Extrai o número da matrícula ou auxiliar sem o .pdf.
-            if (StrToInt(FileName) < 1000) then                                     // Se o número é menor de 1000.
+            if (StrToInt(FileName) < 1000) then                                 // Se o número é menor de 1000.
             begin
                 SubPasta := '1-999';
             end
@@ -167,9 +180,9 @@ begin
                 SubPasta := Copy(FileName, 1, FileName.Length - 3) + '000-' + Copy(FileName, 1, FileName.Length - 3) + '999'; // Se não define o diretório dentro da faixa de 1000. Ex: 3456 então subdiretório 3000-3999.
             end;
 
-            if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 2) then          // Se for matrícula.
+            if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 2) then      // Se for matrícula.
             begin
-                if not DirectoryExists('matriculas/' + SubPasta) then               // Se não existe o subdiretório então cria.
+                if not DirectoryExists('matriculas/' + SubPasta) then           // Se não existe o subdiretório então cria.
                 begin
                     CreateDir('matriculas/' + SubPasta);
                 end;
@@ -179,7 +192,7 @@ begin
                 CopyFile(Arquivo, 'matriculas/' + SubPasta + '/' + Principal.SQLQuery.FieldByName('pdf_nome').AsString);    // Copia o arquivo de backup do cartório para a pasta matrícula e subpasta correspondente na raiz do programa.
             end;
 
-            if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 3) then          // Se for auxiliar.
+            if (Principal.SQLQuery.FieldByName('tipo').AsInteger = 3) then      // Se for auxiliar.
             begin
                 if not DirectoryExists('auxiliares/' + SubPasta) then
                 begin
@@ -203,6 +216,7 @@ begin
         RunProgram.Executable := 'bin/rar.exe';
         RunProgram.Parameters.Add('a');                                         // Compactar
         RunProgram.Parameters.Add('pendente.rar');
+        RunProgram.Parameters.Add('livros');
         RunProgram.Parameters.Add('matriculas');
         RunProgram.Parameters.Add('auxiliares');
         RunProgram.Options := RunProgram.Options + [poWaitOnExit];
@@ -214,14 +228,19 @@ begin
 
     Principal.SQLTransaction.EndTransaction;                                    // Encerra a transação, fecha a conexão com a base de dados e habilita o botão.
     Principal.MySQL.Close(false);
-    Principal.BtnConsultarNuvemXLocal.Enabled:= true;
+    Principal.BtnConsultarNuvemXLocal.Enabled := true;
+
+    Result:=DeleteDirectory('livros', True);
+    if Result then begin
+      Result:=RemoveDir('livros');
+    end;
 
     Result:=DeleteDirectory('matriculas', True);
     if Result then begin
       Result:=RemoveDir('matriculas');
     end;
 
-    Result:=DeleteDirectory('auxiliares',True);
+    Result:=DeleteDirectory('auxiliares', True);
     if Result then begin
       Result:=RemoveDir('auxiliares');
     end;

@@ -3,14 +3,14 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release"/>
     <Units Count="24">
       <Unit0>
         <Filename Value="conversor.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="23"/>
-        <UsageCount Value="161"/>
+        <UsageCount Value="169"/>
       </Unit0>
       <Unit1>
         <Filename Value="form_principal.pas"/>
@@ -18,9 +18,9 @@
         <ComponentName Value="Principal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="195"/>
+        <TopLine Value="162"/>
         <CursorPos X="5" Y="206"/>
-        <UsageCount Value="161"/>
+        <UsageCount Value="169"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -30,10 +30,10 @@
         <ComponentName Value="Config"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="34"/>
         <CursorPos X="9" Y="101"/>
-        <UsageCount Value="161"/>
+        <UsageCount Value="169"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
@@ -44,7 +44,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="83"/>
         <CursorPos Y="89"/>
-        <UsageCount Value="156"/>
+        <UsageCount Value="164"/>
       </Unit3>
       <Unit4>
         <Filename Value="biblio.pas"/>
@@ -53,7 +53,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="31"/>
         <CursorPos X="12" Y="15"/>
-        <UsageCount Value="158"/>
+        <UsageCount Value="166"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -63,17 +63,17 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="69"/>
         <CursorPos X="32" Y="27"/>
-        <UsageCount Value="154"/>
+        <UsageCount Value="162"/>
       </Unit5>
       <Unit6>
         <Filename Value="consultanuvemlocal.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ConsultaNuvemLocal"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="28"/>
-        <CursorPos X="52" Y="48"/>
-        <UsageCount Value="152"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="155"/>
+        <CursorPos X="28" Y="163"/>
+        <UsageCount Value="160"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -82,16 +82,16 @@
         <UnitName Value="ConsultaLocal"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="21"/>
-        <UsageCount Value="112"/>
+        <UsageCount Value="120"/>
       </Unit7>
       <Unit8>
         <Filename Value="livro.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Livro"/>
-        <EditorIndex Value="7"/>
-        <TopLine Value="37"/>
-        <CursorPos X="96" Y="69"/>
-        <UsageCount Value="44"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="10"/>
+        <CursorPos X="31" Y="54"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -100,7 +100,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="100"/>
         <CursorPos X="17" Y="46"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="49"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus\lcl\dialogs.pp"/>
@@ -108,13 +108,13 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="218"/>
         <CursorPos X="3" Y="261"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
@@ -122,7 +122,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1309"/>
         <CursorPos X="3" Y="1328"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit12>
       <Unit13>
         <Filename Value="C:\lazarus\lcl\comctrls.pp"/>
@@ -130,7 +130,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="101"/>
         <CursorPos X="3" Y="120"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus\lcl\extctrls.pp"/>
@@ -138,7 +138,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1074"/>
         <CursorPos X="3" Y="1093"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\lazarus\lcl\buttons.pp"/>
@@ -146,7 +146,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="394"/>
         <CursorPos X="3" Y="413"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit15>
       <Unit16>
         <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\fcl-db\src\sqldb\sqldb.pp"/>
@@ -154,178 +154,171 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="236"/>
         <CursorPos X="15" Y="560"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit16>
       <Unit17>
         <Filename Value="C:\lazarus\lcl\include\custommemo.inc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="21"/>
         <CursorPos Y="42"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="9"/>
       </Unit17>
       <Unit18>
         <Filename Value="backup\form_principal.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="182"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\notaire_sentinela\biblio.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\notaire_sentinela\sentinela.lpr"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="97"/>
         <CursorPos X="13" Y="111"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit20>
       <Unit21>
         <Filename Value="conversor.lpi"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit21>
       <Unit22>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\fcl-web\src\base\fphttpclient.pp"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="1929"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1927"/>
         <CursorPos X="27" Y="268"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="16"/>
       </Unit22>
       <Unit23>
         <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="4417"/>
         <CursorPos Y="4440"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="9"/>
       </Unit23>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="43" TopLine="14"/>
+        <Caret Line="44" TopLine="14"/>
       </Position1>
       <Position2>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="44" TopLine="14"/>
+        <Caret Line="47" TopLine="24"/>
       </Position2>
       <Position3>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="47" TopLine="24"/>
+        <Caret Line="48" TopLine="30"/>
       </Position3>
       <Position4>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="48" TopLine="30"/>
+        <Caret Line="26" TopLine="3"/>
       </Position4>
       <Position5>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="26" TopLine="3"/>
+        <Caret Line="27" TopLine="3"/>
       </Position5>
       <Position6>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="27" TopLine="3"/>
+        <Caret Line="28" TopLine="3"/>
       </Position6>
       <Position7>
-        <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
-        <Caret Line="4439" TopLine="4417"/>
+        <Filename Value="consultanuvemlocal.pas"/>
+        <Caret Line="29" TopLine="3"/>
       </Position7>
       <Position8>
-        <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
-        <Caret Line="4440" TopLine="4417"/>
+        <Filename Value="consultanuvemlocal.pas"/>
+        <Caret Line="30" TopLine="3"/>
       </Position8>
       <Position9>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="28" TopLine="3"/>
+        <Caret Line="32" TopLine="3"/>
       </Position9>
       <Position10>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="29" TopLine="3"/>
+        <Caret Line="33" TopLine="3"/>
       </Position10>
       <Position11>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="30" TopLine="3"/>
+        <Caret Line="34" TopLine="3"/>
       </Position11>
       <Position12>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="32" TopLine="3"/>
+        <Caret Line="35" TopLine="3"/>
       </Position12>
       <Position13>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="33" TopLine="3"/>
+        <Caret Line="36" TopLine="3"/>
       </Position13>
       <Position14>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="34" TopLine="3"/>
+        <Caret Line="37" TopLine="3"/>
       </Position14>
       <Position15>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="35" TopLine="3"/>
+        <Caret Line="38" TopLine="3"/>
       </Position15>
       <Position16>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="36" TopLine="3"/>
+        <Caret Line="41" TopLine="3"/>
       </Position16>
       <Position17>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="37" TopLine="3"/>
+        <Caret Line="43" TopLine="5"/>
       </Position17>
       <Position18>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="38" TopLine="3"/>
+        <Caret Line="44" TopLine="6"/>
       </Position18>
       <Position19>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="41" TopLine="3"/>
+        <Caret Line="47" TopLine="9"/>
       </Position19>
       <Position20>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="43" TopLine="5"/>
+        <Caret Line="48" TopLine="10"/>
       </Position20>
       <Position21>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="44" TopLine="6"/>
+        <Caret Line="49" TopLine="11"/>
       </Position21>
       <Position22>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="47" TopLine="9"/>
+        <Caret Line="51" TopLine="13"/>
       </Position22>
       <Position23>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="48" TopLine="10"/>
+        <Caret Line="52" TopLine="14"/>
       </Position23>
       <Position24>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="49" TopLine="11"/>
+        <Caret Line="54" TopLine="16"/>
       </Position24>
       <Position25>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="51" TopLine="13"/>
+        <Caret Line="49" TopLine="16"/>
       </Position25>
       <Position26>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="52" TopLine="14"/>
+        <Caret Line="51" TopLine="16"/>
       </Position26>
       <Position27>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="54" TopLine="16"/>
+        <Caret Line="192" Column="17" TopLine="142"/>
       </Position27>
       <Position28>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="49" TopLine="16"/>
+        <Caret Line="48" Column="52" TopLine="6"/>
       </Position28>
       <Position29>
         <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="51" TopLine="16"/>
+        <Caret Line="145" Column="57" TopLine="136"/>
       </Position29>
-      <Position30>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="192" Column="17" TopLine="142"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

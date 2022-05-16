@@ -1,7 +1,7 @@
 object Principal: TPrincipal
-  Left = 157
+  Left = -7
   Height = 619
-  Top = 90
+  Top = 87
   Width = 766
   AllowDropFiles = True
   Caption = 'Notaire_image 1.3.1'
@@ -1356,12 +1356,12 @@ object Principal: TPrincipal
     Height = 562
     Top = 30
     Width = 758
-    ActivePage = TabConferencia
+    ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 4
     ImagesWidth = 16
     ParentFont = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Conversão e Backup'
@@ -1629,10 +1629,10 @@ object Principal: TPrincipal
         Height = 518
         Top = 8
         Width = 310
-        ActivePage = TabSheet2
+        ActivePage = TabSheet7
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 1
         object TabSheet2: TTabSheet
           AnchorSideLeft.Control = PageControl2
@@ -3281,10 +3281,10 @@ object Principal: TPrincipal
         Height = 518
         Top = 8
         Width = 734
-        ActivePage = TabSheet6
+        ActivePage = TabSheet5
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Nuvem x Local'
