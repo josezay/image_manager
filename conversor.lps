@@ -3,14 +3,14 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Release"/>
-    <Units Count="25">
+    <BuildModes Active="Debug"/>
+    <Units Count="28">
       <Unit0>
         <Filename Value="conversor.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="23"/>
-        <UsageCount Value="172"/>
+        <UsageCount Value="180"/>
       </Unit0>
       <Unit1>
         <Filename Value="form_principal.pas"/>
@@ -18,10 +18,9 @@
         <ComponentName Value="Principal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="235"/>
-        <CursorPos X="3" Y="250"/>
-        <UsageCount Value="172"/>
+        <TopLine Value="240"/>
+        <CursorPos X="34" Y="26"/>
+        <UsageCount Value="180"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -31,10 +30,10 @@
         <ComponentName Value="Config"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="34"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="79"/>
         <CursorPos X="9" Y="101"/>
-        <UsageCount Value="172"/>
+        <UsageCount Value="180"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
@@ -45,16 +44,17 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="83"/>
         <CursorPos Y="89"/>
-        <UsageCount Value="167"/>
+        <UsageCount Value="175"/>
       </Unit3>
       <Unit4>
         <Filename Value="biblio.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Biblio"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="48"/>
-        <CursorPos X="13" Y="69"/>
-        <UsageCount Value="169"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="334"/>
+        <CursorPos X="94" Y="356"/>
+        <UsageCount Value="177"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -64,7 +64,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="69"/>
         <CursorPos X="32" Y="27"/>
-        <UsageCount Value="165"/>
+        <UsageCount Value="173"/>
       </Unit5>
       <Unit6>
         <Filename Value="consultanuvemlocal.pas"/>
@@ -73,7 +73,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="113"/>
         <CursorPos X="28" Y="163"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="171"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -82,16 +82,15 @@
         <UnitName Value="ConsultaLocal"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="21"/>
-        <UsageCount Value="123"/>
+        <UsageCount Value="131"/>
       </Unit7>
       <Unit8>
         <Filename Value="livro.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Livro"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="51"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="47" Y="66"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -100,7 +99,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="100"/>
         <CursorPos X="17" Y="46"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="48"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus\lcl\dialogs.pp"/>
@@ -108,13 +107,13 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="218"/>
         <CursorPos X="3" Y="261"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
@@ -122,7 +121,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1309"/>
         <CursorPos X="3" Y="1328"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit12>
       <Unit13>
         <Filename Value="C:\lazarus\lcl\comctrls.pp"/>
@@ -130,7 +129,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="101"/>
         <CursorPos X="3" Y="120"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus\lcl\extctrls.pp"/>
@@ -138,7 +137,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1074"/>
         <CursorPos X="3" Y="1093"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\lazarus\lcl\buttons.pp"/>
@@ -146,7 +145,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="394"/>
         <CursorPos X="3" Y="413"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit15>
       <Unit16>
         <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\fcl-db\src\sqldb\sqldb.pp"/>
@@ -154,37 +153,37 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="236"/>
         <CursorPos X="15" Y="560"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="0"/>
       </Unit16>
       <Unit17>
         <Filename Value="C:\lazarus\lcl\include\custommemo.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="21"/>
         <CursorPos Y="42"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit17>
       <Unit18>
         <Filename Value="backup\form_principal.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="182"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\notaire_sentinela\biblio.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\notaire_sentinela\sentinela.lpr"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="97"/>
         <CursorPos X="13" Y="111"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit20>
       <Unit21>
         <Filename Value="conversor.lpi"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit21>
       <Unit22>
@@ -192,148 +191,168 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1927"/>
         <CursorPos X="27" Y="268"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit22>
       <Unit23>
         <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4417"/>
         <CursorPos Y="4440"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit23>
       <Unit24>
         <Filename Value="form_config.lfm"/>
-        <EditorIndex Value="4"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit24>
+      <Unit25>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3968"/>
+        <CursorPos Y="3991"/>
+        <UsageCount Value="9"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="filetime.pas"/>
+        <UnitName Value="Filetime"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="100" Y="8"/>
+        <UsageCount Value="10"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="filetimeutils.pas"/>
+        <UnitName Value="FileTimeUtils"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="80"/>
+        <CursorPos X="52" Y="98"/>
+        <UsageCount Value="11"/>
+      </Unit27>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="28" TopLine="3"/>
-      </Position1>
-      <Position2>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="29" TopLine="3"/>
-      </Position2>
-      <Position3>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="30" TopLine="3"/>
-      </Position3>
-      <Position4>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="32" TopLine="3"/>
-      </Position4>
-      <Position5>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="33" TopLine="3"/>
-      </Position5>
-      <Position6>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="34" TopLine="3"/>
-      </Position6>
-      <Position7>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="35" TopLine="3"/>
-      </Position7>
-      <Position8>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="36" TopLine="3"/>
-      </Position8>
-      <Position9>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="37" TopLine="3"/>
-      </Position9>
-      <Position10>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="38" TopLine="3"/>
-      </Position10>
-      <Position11>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="41" TopLine="3"/>
-      </Position11>
-      <Position12>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="43" TopLine="5"/>
-      </Position12>
-      <Position13>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="44" TopLine="6"/>
-      </Position13>
-      <Position14>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="47" TopLine="9"/>
-      </Position14>
-      <Position15>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="48" TopLine="10"/>
-      </Position15>
-      <Position16>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="49" TopLine="11"/>
-      </Position16>
-      <Position17>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="51" TopLine="13"/>
-      </Position17>
-      <Position18>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="52" TopLine="14"/>
-      </Position18>
-      <Position19>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="54" TopLine="16"/>
-      </Position19>
-      <Position20>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="49" TopLine="16"/>
-      </Position20>
-      <Position21>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="51" TopLine="16"/>
-      </Position21>
-      <Position22>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="192" Column="17" TopLine="142"/>
-      </Position22>
-      <Position23>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="48" Column="52" TopLine="6"/>
-      </Position23>
-      <Position24>
-        <Filename Value="consultanuvemlocal.pas"/>
-        <Caret Line="145" Column="57" TopLine="136"/>
-      </Position24>
-      <Position25>
-        <Filename Value="form_principal.pas"/>
-        <Caret Line="206" Column="5" TopLine="162"/>
-      </Position25>
-      <Position26>
-        <Filename Value="livro.pas"/>
-        <Caret Line="88" Column="14" TopLine="66"/>
-      </Position26>
-      <Position27>
         <Filename Value="form_principal.pas"/>
         <Caret Line="272" Column="3" TopLine="230"/>
-      </Position27>
-      <Position28>
+      </Position1>
+      <Position2>
         <Filename Value="form_principal.pas"/>
         <Caret Line="229" Column="5" TopLine="89"/>
-      </Position28>
-      <Position29>
+      </Position2>
+      <Position3>
         <Filename Value="biblio.pas"/>
         <Caret Line="60" Column="99" TopLine="38"/>
-      </Position29>
-      <Position30>
+      </Position3>
+      <Position4>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="315" Column="39" TopLine="143"/>
+      </Position4>
+      <Position5>
         <Filename Value="form_principal.pas"/>
-        <Caret Line="126" Column="56" TopLine="140"/>
-      </Position30>
+        <Caret Line="250" Column="3" TopLine="37"/>
+      </Position5>
+      <Position6>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="8" Column="27"/>
+      </Position6>
+      <Position7>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="16" Column="16"/>
+      </Position7>
+      <Position8>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="318" TopLine="284"/>
+      </Position8>
+      <Position9>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="576" Column="5" TopLine="533"/>
+      </Position9>
+      <Position10>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="8" Column="96"/>
+      </Position10>
+      <Position11>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="267" Column="18" TopLine="139"/>
+      </Position11>
+      <Position12>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="8" Column="87"/>
+      </Position12>
+      <Position13>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="267" Column="9" TopLine="244"/>
+      </Position13>
+      <Position14>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="555" Column="37" TopLine="530"/>
+      </Position14>
+      <Position15>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="549" TopLine="533"/>
+      </Position15>
+      <Position16>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="23" Column="60" TopLine="23"/>
+      </Position16>
+      <Position17>
+        <Filename Value="form_principal.pas"/>
+        <Caret Line="26" Column="34" TopLine="18"/>
+      </Position17>
+      <Position18>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="316" Column="50" TopLine="294"/>
+      </Position18>
+      <Position19>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="330" Column="48" TopLine="294"/>
+      </Position19>
+      <Position20>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="542" Column="16" TopLine="519"/>
+      </Position20>
+      <Position21>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="353" Column="25" TopLine="326"/>
+      </Position21>
+      <Position22>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="278" Column="6" TopLine="261"/>
+      </Position22>
+      <Position23>
+        <Filename Value="form_config.pas"/>
+        <Caret Line="101" Column="9" TopLine="79"/>
+      </Position23>
+      <Position24>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="355" Column="16" TopLine="324"/>
+      </Position24>
+      <Position25>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="278" Column="37" TopLine="257"/>
+      </Position25>
+      <Position26>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="355" Column="32" TopLine="324"/>
+      </Position26>
+      <Position27>
+        <Filename Value="biblio.pas"/>
+        <Caret Line="8" Column="102" TopLine="324"/>
+      </Position27>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="filetimeutils.pas"/>
+        <Line Value="91"/>
+      </Item>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>

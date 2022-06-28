@@ -1,14 +1,14 @@
 object Config: TConfig
-  Left = 183
-  Height = 576
-  Top = 130
-  Width = 554
+  Left = 293
+  Height = 270
+  Top = 207
+  Width = 429
   AllowDropFiles = True
   AutoSize = True
   BorderIcons = []
   Caption = 'Configuração'
-  ClientHeight = 576
-  ClientWidth = 554
+  ClientHeight = 270
+  ClientWidth = 429
   Color = clNone
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
@@ -34,7 +34,7 @@ object Config: TConfig
     Height = 23
     Hint = 'http://localhost/notaire/'
     Top = 23
-    Width = 538
+    Width = 413
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 8
     BorderSpacing.Right = 8
@@ -65,7 +65,7 @@ object Config: TConfig
     Left = 8
     Height = 23
     Top = 69
-    Width = 538
+    Width = 413
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 8
     BorderSpacing.Right = 8
@@ -490,11 +490,11 @@ object Config: TConfig
     Left = 8
     Height = 33
     Top = 184
-    Width = 538
+    Width = 413
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
     ClientHeight = 33
-    ClientWidth = 538
+    ClientWidth = 413
     TabOrder = 4
     Visible = False
     object Label1: TLabel

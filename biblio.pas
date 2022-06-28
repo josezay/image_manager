@@ -264,7 +264,7 @@ begin
 
     if (FileExists(Nome + '.pdf')) then
     begin
-        DeleteFile(Nome + '.pdf')                                               // Deleta PDF normal temporário.
+        DeleteFile(Nome + '.pdf');                                              // Deleta PDF normal temporário.
     end;
 end;
 
@@ -274,7 +274,7 @@ var
     I: integer;
     SubdiretorioTIF, NomeTIF: string;
     RunProgram: TProcess;
-    Comando: string;
+    newDateTime : TDateTime;
 begin
     // Gera diretório
     SubdiretorioTIF := '00000000';                                              // Caso não entre no if abaixo
@@ -313,15 +313,19 @@ begin
 
     NomeTIF := NomeTIF + Matricula;
 
+    // Deleta tif para atualizar data.
+    //if (FileExists(Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF + '\' + NomeTIF + '.tif')) then
+    //begin
+    //    DeleteFile(Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF + '\' + NomeTIF + '.tif')                                               // Deleta TiF normal temporário.
+    //end;
+
     // Converte para TIF
     RunProgram := TProcess.Create(nil);
     RunProgram.Executable := 'magick';
-    Comando := 'magick ';
 
     for I := Low(Imagens) to High(Imagens) do
     begin
         RunProgram.Parameters.Add(Imagens[I]);
-        Comando := Comando + Imagens[I] + ' ';
     end;
 
     if (Principal.CheckBoxCortarImagenMatricula.Checked) then
@@ -330,19 +334,16 @@ begin
       RunProgram.Parameters.Add(Principal.EditTamanhoXMatricula.Text + 'X' + Principal.EditTamanhoYMatricula.Text + '+' + Principal.EditDeslocamentoXMatricula.Text + '+' + Principal.EditDeslocamentoYMatricula.Text);
       RunProgram.Parameters.Add('+repage');
 
-      Comando := Comando + ' -crop ' + Principal.EditTamanhoXMatricula.Text + 'X' + Principal.EditTamanhoYMatricula.Text + '+' + Principal.EditDeslocamentoXMatricula.Text + '+' + Principal.EditDeslocamentoYMatricula.Text + ' +repage ';
     end;
 
     if (Principal.ConfigStorage.StoredValue['ComprimirTIF'] = 'true') then      // Comprime o tif (preto e branco) se marcado para tal na configuração.
     begin
         RunProgram.Parameters.Add('-compress');
         RunProgram.Parameters.Add('group4');
-        Comando := Comando + ' -compress group4 ';
     end;
 
     RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF + '\' + NomeTIF + '.tif');
-    Comando := Comando + '"' + Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF + '\' + NomeTIF + '.tif';
-    //ShowMessage(Comando);
+
     RunProgram.Options := RunProgram.Options + [poWaitOnExit];
     RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
     RunProgram.Execute;
@@ -350,6 +351,15 @@ begin
     if (RunProgram.ExitCode = 0) then geraTIF := true                           // Se ouve erro ao executar processo externo.
     else geraTIF := false;
 
+    RunProgram.Free;
+
+    // Chama programa que reseta a data de modificação do arquivo para atualizar data do tif.
+    RunProgram := TProcess.Create(nil);
+    RunProgram.Executable := 'bin\atualiza_data_arquivo.exe';
+    RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioTIFMatricula'] + '\' + SubdiretorioTIF + '\' + NomeTIF + '.tif');
+    //RunProgram.Options := RunProgram.Options + [poWaitOnExit];
+    RunProgram.ShowWindow := TShowWindowOptions.swoHIDE;                        // Para que não apareça a tela preta.
+    RunProgram.Execute;
     RunProgram.Free;
 end;
 
@@ -506,20 +516,6 @@ begin
     apagaArquivosOrigem := true;
 end;
 
-// Corta arquivos de origem
-function cortarArquivosOrigem(): boolean;
-var
-    I: integer;
-begin
-    for I := Low(Imagens) to High(Imagens) do
-    begin
-
-    end;
-
-
-    cortarArquivosOrigem := true;
-end;
-
 function sha256(S: String): String;
 var
     Hash: TDCP_sha256;
@@ -543,6 +539,5 @@ begin
         sha256 :=LowerCase(str1);
     end;
 end;
-
 
 end.
