@@ -3,14 +3,14 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release"/>
     <Units Count="28">
       <Unit0>
         <Filename Value="conversor.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="23"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="182"/>
       </Unit0>
       <Unit1>
         <Filename Value="form_principal.pas"/>
@@ -18,9 +18,9 @@
         <ComponentName Value="Principal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="229"/>
+        <TopLine Value="26"/>
         <CursorPos X="34" Y="26"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="182"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -31,9 +31,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="79"/>
+        <TopLine Value="75"/>
         <CursorPos X="9" Y="101"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="182"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
@@ -44,7 +44,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="83"/>
         <CursorPos Y="89"/>
-        <UsageCount Value="176"/>
+        <UsageCount Value="177"/>
       </Unit3>
       <Unit4>
         <Filename Value="biblio.pas"/>
@@ -52,9 +52,8 @@
         <UnitName Value="Biblio"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="336"/>
-        <CursorPos X="167" Y="359"/>
-        <UsageCount Value="178"/>
+        <CursorPos X="17" Y="334"/>
+        <UsageCount Value="179"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -64,7 +63,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="69"/>
         <CursorPos X="32" Y="27"/>
-        <UsageCount Value="174"/>
+        <UsageCount Value="175"/>
       </Unit5>
       <Unit6>
         <Filename Value="consultanuvemlocal.pas"/>
@@ -73,7 +72,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="113"/>
         <CursorPos X="28" Y="163"/>
-        <UsageCount Value="172"/>
+        <UsageCount Value="173"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -82,7 +81,7 @@
         <UnitName Value="ConsultaLocal"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="21"/>
-        <UsageCount Value="132"/>
+        <UsageCount Value="133"/>
       </Unit7>
       <Unit8>
         <Filename Value="livro.pas"/>
@@ -90,7 +89,7 @@
         <UnitName Value="Livro"/>
         <EditorIndex Value="4"/>
         <CursorPos X="47" Y="66"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -348,7 +347,7 @@
       </Position29>
       <Position30>
         <Filename Value="biblio.pas"/>
-        <Caret Line="8" Column="97" TopLine="16"/>
+        <Caret Line="361" Column="40" TopLine="328"/>
       </Position30>
     </JumpHistory>
     <RunParams>
