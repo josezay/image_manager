@@ -24,7 +24,7 @@ begin
     Contador := 0;
     I := 0;
     S := '';
-    while Contador < 10 do                                                      // Enquanto não estão faltando 10 (Limiar ajustável) arquivos seguidos (fim dos arquivos).
+    while Contador < 1000 do                                                      // Enquanto não estão faltando 10 (Limiar ajustável) arquivos seguidos (fim dos arquivos).
     begin
         I := I + 1;
         If not FileExists('\\SERVIDOR\Desktop\MATRICULAS\' + IntToStr(I) + '.pdf') Then // Se arquivo não existe.
@@ -47,7 +47,7 @@ begin
     Contador := 0;
     I := 0;
     S := '';
-    while Contador < 10 do
+    while Contador < 1000 do
     begin
         I := I + 1;
         If not FileExists('\\SERVIDOR\Desktop\REGISTRO AUXILIAR\' + IntToStr(I) + '.pdf') Then

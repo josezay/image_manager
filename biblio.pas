@@ -137,15 +137,11 @@ var
 begin
     RunProgram := TProcess.Create(nil);
     RunProgram.Executable := 'bin\rar.exe';
-    Comando := 'bin\rar.exe ';
     RunProgram.Parameters.Add('a');                                             // Compactar
-    Comando := Comando + 'a ';
     RunProgram.Parameters.Add('-ep1');                                          // Sem manter estrutura de arquivos
-    Comando := Comando + '-ep1 ';
     if (Tipo = 2) then
     begin
         RunProgram.Parameters.Add('"' + Principal.FormStorage.StoredValue['DiretorioRARMatricula'] + '\' + Numero + '.rar"');
-        Comando := Comando + '"' + Principal.FormStorage.StoredValue['DiretorioRARMatricula'] + '\' + Numero + '.rar" ';
     end
     else
     begin
@@ -155,7 +151,6 @@ begin
     for I := Low(Imagens) to High(Imagens) do
     begin
         RunProgram.Parameters.Add(Imagens[I]);
-        Comando := Comando + Imagens[i] + ' ';
     end;
 
     //showmessage(Comando);
